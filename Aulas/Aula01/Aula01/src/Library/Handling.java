@@ -1,3 +1,5 @@
+package Library;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +14,9 @@ import java.util.Scanner;
  *
  * @author Willian Murayama
  */
-public class MatrizHandling {
-
-    static Integer[][] Matriz(String filepath, int colunas, int linhas) {
+public class Handling {
+    
+    public static Integer[][] Matriz(String filepath, int colunas, int linhas) {
         Integer Matriz[][] = new Integer[colunas][linhas];
         try {
             File myObj = new File(filepath);
@@ -39,7 +41,7 @@ public class MatrizHandling {
         return Matriz;
     }
 
-    static Integer[][] Matriz(String filepath) {
+    public static Integer[][] Matriz(String filepath) {
         int colunas = 0, linhas = 0;
         try {
             File myObj = new File(filepath);
@@ -79,7 +81,7 @@ public class MatrizHandling {
         return Matriz;
     }
 
-    static ArrayList<Integer> MatrizReader(String filepath) {
+    public static ArrayList<Integer> MatrizReader(String filepath) {
         ArrayList<Integer> Matriz = new ArrayList<>();
         try {
             File myObj = new File(filepath);

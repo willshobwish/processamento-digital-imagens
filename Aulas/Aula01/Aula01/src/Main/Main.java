@@ -1,9 +1,7 @@
+package Main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
+
+import Library.Handling;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -46,7 +44,7 @@ public class Main {
 //        FileHandling.CreateWriteFile("src/ResultadoAdicao.txt", MatrizAdicao);
         int colunas = 10;
         int linhas = 9;
-        Integer Matriz[][] = MatrizHandling.Matriz("src/matriz1.txt");
+        Integer Matriz[][] = Handling.Matriz("src/matriz1.txt");
         System.out.println("Matriz correto:");
         for(int coluna=0;coluna<colunas;coluna++){
             for(int linha=0;linha<linhas;linha++){
