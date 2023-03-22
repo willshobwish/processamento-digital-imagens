@@ -87,7 +87,7 @@ public class Matriz {
                 System.out.println("A imagem %s ja existe".formatted(ponteiroArquivo.getName()));
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Ocorreu um erro");
             e.printStackTrace();
         }
         try {
@@ -140,7 +140,7 @@ public class Matriz {
         return new Matriz(ImagemClareada, coluna, linha, intensidade);
     }
 
-    public Matriz RotacionarMenos90() {
+    public Matriz RotacaoMenos90() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -150,7 +150,27 @@ public class Matriz {
         return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
-    public Matriz Rotacionar180() {
+    public Matriz Rotacao90() {
+        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - linhaMatriz][colunaMatriz];
+            }
+        }
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+    }
+
+    public Matriz Rotacao180() {
+        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
+            }
+        }
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+    }
+
+    public Matriz EspelhamentoHorizontal() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -161,23 +181,17 @@ public class Matriz {
         return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
-    public Matriz Rotacionar90() {
+    public Matriz EspelhamentoVertical() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - linhaMatriz][colunaMatriz];
+                ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
         return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
-    public Matriz PontaCabeca() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
-        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
-            }
-        }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+    public Matriz ReducaoNivel(int quantidadeDeNiveis) {
+
     }
 }

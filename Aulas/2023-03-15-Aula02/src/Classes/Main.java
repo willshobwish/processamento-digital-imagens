@@ -23,10 +23,11 @@ public class Main {
         matriz.ImprimeArquivo("src/Assets/teste.pgm");
         matriz.ClarearAdicao(50, 255).ImprimeArquivo("src/Assets/TesteClareadoAdicao.pgm");
         matriz.ClarearMultiplicao(2, 255).ImprimeArquivo("src/Assets/TesteClareadoMultiplicacao.pgm");
-        matriz.RotacionarMenos90().ImprimeArquivo("src/Assets/RotacaoMenos90.pgm");
-        matriz.Rotacionar180().ImprimeArquivo("src/Assets/Rotacao180.pgm");
-        matriz.Rotacionar90().ImprimeArquivo("src/Assets/Rotacao90.pgm");
-        matriz.PontaCabeca().ImprimeArquivo("src/Assets/PontaCabeca.pgm");
+        matriz.RotacaoMenos90().ImprimeArquivo("src/Assets/RotacaoMenos90.pgm");
+        matriz.EspelhamentoHorizontal().ImprimeArquivo("src/Assets/EspelhamentoHorizontal.pgm");
+        matriz.Rotacao90().ImprimeArquivo("src/Assets/Rotacao90.pgm");
+        matriz.Rotacao180().ImprimeArquivo("src/Assets/Rotacao180.pgm");
+        matriz.EspelhamentoVertical().ImprimeArquivo("src/Assets/EspelhamentoVertical.pgm");
 
     }
 
