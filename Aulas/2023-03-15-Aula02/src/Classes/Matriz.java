@@ -44,7 +44,7 @@ public class Matriz {
             this.Imagem = new Integer[coluna][linha];
             Leitor.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Ocorreu um erro no fechamento do arquivo");
             e.printStackTrace();
         }
         System.out.println("""
@@ -66,7 +66,7 @@ public class Matriz {
             }
             Leitor.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Ocorreu um erro no fechamento do arquivo");
             e.printStackTrace();
         }
         int contadorVetor = 0;
@@ -80,33 +80,33 @@ public class Matriz {
 
     public void ImprimeArquivo(String filepath) {
         try {
-            File myObj = new File(filepath);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
+            File ponteiroArquivo = new File(filepath);
+            if (ponteiroArquivo.createNewFile()) {
+                System.out.println("Arquivo criado %s foi criado".formatted(ponteiroArquivo.getName()));
             } else {
-                System.out.println("File already exists.");
+                System.out.println("A imagem %s ja existe".formatted(ponteiroArquivo.getName()));
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
         try {
-            FileWriter myWriter = new FileWriter(filepath);
-            myWriter.write("P2\n");
-            myWriter.write("# Gerado pelo java\n");
-            myWriter.write("""
+            FileWriter escritor = new FileWriter(filepath);
+            escritor.write("P2\n");
+            escritor.write("# Gerado pelo java\n");
+            escritor.write("""
                            %d %d
                            """.formatted(coluna, linha));
-            myWriter.write(String.valueOf(intensidade) + "\n");
+            escritor.write(String.valueOf(intensidade) + "\n");
             for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                    myWriter.write(Imagem[colunaMatriz][linhaMatriz].toString() + "\n");
+                    escritor.write(Imagem[colunaMatriz][linhaMatriz].toString() + "\n");
                 }
             }
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            escritor.close();
+            System.out.println("Escrito corretamente no arquivo.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Ocorreu um erro na escrita");
             e.printStackTrace();
         }
     }
