@@ -40,7 +40,7 @@ public class Matriz {
             String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
             this.intensidade = Integer.parseInt(Leitor.nextLine());
             this.coluna = Integer.parseInt(ColunaLinhaArquivo[0]);
-            this.linha = this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
+            this.linha = Integer.parseInt(ColunaLinhaArquivo[1]);
             this.Imagem = new Integer[coluna][linha];
             Leitor.close();
         } catch (FileNotFoundException e) {
@@ -62,7 +62,9 @@ public class Matriz {
             Leitor.nextLine();
 
             while (Leitor.hasNext()) {
-                ImagemVetor.add(Integer.parseInt(Leitor.next()));
+                int aux = Integer.parseInt(Leitor.next());
+//                System.out.println(aux);
+                ImagemVetor.add(aux);
             }
             Leitor.close();
         } catch (FileNotFoundException e) {
@@ -100,7 +102,9 @@ public class Matriz {
             escritor.write(String.valueOf(intensidade) + "\n");
             for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                    escritor.write(Imagem[colunaMatriz][linhaMatriz].toString() + "\n");
+                    escritor.write("""
+                                    %d
+                                    """.formatted(Imagem[colunaMatriz][linhaMatriz]));
                 }
             }
             escritor.close();
@@ -111,13 +115,13 @@ public class Matriz {
         }
     }
 
-    public Matriz ClarearAdicao(int Quantidade, int Limite) {
+    public Matriz ClarearAdicao(int Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 int temp = Imagem[colunaMatriz][linhaMatriz] + Quantidade;
-                if (temp > Limite) {
-                    temp = Limite;
+                if (temp > intensidade) {
+                    temp = intensidade;
                 }
                 ImagemClareada[colunaMatriz][linhaMatriz] = temp;
             }
@@ -126,13 +130,13 @@ public class Matriz {
 
     }
 
-    public Matriz ClarearMultiplicao(float Quantidade, int Limite) {
+    public Matriz ClarearMultiplicao(float Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 float temp = Imagem[colunaMatriz][linhaMatriz] * Quantidade;
-                if (temp > Limite) {
-                    temp = Limite;
+                if (temp > intensidade) {
+                    temp = intensidade;
                 }
                 ImagemClareada[colunaMatriz][linhaMatriz] = (int) temp;
             }
@@ -151,13 +155,14 @@ public class Matriz {
     }
 
     public Matriz Rotacao90() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - linhaMatriz][colunaMatriz];
+//                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemRotacionada[linhaMatriz][coluna - 1 - colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+        return new Matriz(ImagemRotacionada, linha, coluna, intensidade);
     }
 
     public Matriz Rotacao180() {
@@ -170,12 +175,21 @@ public class Matriz {
         return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
+    public Matriz Teste() {
+        Integer ImagemTeste[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                ImagemTeste[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+            }
+        }
+        return new Matriz(ImagemTeste, coluna, linha, intensidade);
+    }
+
     public Matriz EspelhamentoHorizontal() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
-
             }
         }
         return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
@@ -192,6 +206,26 @@ public class Matriz {
     }
 
     public Matriz ReducaoNivel(int quantidadeDeNiveis) {
+        Integer Reduzida[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                Reduzida[colunaMatriz][linhaMatriz] = (int) Math.ceil(Imagem[colunaMatriz][linhaMatriz] * (quantidadeDeNiveis - 1) / intensidade);
+            }
+        }
+        return new Matriz(Reduzida, coluna, linha, quantidadeDeNiveis);
+    }
 
+    public Matriz Binarizacao(int limiar) {
+        Integer Reduzida[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                if (Imagem[colunaMatriz][linhaMatriz] <= limiar) {
+                    Reduzida[colunaMatriz][linhaMatriz] = intensidade;
+                } else {
+                    Reduzida[colunaMatriz][linhaMatriz] = 0;
+                }
+            }
+        }
+        return new Matriz(Reduzida, coluna, linha, intensidade);
     }
 }
