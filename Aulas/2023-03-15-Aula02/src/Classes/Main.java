@@ -26,6 +26,7 @@ public class Main {
         matriz.RotacionarMenos90().ImprimeArquivo("src/Assets/RotacaoMenos90.pgm");
         matriz.Rotacionar180().ImprimeArquivo("src/Assets/Rotacao180.pgm");
         matriz.Rotacionar90().ImprimeArquivo("src/Assets/Rotacao90.pgm");
+        matriz.PontaCabeca().ImprimeArquivo("src/Assets/PontaCabeca.pgm");
 
     }
 

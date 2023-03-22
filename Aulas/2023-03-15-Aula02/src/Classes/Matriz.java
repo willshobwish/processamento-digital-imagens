@@ -20,11 +20,13 @@ public class Matriz {
     private Integer Imagem[][];
     private int coluna;
     private int linha;
+    private int intensidade;
 
-    public Matriz(Integer[][] Imagem, int coluna, int linha) {
+    public Matriz(Integer[][] Imagem, int coluna, int linha, int intensidade) {
         this.Imagem = Imagem;
         this.coluna = coluna;
         this.linha = linha;
+        this.intensidade = intensidade;
     }
 
     public Matriz(String filepath) {
@@ -36,6 +38,7 @@ public class Matriz {
             Leitor.nextLine();
 //Leitura do tamanho de colunas e linhas
             String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
+            this.intensidade = Integer.parseInt(Leitor.nextLine());
             this.coluna = Integer.parseInt(ColunaLinhaArquivo[0]);
             this.linha = this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
             this.Imagem = new Integer[coluna][linha];
@@ -94,6 +97,7 @@ public class Matriz {
             myWriter.write("""
                            %d %d
                            """.formatted(coluna, linha));
+            myWriter.write(String.valueOf(intensidade) + "\n");
             for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                     myWriter.write(Imagem[colunaMatriz][linhaMatriz].toString() + "\n");
@@ -118,7 +122,7 @@ public class Matriz {
                 ImagemClareada[colunaMatriz][linhaMatriz] = temp;
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha);
+        return new Matriz(ImagemClareada, coluna, linha, intensidade);
 
     }
 
@@ -133,7 +137,7 @@ public class Matriz {
                 ImagemClareada[colunaMatriz][linhaMatriz] = (int) temp;
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha);
+        return new Matriz(ImagemClareada, coluna, linha, intensidade);
     }
 
     public Matriz RotacionarMenos90() {
@@ -143,7 +147,7 @@ public class Matriz {
                 ImagemRotacionada[linhaMatriz][colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
     public Matriz Rotacionar180() {
@@ -154,7 +158,7 @@ public class Matriz {
 
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 
     public Matriz Rotacionar90() {
@@ -162,9 +166,18 @@ public class Matriz {
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - linhaMatriz][colunaMatriz];
-
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+    }
+
+    public Matriz PontaCabeca() {
+        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
+            }
+        }
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
     }
 }
