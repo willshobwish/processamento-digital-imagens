@@ -21,62 +21,53 @@ public class Matriz {
     private int coluna;
     private int linha;
     private int intensidade;
+    private String cabecalho;
+    private String comentario;
 
-    public Matriz(Integer[][] Imagem, int coluna, int linha, int intensidade) {
+    public Matriz(Integer[][] Imagem, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
         this.Imagem = Imagem;
         this.coluna = coluna;
         this.linha = linha;
         this.intensidade = intensidade;
+        this.cabecalho = cabecalho;
+        this.comentario = comentario;
     }
 
     public Matriz(String filepath) {
         try {
             File ArquivoObjeto = new File(filepath);
             Scanner Leitor = new Scanner(ArquivoObjeto);
-//Remocao do cabecalho e dos comentarios
-            Leitor.nextLine();
-            Leitor.nextLine();
-//Leitura do tamanho de colunas e linhas
+            //Leitura do cabecalho, comentario, tamanho e intensidade
+            this.cabecalho = Leitor.nextLine();
+            System.out.println(cabecalho);
+            this.comentario = Leitor.nextLine();
+            System.out.println(comentario);
             String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
             this.intensidade = Integer.parseInt(Leitor.nextLine());
+            //Leitura do tamanho de colunas e linhas
             this.coluna = Integer.parseInt(ColunaLinhaArquivo[0]);
             this.linha = Integer.parseInt(ColunaLinhaArquivo[1]);
             this.Imagem = new Integer[coluna][linha];
-            Leitor.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Ocorreu um erro no fechamento do arquivo");
-            e.printStackTrace();
-        }
-        System.out.println("""
+            System.out.println("""
                            Coluna: %d
                            Linha: %d
                            """.formatted(coluna, linha));
-//        Armazenamento do conteudo da imagem
-        ArrayList<Integer> ImagemVetor = new ArrayList<>();
-        try {
-            File ArquivoObjeto = new File(filepath);
-            Scanner Leitor = new Scanner(ArquivoObjeto);
-//Remocao do cabecalho e dos comentarios
-            Leitor.nextLine();
-            Leitor.nextLine();
-            Leitor.nextLine();
-
+            //Armazenamento do conteudo da imagem
+            ArrayList<Integer> ImagemVetor = new ArrayList<>();
             while (Leitor.hasNext()) {
-                int aux = Integer.parseInt(Leitor.next());
-//                System.out.println(aux);
-                ImagemVetor.add(aux);
+                ImagemVetor.add(Integer.parseInt(Leitor.next()));
+            }
+            int contadorVetor = 0;
+            for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
+                for (int linhaVetor = 0; linhaVetor < linha; linhaVetor++) {
+                    Imagem[colunaVetor][linhaVetor] = ImagemVetor.get(contadorVetor);
+                    contadorVetor++;
+                }
             }
             Leitor.close();
         } catch (FileNotFoundException e) {
             System.out.println("Ocorreu um erro no fechamento do arquivo");
             e.printStackTrace();
-        }
-        int contadorVetor = 0;
-        for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
-            for (int linhaVetor = 0; linhaVetor < linha; linhaVetor++) {
-                Imagem[colunaVetor][linhaVetor] = ImagemVetor.get(contadorVetor);
-                contadorVetor++;
-            }
         }
     }
 
@@ -94,12 +85,18 @@ public class Matriz {
         }
         try {
             FileWriter escritor = new FileWriter(filepath);
-            escritor.write("P2\n");
-            escritor.write("# Gerado pelo java\n");
-            escritor.write("""
+            System.out.println("""
+                           %s
+                           %s
                            %d %d
-                           """.formatted(coluna, linha));
-            escritor.write(String.valueOf(intensidade) + "\n");
+                           %d
+                           """.formatted(cabecalho, comentario, coluna, linha, intensidade));
+            escritor.write("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted(cabecalho, comentario + " gerado pelo java", coluna, linha, intensidade));
             for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                     escritor.write("""
@@ -126,7 +123,7 @@ public class Matriz {
                 ImagemClareada[colunaMatriz][linhaMatriz] = temp;
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha, intensidade);
+        return new Matriz(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
 
     }
 
@@ -141,7 +138,7 @@ public class Matriz {
                 ImagemClareada[colunaMatriz][linhaMatriz] = (int) temp;
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha, intensidade);
+        return new Matriz(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz RotacaoMenos90() {
@@ -151,7 +148,7 @@ public class Matriz {
                 ImagemRotacionada[linhaMatriz][colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz Rotacao90() {
@@ -162,7 +159,7 @@ public class Matriz {
                 ImagemRotacionada[linhaMatriz][coluna - 1 - colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, linha, coluna, intensidade);
+        return new Matriz(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
     public Matriz Rotacao180() {
@@ -172,7 +169,7 @@ public class Matriz {
                 ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz Teste() {
@@ -182,7 +179,7 @@ public class Matriz {
                 ImagemTeste[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemTeste, coluna, linha, intensidade);
+        return new Matriz(ImagemTeste, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz EspelhamentoHorizontal() {
@@ -192,7 +189,7 @@ public class Matriz {
                 ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz EspelhamentoVertical() {
@@ -202,7 +199,7 @@ public class Matriz {
                 ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade);
+        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Matriz ReducaoNivel(int quantidadeDeNiveis) {
@@ -212,7 +209,7 @@ public class Matriz {
                 Reduzida[colunaMatriz][linhaMatriz] = (int) Math.ceil(Imagem[colunaMatriz][linhaMatriz] * (quantidadeDeNiveis - 1) / intensidade);
             }
         }
-        return new Matriz(Reduzida, coluna, linha, quantidadeDeNiveis);
+        return new Matriz(Reduzida, coluna, linha, quantidadeDeNiveis, cabecalho, comentario);
     }
 
     public Matriz Binarizacao(int limiar) {
@@ -226,6 +223,6 @@ public class Matriz {
                 }
             }
         }
-        return new Matriz(Reduzida, coluna, linha, intensidade);
+        return new Matriz(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
     }
 }
