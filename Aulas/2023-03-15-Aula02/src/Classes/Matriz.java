@@ -161,7 +161,7 @@ public class Matriz {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - linhaMatriz][colunaMatriz];
 
             }
         }
