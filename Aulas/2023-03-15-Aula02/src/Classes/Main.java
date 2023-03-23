@@ -37,8 +37,8 @@ public class Main {
 //        skull.Binarizacao(150).ImprimeArquivo("src/Assets/Binarizacao150.pgm");
 //        skull.EspelhamentoHorizontal().ImprimeArquivo("src/Assets/espelhado.pgm");
 //
-//        skull.Rotacao90().ImprimeArquivo("src/Assets/skull90.pgm");
-//        skull.Rotacao180().ImprimeArquivo("src/Assets/skull180.pgm");
+        skull.Rotacao90().ImprimeArquivo("src/Assets/skull90.pgm");
+        skull.Rotacao180().ImprimeArquivo("src/Assets/skull180.pgm");
         skull.Teste().ImprimeArquivo("src/Assets/SkullTeste.pgm");
         skull.ClarearAdicao(0).ImprimeArquivo("src/Assets/adicaoskull.pgm");
 
