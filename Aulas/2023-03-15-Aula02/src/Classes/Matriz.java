@@ -49,9 +49,12 @@ public class Matriz {
             this.linha = Integer.parseInt(ColunaLinhaArquivo[1]);
             this.Imagem = new Integer[coluna][linha];
             System.out.println("""
+                           Nome do arquivo: %s
                            Coluna: %d
                            Linha: %d
-                           """.formatted(coluna, linha));
+                           Cabecalho: %s
+                           Comentario: %s
+                           """.formatted(ArquivoObjeto.getName(), coluna, linha, cabecalho, comentario));
             //Armazenamento do conteudo da imagem
             ArrayList<Integer> ImagemVetor = new ArrayList<>();
             while (Leitor.hasNext()) {
@@ -85,18 +88,21 @@ public class Matriz {
         }
         try {
             FileWriter escritor = new FileWriter(filepath);
+            //Impressao do cabecalho, comentario, coluna e linha, intensidade do pixel
             System.out.println("""
                            %s
                            %s
                            %d %d
                            %d
                            """.formatted(cabecalho, comentario, coluna, linha, intensidade));
+            //Escrita do cabecalho, comentario, coluna e linha, intensidade do pixel
             escritor.write("""
                            %s
                            %s
                            %d %d
                            %d
                            """.formatted(cabecalho, comentario + " gerado pelo java", coluna, linha, intensidade));
+            //Escrita da matriz em arquivo
             for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                     escritor.write("""
@@ -116,11 +122,13 @@ public class Matriz {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                int temp = Imagem[colunaMatriz][linhaMatriz] + Quantidade;
-                if (temp > intensidade) {
-                    temp = intensidade;
+
+                if (Imagem[colunaMatriz][linhaMatriz] + Quantidade > intensidade) {
+                    ImagemClareada[colunaMatriz][linhaMatriz] = intensidade;
+                } else {
+                    ImagemClareada[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz] + Quantidade;
                 }
-                ImagemClareada[colunaMatriz][linhaMatriz] = temp;
+
             }
         }
         return new Matriz(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
@@ -142,20 +150,21 @@ public class Matriz {
     }
 
     public Matriz RotacaoMenos90() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        Integer ImagemRotacionada[][] = new Integer[linha][coluna];
+        Comentario("Rotacao -90", linha, coluna);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[linhaMatriz][colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                System.out.println("Coluna Linha: %d x %d = %d".formatted(linhaMatriz, colunaMatriz, Imagem[colunaMatriz][linhaMatriz]));
+                ImagemRotacionada[linha - 1 - linhaMatriz][colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Matriz(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
     public Matriz Rotacao90() {
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-//                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
                 ImagemRotacionada[linhaMatriz][coluna - 1 - colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
             }
         }
@@ -182,8 +191,17 @@ public class Matriz {
         return new Matriz(ImagemTeste, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    public void Comentario(String funcao, int colunaModificada, int linhaModificada) {
+        System.out.println("""
+                           %s
+                           Coluna e linha original: %d x %d
+                           Coluna e linha modificado: %d x %d
+                           """.formatted(funcao, coluna, linha, colunaModificada, linhaModificada));
+    }
+
     public Matriz EspelhamentoHorizontal() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        Comentario("Espelhamento horizontal", coluna, linha);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
