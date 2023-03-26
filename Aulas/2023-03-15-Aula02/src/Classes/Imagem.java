@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Classes;
 
 import java.io.File;
@@ -11,21 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Willian Murayama
- */
-public class Matriz {
+public class Imagem {
 
-    private Integer Imagem[][];
-    private int coluna;
-    private int linha;
-    private int intensidade;
-    private String cabecalho;
-    private String comentario;
+    protected Integer[][] Matriz;
+    protected int coluna;
+    protected int linha;
+    protected int intensidade;
+    protected String cabecalho;
+    protected String comentario;
 
-    public Matriz(Integer[][] Imagem, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
-        this.Imagem = Imagem;
+    public Imagem(Integer[][] Imagem, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
+        this.Matriz = Imagem;
         this.coluna = coluna;
         this.linha = linha;
         this.intensidade = intensidade;
@@ -33,7 +25,7 @@ public class Matriz {
         this.comentario = comentario;
     }
 
-    public Matriz(String filepath) {
+    public Imagem(String filepath) {
         try {
             File ArquivoObjeto = new File(filepath);
             Scanner Leitor = new Scanner(ArquivoObjeto);
@@ -47,7 +39,7 @@ public class Matriz {
             //Leitura do tamanho de colunas e linhas
             this.coluna = Integer.parseInt(ColunaLinhaArquivo[0]);
             this.linha = Integer.parseInt(ColunaLinhaArquivo[1]);
-            this.Imagem = new Integer[coluna][linha];
+            this.Matriz = new Integer[this.coluna][this.linha];
             System.out.println("""
                            Nome do arquivo: %s
                            Coluna: %d
@@ -56,15 +48,11 @@ public class Matriz {
                            Comentario: %s
                            """.formatted(ArquivoObjeto.getName(), coluna, linha, cabecalho, comentario));
             //Armazenamento do conteudo da imagem
-            ArrayList<Integer> ImagemVetor = new ArrayList<>();
             while (Leitor.hasNext()) {
-                ImagemVetor.add(Integer.parseInt(Leitor.next()));
-            }
-            int contadorVetor = 0;
-            for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
-                for (int linhaVetor = 0; linhaVetor < linha; linhaVetor++) {
-                    Imagem[colunaVetor][linhaVetor] = ImagemVetor.get(contadorVetor);
-                    contadorVetor++;
+                for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
+                    for (int linhaVetor = 0; linhaVetor < linha; linhaVetor++) {
+                        Matriz[colunaVetor][linhaVetor] = Integer.parseInt(Leitor.next());
+                    }
                 }
             }
             Leitor.close();
@@ -107,7 +95,7 @@ public class Matriz {
                 for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                     escritor.write("""
                                     %d
-                                    """.formatted(Imagem[colunaMatriz][linhaMatriz]));
+                                    """.formatted(Matriz[colunaMatriz][linhaMatriz]));
                 }
             }
             escritor.close();
@@ -118,77 +106,77 @@ public class Matriz {
         }
     }
 
-    public Matriz ClarearAdicao(int Quantidade) {
+    public Imagem ClarearAdicao(int Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
 
-                if (Imagem[colunaMatriz][linhaMatriz] + Quantidade > intensidade) {
+                if (Matriz[colunaMatriz][linhaMatriz] + Quantidade > intensidade) {
                     ImagemClareada[colunaMatriz][linhaMatriz] = intensidade;
                 } else {
-                    ImagemClareada[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz] + Quantidade;
+                    ImagemClareada[colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz] + Quantidade;
                 }
 
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
 
     }
 
-    public Matriz ClarearMultiplicao(float Quantidade) {
+    public Imagem ClarearMultiplicao(float Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                float temp = Imagem[colunaMatriz][linhaMatriz] * Quantidade;
+                float temp = Matriz[colunaMatriz][linhaMatriz] * Quantidade;
                 if (temp > intensidade) {
                     temp = intensidade;
                 }
                 ImagemClareada[colunaMatriz][linhaMatriz] = (int) temp;
             }
         }
-        return new Matriz(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Matriz RotacaoMenos90() {
+    public Imagem RotacaoMenos90() {
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         Comentario("Rotacao -90", linha, coluna);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                System.out.println("Coluna Linha: %d x %d = %d".formatted(linhaMatriz, colunaMatriz, Imagem[colunaMatriz][linhaMatriz]));
-                ImagemRotacionada[linha - 1 - linhaMatriz][colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                System.out.println("Coluna Linha: %d x %d = %d".formatted(linhaMatriz, colunaMatriz, Matriz[colunaMatriz][linhaMatriz]));
+                ImagemRotacionada[linha - 1 - linhaMatriz][colunaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
-    public Matriz Rotacao90() {
+    public Imagem Rotacao90() {
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[linhaMatriz][coluna - 1 - colunaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemRotacionada[linhaMatriz][coluna - 1 - colunaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
-    public Matriz Rotacao180() {
+    public Imagem Rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Imagem[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
+                ImagemRotacionada[colunaMatriz][linhaMatriz] = Matriz[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Matriz Teste() {
+    public Imagem Teste() {
         Integer ImagemTeste[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemTeste[colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemTeste[colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemTeste, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemTeste, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public void Comentario(String funcao, int colunaModificada, int linhaModificada) {
@@ -199,48 +187,48 @@ public class Matriz {
                            """.formatted(funcao, coluna, linha, colunaModificada, linhaModificada));
     }
 
-    public Matriz EspelhamentoHorizontal() {
+    public Imagem EspelhamentoHorizontal() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         Comentario("Espelhamento horizontal", coluna, linha);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Matriz EspelhamentoVertical() {
+    public Imagem EspelhamentoVertical() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Imagem[colunaMatriz][linhaMatriz];
+                ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Matriz(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Matriz ReducaoNivel(int quantidadeDeNiveis) {
+    public Imagem ReducaoNivel(int quantidadeDeNiveis) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                Reduzida[colunaMatriz][linhaMatriz] = (int) Math.ceil(Imagem[colunaMatriz][linhaMatriz] * (quantidadeDeNiveis - 1) / intensidade);
+                Reduzida[colunaMatriz][linhaMatriz] = (int) Math.ceil(Matriz[colunaMatriz][linhaMatriz] * (quantidadeDeNiveis - 1) / intensidade);
             }
         }
-        return new Matriz(Reduzida, coluna, linha, quantidadeDeNiveis, cabecalho, comentario);
+        return new Imagem(Reduzida, coluna, linha, quantidadeDeNiveis, cabecalho, comentario);
     }
 
-    public Matriz Binarizacao(int limiar) {
+    public Imagem Binarizacao(int limiar) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                if (Imagem[colunaMatriz][linhaMatriz] <= limiar) {
+                if (Matriz[colunaMatriz][linhaMatriz] <= limiar) {
                     Reduzida[colunaMatriz][linhaMatriz] = intensidade;
                 } else {
                     Reduzida[colunaMatriz][linhaMatriz] = 0;
                 }
             }
         }
-        return new Matriz(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
     }
 }
