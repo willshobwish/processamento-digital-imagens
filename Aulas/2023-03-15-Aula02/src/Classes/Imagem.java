@@ -106,7 +106,7 @@ public class Imagem {
         }
     }
 
-    public Imagem Negativo() {
+    public Imagem Negative() {
         Integer ImagemNegativa[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -116,7 +116,7 @@ public class Imagem {
         return new Imagem(ImagemNegativa, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Imagem Escurecer(int quantidade) {
+    public Imagem Darken(int quantidade) {
         Integer ImagemEscurecida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
