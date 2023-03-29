@@ -302,9 +302,11 @@ public class Imagem {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 double resultadoDivisao = (double) Matriz[colunaMatriz][linhaMatriz] / intensidade, resultadoPotencia = pow(resultadoDivisao, a), resultadoMultiplicacao = resultadoPotencia * c;
                 int resultadoArredondamento = (int) (resultadoMultiplicacao * intensidade);
-
-//                MatrizCorreta[colunaMatriz][linhaMatriz] = (int) Math.ceil((c * pow((double) Matriz[colunaMatriz][linhaMatriz] / intensidade, a)) * intensidade);
-                MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento;
+                if (resultadoArredondamento > intensidade) {
+                    MatrizCorreta[colunaMatriz][linhaMatriz] = intensidade - Matriz[colunaMatriz][linhaMatriz];
+                } else {
+                    MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento - Matriz[colunaMatriz][linhaMatriz];
+                }
 //                System.out.println("""
 //                                   Resultado divisao: %f
 //                                   Resultado potencia: %f
