@@ -26,7 +26,9 @@ public class Main {
         skull.Rotacao180().ImprimeArquivo("src/Assets/skull180.pgm");
         skull.Teste().ImprimeArquivo("src/Assets/SkullTeste.pgm");
         skull.ClarearAdicao(0).ImprimeArquivo("src/Assets/adicaoskull.pgm");
-
+        skull.BinaryRange(50, 70, 255, 10).ImprimeArquivo("src/Assets/skullbinaryrange.pgm");
+        skull.RangeHighlight(50, 70, 255).ImprimeArquivo("src/Assets/rangehighlight.pgm");
+        skull.Subtract(2, 2).ImprimeArquivo("src/Assets/substract.pgm");
     }
 
 }

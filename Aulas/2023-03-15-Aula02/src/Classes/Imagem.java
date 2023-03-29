@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import static java.lang.Math.pow;
 import java.util.Scanner;
 
 public class Imagem {
@@ -265,5 +265,54 @@ public class Imagem {
             }
         }
         return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
+    }
+
+    public Imagem BinaryRange(int start, int end, int level, int greyLevel) {
+        Integer Reduzida[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                if (Matriz[colunaMatriz][linhaMatriz] > start && Matriz[colunaMatriz][linhaMatriz] < end) {
+                    Reduzida[colunaMatriz][linhaMatriz] = level;
+                } else {
+                    Reduzida[colunaMatriz][linhaMatriz] = greyLevel;
+                }
+            }
+        }
+        return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
+    }
+
+    public Imagem RangeHighlight(int start, int end, int quantidade) {
+        Integer Reduzida[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                if (Matriz[colunaMatriz][linhaMatriz] > start && Matriz[colunaMatriz][linhaMatriz] < end) {
+                    Reduzida[colunaMatriz][linhaMatriz] = quantidade;
+                } else {
+                    Reduzida[colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+                }
+            }
+        }
+        return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
+    }
+
+    public Imagem Subtract(int c, int a) {
+        Double MatrizPontoFlutuante[][] = new Double[coluna][linha];
+        Integer MatrizCorreta[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                double resultadoDivisao = (double) Matriz[colunaMatriz][linhaMatriz] / intensidade, resultadoPotencia = pow(resultadoDivisao, a), resultadoMultiplicacao = resultadoPotencia * c;
+                int resultadoArredondamento = (int) (resultadoMultiplicacao * intensidade);
+
+//                MatrizCorreta[colunaMatriz][linhaMatriz] = (int) Math.ceil((c * pow((double) Matriz[colunaMatriz][linhaMatriz] / intensidade, a)) * intensidade);
+                MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento;
+//                System.out.println("""
+//                                   Resultado divisao: %f
+//                                   Resultado potencia: %f
+//                                   Resultado multiplicacao: %f
+//                                   Resultado arredondamento: %d
+//                                   """.formatted(resultadoDivisao, resultadoPotencia, resultadoMultiplicacao, resultadoArredondamento));
+            }
+        }
+        return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
 }
