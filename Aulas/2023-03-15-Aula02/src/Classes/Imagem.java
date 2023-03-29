@@ -16,8 +16,8 @@ public class Imagem {
     protected String cabecalho;
     protected String comentario;
 
-    public Imagem(Integer[][] Imagem, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
-        this.Matriz = Imagem;
+    public Imagem(Integer[][] Matriz, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
+        this.Matriz = Matriz;
         this.coluna = coluna;
         this.linha = linha;
         this.intensidade = intensidade;
@@ -106,6 +106,30 @@ public class Imagem {
         }
     }
 
+    public Imagem Negativo() {
+        Integer ImagemNegativa[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                ImagemNegativa[colunaMatriz][linhaMatriz] = intensidade - Matriz[colunaMatriz][linhaMatriz];
+            }
+        }
+        return new Imagem(ImagemNegativa, coluna, linha, intensidade, cabecalho, comentario);
+    }
+
+    public Imagem Escurecer(int quantidade) {
+        Integer ImagemEscurecida[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                if (Matriz[colunaMatriz][linhaMatriz] - quantidade < 0) {
+                    ImagemEscurecida[colunaMatriz][linhaMatriz] = 0;
+                } else {
+                    ImagemEscurecida[colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz] - quantidade;
+                }
+            }
+        }
+        return new Imagem(ImagemEscurecida, coluna, linha, intensidade, cabecalho, comentario);
+    }
+
     public Imagem ClarearAdicao(int Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -150,6 +174,7 @@ public class Imagem {
     }
 
     public Imagem Rotacao90() {
+//Quantidade de coluna e linha inversa
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
