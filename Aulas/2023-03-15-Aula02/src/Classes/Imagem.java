@@ -51,7 +51,7 @@ public class Imagem {
             while (Leitor.hasNext()) {
                 for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
                     for (int linhaVetor = 0; linhaVetor < linha; linhaVetor++) {
-                        Matriz[colunaVetor][linhaVetor] = Integer.parseInt(Leitor.next());
+                        Matriz[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
                     }
                 }
             }
@@ -159,11 +159,21 @@ public class Imagem {
         return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+//    public Imagem Rotacao180() {
+//        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+//        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+//            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+//                ImagemRotacionada[colunaMatriz][linhaMatriz] = Matriz[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
+//            }
+//        }
+//        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+//    }
     public Imagem Rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linhaMatriz] = Matriz[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
+                ImagemRotacionada[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+
             }
         }
         return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
@@ -188,24 +198,24 @@ public class Imagem {
     }
 
     public Imagem EspelhamentoHorizontal() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        Integer Espelhada[][] = new Integer[coluna][linha];
         Comentario("Espelhamento horizontal", coluna, linha);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+                Espelhada[colunaMatriz][linha - 1 - linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(Espelhada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Imagem EspelhamentoVertical() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
+        Integer Espelhada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+                Espelhada[coluna - 1 - colunaMatriz][linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(Espelhada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
     public Imagem ReducaoNivel(int quantidadeDeNiveis) {
