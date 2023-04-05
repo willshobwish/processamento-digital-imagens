@@ -184,15 +184,6 @@ public class Imagem {
         return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
-//    public Imagem Rotacao180() {
-//        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
-//        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-//            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-//                ImagemRotacionada[colunaMatriz][linhaMatriz] = Matriz[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz];
-//            }
-//        }
-//        return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
-//    }
     public Imagem Rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -307,12 +298,6 @@ public class Imagem {
                 } else {
                     MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento - Matriz[colunaMatriz][linhaMatriz];
                 }
-//                System.out.println("""
-//                                   Resultado divisao: %f
-//                                   Resultado potencia: %f
-//                                   Resultado multiplicacao: %f
-//                                   Resultado arredondamento: %d
-//                                   """.formatted(resultadoDivisao, resultadoPotencia, resultadoMultiplicacao, resultadoArredondamento));
             }
         }
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
