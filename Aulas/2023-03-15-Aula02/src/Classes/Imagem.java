@@ -325,16 +325,27 @@ public class Imagem {
         System.out.println("""
                            Quantidade de linhas: %d
                            Quantidade de colunas: %d
-                           """.formatted(linhaModificada,colunaModificada));
+                           Quantidade de linhas: %d
+                           Quantidade de colunas: %d
+                           """.formatted(linhaModificada, colunaModificada, linha, coluna));
         Integer matrizTransformada[][] = new Integer[colunaModificada][linhaModificada];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                matrizTransformada[coluna + offset][linha + offset] = Matriz[coluna][linha];
-                matrizTransformada[coluna + offset][linha + offset ] = Matriz[coluna][linha];
-                matrizTransformada[coluna + offset ][linha + offset] = Matriz[coluna][linha];
-                matrizTransformada[coluna + offset ][linha + offset ] = Matriz[coluna][linha];
+
+//                    matrizTransformada[colunaMatriz + colunaMatriz][linhaMatriz + linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+//                    matrizTransformada[colunaMatriz + colunaMatriz][linhaMatriz + linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+                for (int quantidadeColuna = 0; quantidadeColuna < quantidade; quantidadeColuna++) {
+                    for (int quantidadeLinha = 0; quantidadeLinha < quantidade; quantidadeLinha++) {
+                        matrizTransformada[colunaMatriz + colunaMatriz + quantidadeColuna][linhaMatriz + linhaMatriz + quantidadeLinha] = Matriz[colunaMatriz][linhaMatriz];
+
+                    }
+                }
+//                matrizTransformada[colunaMatriz + colunaMatriz][linhaMatriz + linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+//                matrizTransformada[colunaMatriz + colunaMatriz][linhaMatriz + linhaMatriz + 1] = Matriz[colunaMatriz][linhaMatriz];
+//                matrizTransformada[colunaMatriz + colunaMatriz + 1][linhaMatriz + linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
+//                matrizTransformada[colunaMatriz + colunaMatriz + 1][linhaMatriz + linhaMatriz + 1] = Matriz[colunaMatriz][linhaMatriz];
             }
         }
-        return new Imagem(matrizTransformada,colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
+        return new Imagem(matrizTransformada, colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
     }
 }
