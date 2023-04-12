@@ -303,12 +303,12 @@ public class Imagem {
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
     
-        public Imagem Estica(int c, int a) {
+        public Imagem Estica(int c, double beta) {
         Double MatrizPontoFlutuante[][] = new Double[coluna][linha];
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                double resultadoDivisao = (double) Matriz[colunaMatriz][linhaMatriz] / intensidade, resultadoPotencia = pow(resultadoDivisao, a), resultadoMultiplicacao = resultadoPotencia * c;
+                double resultadoDivisao = (double) Matriz[colunaMatriz][linhaMatriz] / intensidade, resultadoPotencia = pow(resultadoDivisao, beta), resultadoMultiplicacao = resultadoPotencia * c;
                 int resultadoArredondamento = (int) (resultadoMultiplicacao * intensidade);
                 if (resultadoArredondamento > intensidade) {
                     MatrizCorreta[colunaMatriz][linhaMatriz] = intensidade ;

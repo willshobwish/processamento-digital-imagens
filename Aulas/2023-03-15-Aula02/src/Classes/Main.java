@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -29,8 +31,21 @@ public class Main {
         skull.BinaryRange(50, 70, 255, 10).ImprimeArquivo("src/Assets/skullbinaryrange.pgm");
         skull.RangeHighlight(50, 70, 255).ImprimeArquivo("src/Assets/rangehighlight.pgm");
         skull.Subtract(2, 2).ImprimeArquivo("src/Assets/substract.pgm");
-                skull.Estica(1, 2).ImprimeArquivo("src/Assets/substract.pgm");
-
+        ArrayList<Double> valores = new ArrayList<>();
+        valores.add(0.04);
+        valores.add(0.1);
+        valores.add(0.2);
+        valores.add(0.4);
+        valores.add(0.67);
+        valores.add(1.0);
+        valores.add(1.5);
+        valores.add(2.5);
+        valores.add(5.0);
+        valores.add(100.);
+        valores.add(25.0);
+        for(Double eachValor:valores){
+            skull.Estica(1, eachValor).ImprimeArquivo("src/Assets/substract"+eachValor+".pgm");
+        }
     }
 
 }
