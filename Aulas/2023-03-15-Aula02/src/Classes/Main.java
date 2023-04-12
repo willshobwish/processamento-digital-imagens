@@ -8,6 +8,9 @@ public class Main {
 
         Imagem matriz = new Imagem("src/Assets/lena256irfam.pgm");
         Imagem skull = new Imagem("src/Assets/ctskull-256.pgm");
+        Imagem aerial = new Imagem("src/Assets/aerial.pgm");
+        Imagem spine = new Imagem("src/Assets/spine.pgm");
+
 //        matriz.ImprimeArquivo("src/Assets/teste.pgm");
 //        matriz.ClarearAdicao(50).ImprimeArquivo("src/Assets/TesteClareadoAdicao.pgm");
 //        matriz.ClarearMultiplicao(2).ImprimeArquivo("src/Assets/TesteClareadoMultiplicacao.pgm");
@@ -43,8 +46,11 @@ public class Main {
         valores.add(5.0);
         valores.add(100.);
         valores.add(25.0);
-        for(Double eachValor:valores){
-            skull.Estica(1, eachValor).ImprimeArquivo("src/Assets/substract"+eachValor+".pgm");
+        for (Double eachValor : valores) {
+            skull.Estica(1, eachValor).ImprimeArquivo("src/Assets/substract" + eachValor + ".pgm");
+            aerial.Estica(1, eachValor).ImprimeArquivo("src/Assets/aerial" + eachValor + ".pgm");
+            spine.Estica(1, eachValor).ImprimeArquivo("src/Assets/spine" + eachValor + ".pgm");
+
         }
     }
 
