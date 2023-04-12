@@ -52,7 +52,7 @@ public class Main {
 //            spine.Estica(1, eachValor).ImprimeArquivo("src/Assets/spine" + eachValor + ".pgm");
 //
 //        }
-        matriz.aumenta(3).ImprimeArquivo("src/Assets/lenaaumentada.pgm");
+        matriz.aumenta(2).ImprimeArquivo("src/Assets/lenaaumentada.pgm");
     }
 
 }
