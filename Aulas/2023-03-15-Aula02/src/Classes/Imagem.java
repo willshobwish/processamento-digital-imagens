@@ -319,18 +319,22 @@ public class Imagem {
         }
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
-    public Imagem aumenta(int quantidade){
-        Integer matrizTransformada[][] = new Integer[coluna*quantidade][linha*quantidade];
-        int offset=0;
+
+    public Imagem aumenta(int quantidade) {
+        int offset = 0, colunaModificada = coluna * quantidade, linhaModificada = linha * quantidade;
+        System.out.println("""
+                           Quantidade de linhas: %d
+                           Quantidade de colunas: %d
+                           """.formatted(linhaModificada,colunaModificada));
+        Integer matrizTransformada[][] = new Integer[colunaModificada][linhaModificada];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for(int repeticao=0;repeticao<quantidade;repeticao++){
-                                    matrizTransformada[coluna][linha] = Matriz[coluna][linha];
-
-                }
-                offset +=quantidade;
+                matrizTransformada[coluna + offset][linha + offset] = Matriz[coluna][linha];
+                matrizTransformada[coluna + offset][linha + offset ] = Matriz[coluna][linha];
+                matrizTransformada[coluna + offset ][linha + offset] = Matriz[coluna][linha];
+                matrizTransformada[coluna + offset ][linha + offset ] = Matriz[coluna][linha];
             }
         }
-        return new Imagem(matrizTransformada, coluna, linha, intensidade, cabecalho, comentario);
+        return new Imagem(matrizTransformada,colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
     }
 }
