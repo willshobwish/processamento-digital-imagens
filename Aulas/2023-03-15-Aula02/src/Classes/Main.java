@@ -29,6 +29,8 @@ public class Main {
         skull.BinaryRange(50, 70, 255, 10).ImprimeArquivo("src/Assets/skullbinaryrange.pgm");
         skull.RangeHighlight(50, 70, 255).ImprimeArquivo("src/Assets/rangehighlight.pgm");
         skull.Subtract(2, 2).ImprimeArquivo("src/Assets/substract.pgm");
+                skull.Estica(1, 2).ImprimeArquivo("src/Assets/substract.pgm");
+
     }
 
 }
