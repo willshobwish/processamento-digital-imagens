@@ -302,8 +302,8 @@ public class Imagem {
         }
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
-    
-        public Imagem Estica(int c, double beta) {
+
+    public Imagem Estica(int c, double beta) {
         Double MatrizPontoFlutuante[][] = new Double[coluna][linha];
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -311,12 +311,26 @@ public class Imagem {
                 double resultadoDivisao = (double) Matriz[colunaMatriz][linhaMatriz] / intensidade, resultadoPotencia = pow(resultadoDivisao, beta), resultadoMultiplicacao = resultadoPotencia * c;
                 int resultadoArredondamento = (int) (resultadoMultiplicacao * intensidade);
                 if (resultadoArredondamento > intensidade) {
-                    MatrizCorreta[colunaMatriz][linhaMatriz] = intensidade ;
+                    MatrizCorreta[colunaMatriz][linhaMatriz] = intensidade;
                 } else {
-                    MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento ;
+                    MatrizCorreta[colunaMatriz][linhaMatriz] = resultadoArredondamento;
                 }
             }
         }
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
+    }
+    public Imagem aumenta(int quantidade){
+        Integer matrizTransformada[][] = new Integer[coluna*quantidade][linha*quantidade];
+        int offset=0;
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for(int repeticao=0;repeticao<quantidade;repeticao++){
+                                    matrizTransformada[coluna][linha] = Matriz[coluna][linha];
+
+                }
+                offset +=quantidade;
+            }
+        }
+        return new Imagem(matrizTransformada, coluna, linha, intensidade, cabecalho, comentario);
     }
 }
