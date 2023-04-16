@@ -340,4 +340,27 @@ public class Imagem {
         }
         return new Imagem(matrizTransformada, colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
     }
+
+    public Imagem diminui(int quantidade) {
+        int colunaModificada = coluna / quantidade, linhaModificada = linha / quantidade, soma = 0;
+        System.out.println("""
+                           Quantidade de linhas: %d
+                           Quantidade de colunas: %d
+                           Quantidade de linhas: %d
+                           Quantidade de colunas: %d
+                           """.formatted(linhaModificada, colunaModificada, linha, coluna));
+        Integer matrizTransformada[][] = new Integer[colunaModificada][linhaModificada];
+        for (int colunaMatriz = 0; colunaMatriz < colunaModificada; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linhaModificada; linhaMatriz++) {
+                for (int quantidadeColuna = 0; quantidadeColuna < quantidade; quantidadeColuna++) {
+                    for (int quantidadeLinha = 0; quantidadeLinha < quantidade; quantidadeLinha++) {
+                        soma += Matriz[colunaMatriz * quantidade + quantidadeColuna][linhaMatriz * quantidade + quantidadeLinha];
+                    }
+                }
+                matrizTransformada[colunaMatriz][linhaMatriz] = soma / (int) pow(quantidade, quantidade);
+                soma = 0;
+            }
+        }
+        return new Imagem(matrizTransformada, colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
+    }
 }
