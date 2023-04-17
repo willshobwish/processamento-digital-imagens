@@ -2,8 +2,16 @@ package Classes;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Willian
+ */
 public class Main {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         Imagem matriz = new Imagem("src/Assets/lena256irfam.pgm");

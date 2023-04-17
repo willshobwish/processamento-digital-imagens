@@ -7,15 +7,51 @@ import java.io.IOException;
 import static java.lang.Math.pow;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Willian
+ */
 public class Imagem {
 
+    /**
+     *
+     */
     protected Integer[][] Matriz;
+
+    /**
+     *
+     */
     protected int coluna;
+
+    /**
+     *
+     */
     protected int linha;
+
+    /**
+     *
+     */
     protected int intensidade;
+
+    /**
+     *
+     */
     protected String cabecalho;
+
+    /**
+     *
+     */
     protected String comentario;
 
+    /**
+     *
+     * @param Matriz
+     * @param coluna
+     * @param linha
+     * @param intensidade
+     * @param cabecalho
+     * @param comentario
+     */
     public Imagem(Integer[][] Matriz, int coluna, int linha, int intensidade, String cabecalho, String comentario) {
         this.Matriz = Matriz;
         this.coluna = coluna;
@@ -25,6 +61,10 @@ public class Imagem {
         this.comentario = comentario;
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public Imagem(String filepath) {
         try {
             File ArquivoObjeto = new File(filepath);
@@ -62,6 +102,10 @@ public class Imagem {
         }
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public void ImprimeArquivo(String filepath) {
         try {
             File ponteiroArquivo = new File(filepath);
@@ -106,6 +150,10 @@ public class Imagem {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem Negative() {
         Integer ImagemNegativa[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -116,6 +164,11 @@ public class Imagem {
         return new Imagem(ImagemNegativa, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param quantidade
+     * @return
+     */
     public Imagem Darken(int quantidade) {
         Integer ImagemEscurecida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -130,6 +183,11 @@ public class Imagem {
         return new Imagem(ImagemEscurecida, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param Quantidade
+     * @return
+     */
     public Imagem ClarearAdicao(int Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -147,6 +205,11 @@ public class Imagem {
 
     }
 
+    /**
+     *
+     * @param Quantidade
+     * @return
+     */
     public Imagem ClarearMultiplicao(float Quantidade) {
         Integer ImagemClareada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -161,6 +224,10 @@ public class Imagem {
         return new Imagem(ImagemClareada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem RotacaoMenos90() {
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         Comentario("Rotacao -90", linha, coluna);
@@ -173,6 +240,10 @@ public class Imagem {
         return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem Rotacao90() {
 //Quantidade de coluna e linha inversa
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
@@ -184,6 +255,10 @@ public class Imagem {
         return new Imagem(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem Rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -195,6 +270,10 @@ public class Imagem {
         return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem Teste() {
         Integer ImagemTeste[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -205,6 +284,12 @@ public class Imagem {
         return new Imagem(ImagemTeste, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param funcao
+     * @param colunaModificada
+     * @param linhaModificada
+     */
     public void Comentario(String funcao, int colunaModificada, int linhaModificada) {
         System.out.println("""
                            %s
@@ -213,6 +298,10 @@ public class Imagem {
                            """.formatted(funcao, coluna, linha, colunaModificada, linhaModificada));
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem EspelhamentoHorizontal() {
         Integer Espelhada[][] = new Integer[coluna][linha];
         Comentario("Espelhamento horizontal", coluna, linha);
@@ -224,6 +313,10 @@ public class Imagem {
         return new Imagem(Espelhada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public Imagem EspelhamentoVertical() {
         Integer Espelhada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -234,6 +327,11 @@ public class Imagem {
         return new Imagem(Espelhada, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param quantidadeDeNiveis
+     * @return
+     */
     public Imagem ReducaoNivel(int quantidadeDeNiveis) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -244,6 +342,11 @@ public class Imagem {
         return new Imagem(Reduzida, coluna, linha, quantidadeDeNiveis, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param limiar
+     * @return
+     */
     public Imagem Binarizacao(int limiar) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -258,6 +361,14 @@ public class Imagem {
         return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param start
+     * @param end
+     * @param level
+     * @param greyLevel
+     * @return
+     */
     public Imagem BinaryRange(int start, int end, int level, int greyLevel) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -272,6 +383,13 @@ public class Imagem {
         return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param start
+     * @param end
+     * @param quantidade
+     * @return
+     */
     public Imagem RangeHighlight(int start, int end, int quantidade) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -286,8 +404,13 @@ public class Imagem {
         return new Imagem(Reduzida, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param c
+     * @param a
+     * @return
+     */
     public Imagem Subtract(int c, int a) {
-        Double MatrizPontoFlutuante[][] = new Double[coluna][linha];
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -303,8 +426,13 @@ public class Imagem {
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param c
+     * @param beta
+     * @return
+     */
     public Imagem Estica(int c, double beta) {
-        Double MatrizPontoFlutuante[][] = new Double[coluna][linha];
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -320,47 +448,58 @@ public class Imagem {
         return new Imagem(MatrizCorreta, coluna, linha, intensidade, cabecalho, comentario);
     }
 
-    public Imagem aumenta(int quantidade) {
-        int offset = 0, colunaModificada = coluna * quantidade, linhaModificada = linha * quantidade;
+    /**
+     *
+     * @param quantidadeAumento
+     * @return
+     */
+    public Imagem aumenta(int quantidadeAumento) {
+        int colunaAumentada = coluna * quantidadeAumento, linhaAumentada = linha * quantidadeAumento;
         System.out.println("""
                            Quantidade de linhas: %d
                            Quantidade de colunas: %d
                            Quantidade de linhas: %d
                            Quantidade de colunas: %d
-                           """.formatted(linhaModificada, colunaModificada, linha, coluna));
-        Integer matrizTransformada[][] = new Integer[colunaModificada][linhaModificada];
+                           """.formatted(linhaAumentada, colunaAumentada, linha, coluna));
+        Integer matrizAumentada[][] = new Integer[colunaAumentada][linhaAumentada];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int quantidadeColuna = 0; quantidadeColuna < quantidade; quantidadeColuna++) {
-                    for (int quantidadeLinha = 0; quantidadeLinha < quantidade; quantidadeLinha++) {
-                        matrizTransformada[colunaMatriz * quantidade + quantidadeColuna][linhaMatriz * quantidade + quantidadeLinha] = Matriz[colunaMatriz][linhaMatriz];
+                for (int quantidadeColuna = 0; quantidadeColuna < quantidadeAumento; quantidadeColuna++) {
+                    for (int quantidadeLinha = 0; quantidadeLinha < quantidadeAumento; quantidadeLinha++) {
+                        matrizAumentada[colunaMatriz * quantidadeAumento + quantidadeColuna][linhaMatriz * quantidadeAumento + quantidadeLinha] = Matriz[colunaMatriz][linhaMatriz];
                     }
                 }
             }
         }
-        return new Imagem(matrizTransformada, colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
+        return new Imagem(matrizAumentada, colunaAumentada, linhaAumentada, intensidade, cabecalho, comentario);
     }
 
-    public Imagem diminui(int quantidade) {
-        int colunaModificada = coluna / quantidade, linhaModificada = linha / quantidade, soma = 0;
+    /**
+     *
+     * @param quantidadeReducao
+     * @return
+     */
+    public Imagem diminui(int quantidadeReducao) {
+        int colunaReduzida = coluna / quantidadeReducao, linhaReduzida = linha / quantidadeReducao, somaPixeis = 0;
         System.out.println("""
                            Quantidade de linhas: %d
                            Quantidade de colunas: %d
                            Quantidade de linhas: %d
                            Quantidade de colunas: %d
-                           """.formatted(linhaModificada, colunaModificada, linha, coluna));
-        Integer matrizTransformada[][] = new Integer[colunaModificada][linhaModificada];
-        for (int colunaMatriz = 0; colunaMatriz < colunaModificada; colunaMatriz++) {
-            for (int linhaMatriz = 0; linhaMatriz < linhaModificada; linhaMatriz++) {
-                for (int quantidadeColuna = 0; quantidadeColuna < quantidade; quantidadeColuna++) {
-                    for (int quantidadeLinha = 0; quantidadeLinha < quantidade; quantidadeLinha++) {
-                        soma += Matriz[colunaMatriz * quantidade + quantidadeColuna][linhaMatriz * quantidade + quantidadeLinha];
+                           """.formatted(linhaReduzida, colunaReduzida, linha, coluna));
+        Integer[][] matrizReduzida = new Integer[colunaReduzida][linhaReduzida];
+        for (int colunaMatriz = 0; colunaMatriz < colunaReduzida; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linhaReduzida; linhaMatriz++) {
+                for (int variavelColuna = 0; variavelColuna < quantidadeReducao; variavelColuna++) {
+                    for (int variavelLinha = 0; variavelLinha < quantidadeReducao; variavelLinha++) {
+                        somaPixeis += Matriz[colunaMatriz * quantidadeReducao + variavelColuna][linhaMatriz * quantidadeReducao + variavelLinha];
                     }
                 }
-                matrizTransformada[colunaMatriz][linhaMatriz] = soma / (int) pow(quantidade, quantidade);
-                soma = 0;
+//                Realiza a média, como sempre é um quadrado, pode ser realizado quntidade^quantidade para a média
+                matrizReduzida[colunaMatriz][linhaMatriz] = somaPixeis / (int) pow(quantidadeReducao, quantidadeReducao);
+                somaPixeis = 0;
             }
         }
-        return new Imagem(matrizTransformada, colunaModificada, linhaModificada, intensidade, cabecalho, comentario);
+        return new Imagem(matrizReduzida, colunaReduzida, linhaReduzida, intensidade, cabecalho, comentario);
     }
 }
