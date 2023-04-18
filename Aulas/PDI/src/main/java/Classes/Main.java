@@ -60,8 +60,8 @@ public class Main {
 //            spine.Estica(1, eachValor).ImprimeArquivo("src/Assets/spine" + eachValor + ".pgm");
 //
 //        }
-        matriz.aumenta(2).ImprimeArquivo("src/Assets/lenaaumentada.pgm");
-        matriz.diminui(2).ImprimeArquivo("src/Assets/lenadiminuida.pgm");
+        matriz.aumentaResolucao(2).saveImage("src/Assets/lenaaumentada.pgm");
+        matriz.diminuiResolucao(2).saveImage("src/Assets/lenadiminuida.pgm");
 
     }
 
