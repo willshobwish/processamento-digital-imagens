@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Math.pow;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -501,5 +502,46 @@ public class Imagem {
             }
         }
         return new Imagem(matrizReduzida, colunaReduzida, linhaReduzida, intensidade, cabecalho, comentario);
+    }
+
+    public void histogram(String filepath) {
+        ArrayList<Integer> histograma = new ArrayList<>();
+        for (int i = 0; i < intensidade; i++) {
+            histograma.add(1);
+        }
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                histograma.set(Matriz[colunaMatriz][linhaMatriz], histograma.get(Matriz[colunaMatriz][linhaMatriz]) + 1);
+            }
+        }
+        try {
+            File ponteiroArquivo = new File(filepath);
+            if (ponteiroArquivo.createNewFile()) {
+                System.out.println("O histograma criado %s foi criado".formatted(ponteiroArquivo.getName()));
+            } else {
+                System.out.println("O histograma %s ja existe".formatted(ponteiroArquivo.getName()));
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter escritor = new FileWriter(filepath);
+
+            escritor.write("""
+                           %s,%s
+                           """.formatted("c", "h[c]"));
+            for (int i = 1; i < histograma.size() + 1; i++) {
+                escritor.write("""
+                           %d, %d
+                           """.formatted(i, histograma.get(i - 1)));
+            }
+            escritor.close();
+            System.out.println("Escrito corretamente no arquivo.");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro na escrita");
+            e.printStackTrace();
+        }
+
     }
 }

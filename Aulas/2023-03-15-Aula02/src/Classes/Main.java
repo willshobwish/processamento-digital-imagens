@@ -62,7 +62,7 @@ public class Main {
 //        }
         matriz.aumenta(2).ImprimeArquivo("src/Assets/lenaaumentada.pgm");
         matriz.diminui(2).ImprimeArquivo("src/Assets/lenadiminuida.pgm");
-
+        matriz.histogram("src/Assets/histograma.csv");
     }
 
 }
