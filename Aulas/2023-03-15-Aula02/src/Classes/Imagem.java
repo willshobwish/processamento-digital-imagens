@@ -85,9 +85,10 @@ public class Imagem {
                            Nome do arquivo: %s
                            Coluna: %d
                            Linha: %d
+                           Intensidade: %d
                            Cabecalho: %s
                            Comentario: %s
-                           """.formatted(ArquivoObjeto.getName(), coluna, linha, cabecalho, comentario));
+                           """.formatted(ArquivoObjeto.getName(), coluna, linha, intensidade, cabecalho, comentario));
             //Armazenamento do conteudo da imagem
             while (Leitor.hasNext()) {
                 for (int colunaVetor = 0; colunaVetor < coluna; colunaVetor++) {
@@ -107,7 +108,7 @@ public class Imagem {
      *
      * @param filepath
      */
-    public void ImprimeArquivo(String filepath) {
+    public void saveImage(String filepath) {
         try {
             File ponteiroArquivo = new File(filepath);
             if (ponteiroArquivo.createNewFile()) {
@@ -229,7 +230,7 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem RotacaoMenos90() {
+    public Imagem rotateMinus90() {
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         Comentario("Rotacao -90", linha, coluna);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -245,7 +246,7 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem Rotacao90() {
+    public Imagem rotate90() {
 //Quantidade de coluna e linha inversa
         Integer ImagemRotacionada[][] = new Integer[linha][coluna];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -260,12 +261,11 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem Rotacao180() {
+    public Imagem rotate180() {
         Integer ImagemRotacionada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
                 ImagemRotacionada[coluna - 1 - colunaMatriz][linha - 1 - linhaMatriz] = Matriz[colunaMatriz][linhaMatriz];
-
             }
         }
         return new Imagem(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
@@ -275,7 +275,7 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem Teste() {
+    public Imagem test() {
         Integer ImagemTeste[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -303,7 +303,7 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem EspelhamentoHorizontal() {
+    public Imagem espelhamentoHorizontal() {
         Integer Espelhada[][] = new Integer[coluna][linha];
         Comentario("Espelhamento horizontal", coluna, linha);
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
@@ -318,7 +318,7 @@ public class Imagem {
      *
      * @return
      */
-    public Imagem EspelhamentoVertical() {
+    public Imagem espelhamentoVertical() {
         Integer Espelhada[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -333,7 +333,7 @@ public class Imagem {
      * @param quantidadeDeNiveis
      * @return
      */
-    public Imagem ReducaoNivel(int quantidadeDeNiveis) {
+    public Imagem reducaoNivel(int quantidadeDeNiveis) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -348,7 +348,7 @@ public class Imagem {
      * @param limiar
      * @return
      */
-    public Imagem Binarizacao(int limiar) {
+    public Imagem binarizacao(int limiar) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -370,7 +370,7 @@ public class Imagem {
      * @param greyLevel
      * @return
      */
-    public Imagem BinaryRange(int start, int end, int level, int greyLevel) {
+    public Imagem binaryRange(int start, int end, int level, int greyLevel) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -391,7 +391,7 @@ public class Imagem {
      * @param quantidade
      * @return
      */
-    public Imagem RangeHighlight(int start, int end, int quantidade) {
+    public Imagem rangeHighlight(int start, int end, int quantidade) {
         Integer Reduzida[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -411,7 +411,7 @@ public class Imagem {
      * @param a
      * @return
      */
-    public Imagem Subtract(int c, int a) {
+    public Imagem subtract(int c, int a) {
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -433,7 +433,7 @@ public class Imagem {
      * @param beta
      * @return
      */
-    public Imagem Estica(int c, double beta) {
+    public Imagem transformacaoPotencia(int c, double beta) {
         Integer MatrizCorreta[][] = new Integer[coluna][linha];
         for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
             for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -454,7 +454,7 @@ public class Imagem {
      * @param quantidadeAumento
      * @return
      */
-    public Imagem aumenta(int quantidadeAumento) {
+    public Imagem aumentaResolucao(int quantidadeAumento) {
         int colunaAumentada = coluna * quantidadeAumento, linhaAumentada = linha * quantidadeAumento;
         System.out.println("""
                            Quantidade de linhas: %d
@@ -480,7 +480,7 @@ public class Imagem {
      * @param quantidadeReducao
      * @return
      */
-    public Imagem diminui(int quantidadeReducao) {
+    public Imagem diminuiResolucao(int quantidadeReducao) {
         int colunaReduzida = coluna / quantidadeReducao, linhaReduzida = linha / quantidadeReducao, somaPixeis = 0;
         System.out.println("""
                            Quantidade de linhas: %d
@@ -504,6 +504,10 @@ public class Imagem {
         return new Imagem(matrizReduzida, colunaReduzida, linhaReduzida, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public void histogram(String filepath) {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade; i++) {
@@ -541,6 +545,38 @@ public class Imagem {
         } catch (IOException e) {
             System.out.println("Ocorreu um erro na escrita");
             e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Integer> histogram() {
+        ArrayList<Integer> histograma = new ArrayList<>();
+        for (int i = 0; i < intensidade + 1; i++) {
+            histograma.add(0);
+        }
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                histograma.set(Matriz[colunaMatriz][linhaMatriz], histograma.get(Matriz[colunaMatriz][linhaMatriz]) + 1);
+            }
+        }
+        for (int i = 0; i < intensidade + 1; i++) {
+//            System.out.print("""
+//                               %d: %d
+//                               """.formatted(i, histograma.get(i)));
+        }
+        return histograma;
+    }
+
+    public void equalizacao_histograma() {
+        ArrayList<Integer> histograma = histogram();
+        ArrayList<Double> nk = new ArrayList<>();
+        for (int i = 0; i < intensidade + 1; i++) {
+            nk.add(0.0);
+        }
+        for (int i = 0; i < intensidade + 1; i++) {
+            nk.set(i, (double) histograma.get(i) / (coluna * linha));
+            System.out.print("""
+                               %d: %f
+                               """.formatted(i, nk.get(i)));
         }
 
     }

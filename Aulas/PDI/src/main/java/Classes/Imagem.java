@@ -546,4 +546,25 @@ public class Imagem {
             e.printStackTrace();
         }
     }
+
+    public int[] histogram() {
+        int histograma[] = new int[intensidade];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                histograma[Matriz[coluna][linha]] += 1;
+            }
+        }
+        for (int i = 0; i < intensidade; i++) {
+            System.out.println("""
+                               %d: %d
+                               """.formatted(i, histograma[i]));
+
+        }
+        return histograma;
+    }
+
+    public void equalizacao_histograma() {
+        int histograma[] = histogram();
+
+    }
 }

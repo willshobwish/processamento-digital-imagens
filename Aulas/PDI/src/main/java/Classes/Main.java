@@ -14,7 +14,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Imagem matriz = new Imagem("src/Assets/lena256irfam.pgm");
+        Imagem matriz = new Imagem("src//main\\java\\Assets\\equalizacao_histograma\\lena256.pgm");
         Imagem skull = new Imagem("src/Assets/ctskull-256.pgm");
         Imagem aerial = new Imagem("src/Assets/aerial.pgm");
         Imagem spine = new Imagem("src/Assets/spine.pgm");
@@ -60,9 +60,9 @@ public class Main {
 //            spine.Estica(1, eachValor).ImprimeArquivo("src/Assets/spine" + eachValor + ".pgm");
 //
 //        }
-        matriz.aumentaResolucao(2).saveImage("src/Assets/lenaaumentada.pgm");
-        matriz.diminuiResolucao(2).saveImage("src/Assets/lenadiminuida.pgm");
-
+//        matriz.aumentaResolucao(2).saveImage("src/Assets/lenaaumentada.pgm");
+//        matriz.diminuiResolucao(2).saveImage("src/Assets/lenadiminuida.pgm");
+        matriz.equalizacao_histograma();
     }
 
 }
