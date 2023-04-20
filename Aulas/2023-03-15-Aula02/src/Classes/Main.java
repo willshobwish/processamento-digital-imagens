@@ -19,6 +19,10 @@ public class Main {
         Imagem aerial = new Imagem("src/Assets/aerial.pgm");
         Imagem spine = new Imagem("src/Assets/spine.pgm");
         Imagem h1 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf1.pgm");
+        Imagem h2 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf2.pgm");
+        Imagem h3 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf3.pgm");
+        Imagem h4 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf4.pgm");
+
 //        matriz.ImprimeArquivo("src/Assets/teste.pgm");
         //        matriz.ClarearAdicao(50).ImprimeArquivo("src/Assets/TesteClareadoAdicao.pgm");
         //        matriz.ClarearMultiplicao(2).ImprimeArquivo("src/Assets/TesteClareadoMultiplicacao.pgm");
@@ -63,7 +67,11 @@ public class Main {
         matriz.aumentaResolucao(2).saveImage("src/Assets/lenaaumentada.pgm");
         matriz.diminuiResolucao(2).saveImage("src/Assets/lenadiminuida.pgm");
 //        matriz.histogram("src/Assets/histograma.csv");
-        h1.equalizacao_histograma();
+        h1.equalizacao_histograma().saveImage("src/Assets/correto1.pgm");
+        h2.equalizacao_histograma().saveImage("src/Assets/correto2.pgm");
+        h3.equalizacao_histograma().saveImage("src/Assets/correto3.pgm");
+        h4.equalizacao_histograma().saveImage("src/Assets/correto4.pgm");
+
     }
 
 }

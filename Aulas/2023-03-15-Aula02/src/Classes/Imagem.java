@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Math.pow;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -566,18 +567,25 @@ public class Imagem {
         return histograma;
     }
 
-    public void equalizacao_histograma() {
-        ArrayList<Integer> histograma = histogram();
+    public Imagem equalizacao_histograma() {
+        ArrayList<Integer> histograma = histogram(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
         ArrayList<Double> nk = new ArrayList<>();
+        double somaProbabilidade = 0;
         for (int i = 0; i < intensidade + 1; i++) {
             nk.add(0.0);
         }
         for (int i = 0; i < intensidade + 1; i++) {
             nk.set(i, (double) histograma.get(i) / (coluna * linha));
-            System.out.print("""
-                               %d: %f
-                               """.formatted(i, nk.get(i)));
+            somaProbabilidade += nk.get(i);
+            soma.set(i, (int) Math.floor(intensidade * somaProbabilidade));
+            System.out.println(soma.get(i));
         }
-
+        Integer matrizModificada[][] = new Integer[coluna][linha];
+        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                matrizModificada[colunaMatriz][linhaMatriz] = soma.get(Matriz[colunaMatriz][linhaMatriz]);
+            }
+        }
+        return new Imagem(matrizModificada, coluna, linha, intensidade, cabecalho, comentario);
     }
 }
