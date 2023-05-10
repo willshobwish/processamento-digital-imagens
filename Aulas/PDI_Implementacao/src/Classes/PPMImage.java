@@ -240,4 +240,28 @@ public class PPMImage {
         return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    public PPMImage Escurecer(int r, int g, int b) {
+        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
+        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                if (matrizR[linhaMatriz][colunaMatriz] - r < 0) {
+                    newMatrizR[linhaMatriz][colunaMatriz] = 0;
+                } else {
+                    newMatrizR[linhaMatriz][colunaMatriz] = matrizR[linhaMatriz][colunaMatriz] - r;
+                }
+                if (matrizG[linhaMatriz][colunaMatriz] - g < 0) {
+                    newMatrizG[linhaMatriz][colunaMatriz] = 0;
+                } else {
+                    newMatrizG[linhaMatriz][colunaMatriz] = matrizG[linhaMatriz][colunaMatriz] - g;
+                }
+                if (matrizB[linhaMatriz][colunaMatriz] - b < 0) {
+                    newMatrizB[linhaMatriz][colunaMatriz] = 0;
+                } else {
+                    newMatrizB[linhaMatriz][colunaMatriz] = matrizB[linhaMatriz][colunaMatriz] - b;
+                }
+            }
+        }
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+    }
+
 }
