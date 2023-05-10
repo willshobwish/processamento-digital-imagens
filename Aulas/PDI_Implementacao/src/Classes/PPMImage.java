@@ -6,6 +6,8 @@ package Classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -21,8 +23,10 @@ public class PPMImage {
     protected String cabecalho;
     protected String comentario;
 
-    public PPMImage(Integer[][] Matriz, int linha, int coluna, int intensidade, String cabecalho, String comentario) {
-//        this.Matriz = Matriz;
+    public PPMImage(Integer[][] matrizR, Integer[][] matrizG, Integer[][] matrizB, int linha, int coluna, int intensidade, String cabecalho, String comentario) {
+        this.matrizR = matrizR;
+        this.matrizG = matrizG;
+        this.matrizB = matrizB;
         this.linha = linha;
         this.coluna = coluna;
         this.intensidade = intensidade;
@@ -69,6 +73,50 @@ public class PPMImage {
             Leitor.close();
         } catch (FileNotFoundException e) {
             System.out.println("Ocorreu um erro no fechamento do arquivo");
+            e.printStackTrace();
+        }
+    }
+
+    public void saveImage(String filepath) {
+        try {
+            File ponteiroArquivo = new File(filepath);
+            if (ponteiroArquivo.createNewFile()) {
+                System.out.println("Arquivo criado %s foi criado".formatted(ponteiroArquivo.getName()));
+            } else {
+                System.out.println("A imagem %s ja existe".formatted(ponteiroArquivo.getName()));
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter escritor = new FileWriter(filepath);
+            //Impressao do cabecalho, comentario, linha e coluna, intensidade do pixel
+            System.out.println("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted(cabecalho, comentario, linha, coluna, intensidade));
+            //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
+            escritor.write("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted(cabecalho, comentario + " gerado pelo java", linha, coluna, intensidade));
+            //Escrita da matriz em arquivo
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    escritor.write("""
+                                    %d %d %d
+                                    """.formatted(matrizR[linhaMatriz][colunaMatriz], matrizG[linhaMatriz][colunaMatriz], matrizB[linhaMatriz][colunaMatriz]));
+                }
+            }
+            escritor.close();
+            System.out.println("Escrito corretamente no arquivo.");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro na escrita");
             e.printStackTrace();
         }
     }
