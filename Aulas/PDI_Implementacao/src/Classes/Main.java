@@ -14,14 +14,14 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Imagem matriz = new Imagem("src/Assets/lena256irfam.pgm");
-        Imagem skull = new Imagem("src/Assets/ctskull-256.pgm");
-        Imagem aerial = new Imagem("src/Assets/aerial.pgm");
-        Imagem spine = new Imagem("src/Assets/spine.pgm");
-        Imagem h1 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf1.pgm");
-        Imagem h2 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf2.pgm");
-        Imagem h3 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf3.pgm");
-        Imagem h4 = new Imagem("src\\Assets\\equalizacao_histograma\\phistf4.pgm");
+        PGMImage matriz = new PGMImage("src/Assets/lena256irfam.pgm");
+        PGMImage skull = new PGMImage("src/Assets/ctskull-256.pgm");
+        PGMImage aerial = new PGMImage("src/Assets/aerial.pgm");
+        PGMImage spine = new PGMImage("src/Assets/spine.pgm");
+        PGMImage h1 = new PGMImage("src\\Assets\\equalizacao_histograma\\phistf1.pgm");
+        PGMImage h2 = new PGMImage("src\\Assets\\equalizacao_histograma\\phistf2.pgm");
+        PGMImage h3 = new PGMImage("src\\Assets\\equalizacao_histograma\\phistf3.pgm");
+        PGMImage h4 = new PGMImage("src\\Assets\\equalizacao_histograma\\phistf4.pgm");
 
 //        matriz.ImprimeArquivo("src/Assets/teste.pgm");
         //        matriz.ClarearAdicao(50).ImprimeArquivo("src/Assets/TesteClareadoAdicao.pgm");
