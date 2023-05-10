@@ -120,4 +120,100 @@ public class PPMImage {
             e.printStackTrace();
         }
     }
+
+    public void saveImageChannels(String filepath) {
+        File ponteiroArquivoR = new File(filepath + "R.pgm");
+        File ponteiroArquivoG = new File(filepath + "G.pgm");
+        File ponteiroArquivoB = new File(filepath + "B.pgm");
+        try {
+            if (ponteiroArquivoR.createNewFile()) {
+                System.out.println("Arquivo criado %s foi criado".formatted(ponteiroArquivoR.getName()));
+            } else {
+                System.out.println("A imagem %s ja existe".formatted(ponteiroArquivoR.getName()));
+            }
+            if (ponteiroArquivoG.createNewFile()) {
+                System.out.println("Arquivo criado %s foi criado".formatted(ponteiroArquivoG.getName()));
+            } else {
+                System.out.println("A imagem %s ja existe".formatted(ponteiroArquivoG.getName()));
+            }
+            if (ponteiroArquivoB.createNewFile()) {
+                System.out.println("Arquivo criado %s foi criado".formatted(ponteiroArquivoB.getName()));
+            } else {
+                System.out.println("A imagem %s ja existe".formatted(ponteiroArquivoB.getName()));
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter writer = new FileWriter(ponteiroArquivoR);
+            //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
+            writer.write("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+            //Escrita da matriz em arquivo
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    writer.write("""
+                                    %d
+                                    """.formatted(matrizR[linhaMatriz][colunaMatriz]));
+                }
+            }
+            writer.close();
+            System.out.println("Escrito corretamente no arquivo.");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro na escrita");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter writer = new FileWriter(ponteiroArquivoG);
+            //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
+            writer.write("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+            //Escrita da matriz em arquivo
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    writer.write("""
+                                    %d
+                                    """.formatted(matrizG[linhaMatriz][colunaMatriz]));
+                }
+            }
+            writer.close();
+            System.out.println("Escrito corretamente no arquivo.");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro na escrita");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter writer = new FileWriter(ponteiroArquivoB);
+            //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
+            writer.write("""
+                           %s
+                           %s
+                           %d %d
+                           %d
+                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+            //Escrita da matriz em arquivo
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    writer.write("""
+                                    %d
+                                    """.formatted(matrizB[linhaMatriz][colunaMatriz]));
+                }
+            }
+            writer.close();
+            System.out.println("Escrito corretamente no arquivo.");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro na escrita");
+            e.printStackTrace();
+        }
+    }
+
 }
