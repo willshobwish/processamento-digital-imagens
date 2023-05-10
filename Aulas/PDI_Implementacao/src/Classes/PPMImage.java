@@ -16,13 +16,56 @@ import java.util.Scanner;
  */
 public class PPMImage {
 
-    protected Integer[][] matrizR, matrizG, matrizB;
+    /**
+     * Matriz para o matriz red
+     */
+    protected Integer[][] matrizR,
+            /**
+             * Matriz para o canal green
+             */
+            matrizG,
+            /**
+             * Matriz para o canal blue
+             */
+            matrizB;
+
+    /**
+     * Quantidade de linhas da imagem
+     */
     protected int linha;
+
+    /**
+     * Quantidade de coluna da imagems
+     */
     protected int coluna;
+
+    /**
+     * A profundidade de cor da imagem
+     */
     protected int intensidade;
+
+    /**
+     * Cabecalho da imagem
+     */
     protected String cabecalho;
+
+    /**
+     * Comentarios da imagem
+     */
     protected String comentario;
 
+    /**
+     * Construtor da classe
+     *
+     * @param matrizR Matriz red
+     * @param matrizG Matriz green
+     * @param matrizB Matriz blue
+     * @param linha Quantidade de linha da imagem
+     * @param coluna Quantidade de coluna da imagem
+     * @param intensidade Quantidade da profundidade de cor
+     * @param cabecalho Cabecalho da imagem
+     * @param comentario Comentario da imagem
+     */
     public PPMImage(Integer[][] matrizR, Integer[][] matrizG, Integer[][] matrizB, int linha, int coluna, int intensidade, String cabecalho, String comentario) {
         this.matrizR = matrizR;
         this.matrizG = matrizG;
@@ -35,6 +78,7 @@ public class PPMImage {
     }
 
     /**
+     * AAAs
      *
      * @param filepath
      */
@@ -77,6 +121,10 @@ public class PPMImage {
         }
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public void saveImage(String filepath) {
         try {
             File ponteiroArquivo = new File(filepath);
@@ -121,6 +169,10 @@ public class PPMImage {
         }
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public void saveImageChannels(String filepath) {
         File ponteiroArquivoR = new File(filepath + "R.pgm");
         File ponteiroArquivoG = new File(filepath + "G.pgm");
@@ -216,6 +268,13 @@ public class PPMImage {
         }
     }
 
+    /**
+     *
+     * @param r
+     * @param g
+     * @param b
+     * @return
+     */
     public PPMImage Clarear(int r, int g, int b) {
         Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
         for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -240,6 +299,13 @@ public class PPMImage {
         return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param r
+     * @param g
+     * @param b
+     * @return
+     */
     public PPMImage Escurecer(int r, int g, int b) {
         Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
         for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
@@ -264,6 +330,13 @@ public class PPMImage {
         return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param r
+     * @param g
+     * @param b
+     * @return
+     */
     public PPMImage InvertChannels(String r, String g, String b) {
         Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
         switch (r) {
