@@ -264,4 +264,48 @@ public class PPMImage {
         return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
     }
 
+    public PPMImage InvertChannels(String r, String g, String b) {
+        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
+        switch (r) {
+            case "r":
+                newMatrizR = matrizR;
+                break;
+            case "g":
+                newMatrizR = matrizG;
+                break;
+            case "b":
+                newMatrizR = matrizB;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        switch (g) {
+            case "r":
+                newMatrizG = matrizR;
+                break;
+            case "g":
+                newMatrizG = matrizG;
+                break;
+            case "b":
+                newMatrizG = matrizB;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        switch (b) {
+            case "r":
+                newMatrizB = matrizR;
+                break;
+            case "g":
+                newMatrizB = matrizG;
+                break;
+            case "b":
+                newMatrizB = matrizB;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+    }
+
 }
