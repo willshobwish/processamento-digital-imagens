@@ -216,4 +216,28 @@ public class PPMImage {
         }
     }
 
+    public PPMImage Clarear(int r, int g, int b) {
+        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
+        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                if (matrizR[linhaMatriz][colunaMatriz] + r > intensidade) {
+                    newMatrizR[linhaMatriz][colunaMatriz] = intensidade;
+                } else {
+                    newMatrizR[linhaMatriz][colunaMatriz] = matrizR[linhaMatriz][colunaMatriz] + r;
+                }
+                if (matrizG[linhaMatriz][colunaMatriz] + g > intensidade) {
+                    newMatrizG[linhaMatriz][colunaMatriz] = intensidade;
+                } else {
+                    newMatrizG[linhaMatriz][colunaMatriz] = matrizG[linhaMatriz][colunaMatriz] + g;
+                }
+                if (matrizB[linhaMatriz][colunaMatriz] + b > intensidade) {
+                    newMatrizB[linhaMatriz][colunaMatriz] = intensidade;
+                } else {
+                    newMatrizB[linhaMatriz][colunaMatriz] = matrizB[linhaMatriz][colunaMatriz] + b;
+                }
+            }
+        }
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+    }
+
 }
