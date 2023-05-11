@@ -1,6 +1,9 @@
 package Classes;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,6 +98,52 @@ public class PGMImage {
                 for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
                     for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
                         Matriz[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                    }
+                }
+            }
+            Leitor.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Ocorreu um erro no fechamento do arquivo");
+            e.printStackTrace();
+        }
+    }
+
+    public PGMImage(String filepath, String type) {
+        try {
+            DataInputStream stream = new DataInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream(new File(filepath))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File ArquivoObjeto = new File(filepath);
+            Scanner Leitor = new Scanner(ArquivoObjeto);
+            //Leitura do cabecalho, comentario, tamanho e intensidade
+            this.cabecalho = Leitor.nextLine();
+            System.out.println(cabecalho);
+            this.comentario = Leitor.nextLine();
+            System.out.println(comentario);
+            String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
+            this.intensidade = Integer.parseInt(Leitor.nextLine());
+            //Leitura do tamanho de colunas e linhas
+            this.linha = Integer.parseInt(ColunaLinhaArquivo[0]);
+            this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
+            this.Matriz = new Integer[this.linha][this.coluna];
+            System.out.println("""
+                           Nome do arquivo: %s
+                           linha: %d
+                           coluna: %d
+                           Intensidade: %d
+                           Cabecalho: %s
+                           Comentario: %s
+                           """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
+            //Armazenamento do conteudo da imagem
+            while (Leitor.hasNext()) {
+                for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
+                    for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
+                        Matriz[colunaVetor][linhaVetor] = Leitor.nextInt();
                     }
                 }
             }
