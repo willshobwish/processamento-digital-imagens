@@ -66,26 +66,74 @@ public class PGMImage {
         this.comentario = comentario;
     }
 
-    /**
-     *
-     * @param filepath
-     */
     public PGMImage(String filepath) {
         try {
-            File ArquivoObjeto = new File(filepath);
-            Scanner Leitor = new Scanner(ArquivoObjeto);
-            //Leitura do cabecalho, comentario, tamanho e intensidade
-            this.cabecalho = Leitor.nextLine();
-            System.out.println(cabecalho);
-            this.comentario = Leitor.nextLine();
-            System.out.println(comentario);
-            String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
-            this.intensidade = Integer.parseInt(Leitor.nextLine());
-            //Leitura do tamanho de colunas e linhas
-            this.linha = Integer.parseInt(ColunaLinhaArquivo[0]);
-            this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
-            this.Matriz = new Integer[this.linha][this.coluna];
-            System.out.println("""
+            FileInputStream fileInputStream = new FileInputStream(filepath);
+            String magic = readLineBinary(fileInputStream);
+            fileInputStream.close();
+            if (magic.equals("P5")) {
+//                Para tratar arquivos binários é necessário utilizar um método mais "primitivo" do java que tem controle sobre a quantidade de leitura de bytes
+                try {
+                    fileInputStream = new FileInputStream(filepath);
+//                    Leitura do cabeçalho
+//                    Define o objeto matriz para P2 porque será escrito em ASCII posteriormente
+                    cabecalho = "P2";
+//                    Pula o número mágico para o próxima linha
+                    readLineBinary(fileInputStream);
+                    comentario = readLineBinary(fileInputStream);
+//                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
+                    String[] width_height = readLineBinary(fileInputStream).split(" ");
+                    linha = Integer.parseInt(width_height[0]);
+                    coluna = Integer.parseInt(width_height[1]);
+                    intensidade = readInteger(fileInputStream);
+                    Matriz = new Integer[linha][coluna];
+                    System.out.println("""
+                           Linha: %d
+                           coluna: %d
+                           Intensidade: %d
+                           Cabecalho: %s
+                           Comentario: %s
+                           """.formatted(linha, coluna, intensidade, cabecalho, comentario));
+                    // Create a byte array to hold the pixel values
+                    byte[] pixels = new byte[linha * coluna];
+                    // Read the pixel values
+                    int bytesRead = 0;
+                    while (bytesRead < pixels.length) {
+                        int count = fileInputStream.read(pixels, bytesRead, pixels.length - bytesRead);
+                        if (count == -1) {
+                            break;
+                        }
+                        bytesRead += count;
+                    }
+                    int aux = 0;
+                    for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                            Matriz[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
+                            aux++;
+                        }
+                    }
+                    fileInputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (magic.equals("P2")) {
+//                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
+                try {
+                    File ArquivoObjeto = new File(filepath);
+                    Scanner Leitor = new Scanner(ArquivoObjeto);
+                    //Leitura do cabecalho, comentario, tamanho e intensidade
+                    this.cabecalho = Leitor.nextLine();
+                    System.out.println(cabecalho);
+                    this.comentario = Leitor.nextLine();
+                    System.out.println(comentario);
+                    String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
+                    this.intensidade = Integer.parseInt(Leitor.nextLine());
+                    //Leitura do tamanho de colunas e linhas
+                    this.linha = Integer.parseInt(ColunaLinhaArquivo[0]);
+                    this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
+                    this.Matriz = new Integer[this.linha][this.coluna];
+                    System.out.println("""
                            Nome do arquivo: %s
                            linha: %d
                            coluna: %d
@@ -93,77 +141,47 @@ public class PGMImage {
                            Cabecalho: %s
                            Comentario: %s
                            """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
-            //Armazenamento do conteudo da imagem
-            while (Leitor.hasNext()) {
-                for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
-                    for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
-                        Matriz[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                    //Armazenamento do conteudo da imagem
+                    while (Leitor.hasNext()) {
+                        for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
+                            for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
+                                Matriz[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                            }
+                        }
                     }
+                    Leitor.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Ocorreu um erro no fechamento do arquivo");
+                    e.printStackTrace();
                 }
             }
-            Leitor.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Ocorreu um erro no fechamento do arquivo");
-            e.printStackTrace();
-        }
-    }
-
-    public PGMImage(String filepath, String type) throws IOException {
-        try {
-            FileInputStream fis = new FileInputStream(filepath);
-
-            // Read the header
-            String magic = readLine(fis);
-            String commentary = readLine(fis);
-            String[] width_height = readLine(fis).split(" ");
-            int width = Integer.parseInt(width_height[0]);
-            int height = Integer.parseInt(width_height[1]);
-            int maxPixelValue = readInt(fis);
-
-            // Create a byte array to hold the pixel values
-            byte[] pixels = new byte[width * height + 10];
-
-            // Read the pixel values
-            int bytesRead = 0;
-            while (bytesRead < pixels.length) {
-                int count = fis.read(pixels, bytesRead, pixels.length - bytesRead);
-                if (count == -1) {
-                    break;
-                }
-                bytesRead += count;
-            }
-            for (int i = 0; i < pixels.length; i++) {
-//                System.out.println(pixels[i] & 0xFF);
-            }
-            // Close the FileInputStream
-            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private static int readInt(FileInputStream fis) throws IOException {
+    private static int readInteger(FileInputStream fileInputStream) {
         String s = "";
         try {
-            s = readLine(fis);
+            s = readLineBinary(fileInputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Integer.parseInt(s);
     }
 
-    private static String readLine(FileInputStream fis) throws IOException {
-        StringBuilder sb = new StringBuilder();
+    private static String readLineBinary(FileInputStream fileInputStream) {
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             int c;
-            while ((c = fis.read()) != -1 && (c != '\n')) {
-                sb.append((char) c);
+            while ((c = fileInputStream.read()) != -1 && (c != '\n')) {
+                stringBuilder.append((char) c);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return sb.toString().trim();
+        return stringBuilder.toString().trim();
     }
 
     /**
