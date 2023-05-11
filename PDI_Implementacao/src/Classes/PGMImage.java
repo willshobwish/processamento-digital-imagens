@@ -108,50 +108,62 @@ public class PGMImage {
         }
     }
 
-    public PGMImage(String filepath, String type) {
+    public PGMImage(String filepath, String type) throws IOException {
         try {
-            DataInputStream stream = new DataInputStream(
-                    new BufferedInputStream(
-                            new FileInputStream(new File(filepath))));
+            FileInputStream fis = new FileInputStream(filepath);
+
+            // Read the header
+            String magic = readLine(fis);
+            String commentary = readLine(fis);
+            String[] width_height = readLine(fis).split(" ");
+            int width = Integer.parseInt(width_height[0]);
+            int height = Integer.parseInt(width_height[1]);
+            int maxPixelValue = readInt(fis);
+
+            // Create a byte array to hold the pixel values
+            byte[] pixels = new byte[width * height + 10];
+
+            // Read the pixel values
+            int bytesRead = 0;
+            while (bytesRead < pixels.length) {
+                int count = fis.read(pixels, bytesRead, pixels.length - bytesRead);
+                if (count == -1) {
+                    break;
+                }
+                bytesRead += count;
+            }
+            for (int i = 0; i < pixels.length; i++) {
+//                System.out.println(pixels[i] & 0xFF);
+            }
+            // Close the FileInputStream
+            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private static int readInt(FileInputStream fis) throws IOException {
+        String s = "";
         try {
-            File ArquivoObjeto = new File(filepath);
-            Scanner Leitor = new Scanner(ArquivoObjeto);
-            //Leitura do cabecalho, comentario, tamanho e intensidade
-            this.cabecalho = Leitor.nextLine();
-            System.out.println(cabecalho);
-            this.comentario = Leitor.nextLine();
-            System.out.println(comentario);
-            String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
-            this.intensidade = Integer.parseInt(Leitor.nextLine());
-            //Leitura do tamanho de colunas e linhas
-            this.linha = Integer.parseInt(ColunaLinhaArquivo[0]);
-            this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
-            this.Matriz = new Integer[this.linha][this.coluna];
-            System.out.println("""
-                           Nome do arquivo: %s
-                           linha: %d
-                           coluna: %d
-                           Intensidade: %d
-                           Cabecalho: %s
-                           Comentario: %s
-                           """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
-            //Armazenamento do conteudo da imagem
-            while (Leitor.hasNext()) {
-                for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
-                    for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
-                        Matriz[colunaVetor][linhaVetor] = Leitor.nextInt();
-                    }
-                }
-            }
-            Leitor.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Ocorreu um erro no fechamento do arquivo");
+            s = readLine(fis);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return Integer.parseInt(s);
+    }
+
+    private static String readLine(FileInputStream fis) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try {
+            int c;
+            while ((c = fis.read()) != -1 && (c != '\n')) {
+                sb.append((char) c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString().trim();
     }
 
     /**
