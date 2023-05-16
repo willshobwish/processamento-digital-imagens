@@ -68,6 +68,7 @@ public class PGMImage {
 
     public PGMImage(String filepath) {
         try {
+            System.out.println("Abertura de imagem PGM binario");
             FileInputStream fileInputStream = new FileInputStream(filepath);
             String magic = readLineBinary(fileInputStream);
             fileInputStream.close();
@@ -120,6 +121,7 @@ public class PGMImage {
             if (magic.equals("P2")) {
 //                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
                 try {
+                    System.out.println("Abertura de imagem PGM ASCII");
                     File ArquivoObjeto = new File(filepath);
                     Scanner Leitor = new Scanner(ArquivoObjeto);
                     //Leitura do cabecalho, comentario, tamanho e intensidade

@@ -85,15 +85,16 @@ public class PPMImage {
      */
     public PPMImage(String filepath) {
         try {
+            System.out.println("Abertura de imagem PPM binario");
             FileInputStream fileInputStream = new FileInputStream(filepath);
-            String magic = readLineBinary(fileInputStream);
+            String magicNumber = readLineBinary(fileInputStream);
             fileInputStream.close();
-            if (magic.equals("P6")) {
+            if (magicNumber.equals("P6")) {
 //                Para tratar arquivos binários é necessário utilizar um método mais "primitivo" do java que tem controle sobre a quantidade de leitura de bytes
                 try {
                     fileInputStream = new FileInputStream(filepath);
 //                    Leitura do cabeçalho
-//                    Define o objeto matriz para P2 porque será escrito em ASCII posteriormente
+//                    Define o objeto matriz para P3 porque será escrito em ASCII posteriormente
                     cabecalho = "P3";
 //                    Pula o número mágico para o próxima linha
                     readLineBinary(fileInputStream);
@@ -141,9 +142,10 @@ public class PPMImage {
                     e.printStackTrace();
                 }
             }
-            if (magic.equals("P3")) {
+            if (magicNumber.equals("P3")) {
 //                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
                 try {
+                    System.out.println("Abertura de imagem PPM ASCII");
                     File ArquivoObjeto = new File(filepath);
                     Scanner Leitor = new Scanner(ArquivoObjeto);
                     //Leitura do cabecalho, comentario, tamanho e intensidade
