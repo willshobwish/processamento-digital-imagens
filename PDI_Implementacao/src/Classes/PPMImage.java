@@ -5,6 +5,7 @@
 package Classes;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -84,19 +85,81 @@ public class PPMImage {
      */
     public PPMImage(String filepath) {
         try {
-            File ArquivoObjeto = new File(filepath);
-            Scanner Leitor = new Scanner(ArquivoObjeto);
-            //Leitura do cabecalho, comentario, tamanho e intensidade
-            this.cabecalho = Leitor.nextLine();
-            this.comentario = Leitor.nextLine();
-            //Leitura do tamanho de colunas e linhas
-            this.linha = Leitor.nextInt();
-            this.coluna = Leitor.nextInt();
-            this.intensidade = Leitor.nextInt();
-            this.matrizR = new Integer[this.linha][this.coluna];
-            this.matrizG = new Integer[this.linha][this.coluna];
-            this.matrizB = new Integer[this.linha][this.coluna];
-            System.out.println("""
+            FileInputStream fileInputStream = new FileInputStream(filepath);
+            String magic = readLineBinary(fileInputStream);
+            fileInputStream.close();
+            if (magic.equals("P6")) {
+//                Para tratar arquivos binários é necessário utilizar um método mais "primitivo" do java que tem controle sobre a quantidade de leitura de bytes
+                try {
+                    fileInputStream = new FileInputStream(filepath);
+//                    Leitura do cabeçalho
+//                    Define o objeto matriz para P2 porque será escrito em ASCII posteriormente
+                    cabecalho = "P3";
+//                    Pula o número mágico para o próxima linha
+                    readLineBinary(fileInputStream);
+                    comentario = readLineBinary(fileInputStream);
+//                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
+                    String[] width_height = readLineBinary(fileInputStream).split(" ");
+                    linha = Integer.parseInt(width_height[0]);
+                    coluna = Integer.parseInt(width_height[1]);
+                    intensidade = readInteger(fileInputStream);
+                    matrizR = new Integer[linha][coluna];
+                    matrizG = new Integer[linha][coluna];
+                    matrizB = new Integer[linha][coluna];
+                    System.out.println("""
+                           Linha: %d
+                           coluna: %d
+                           Intensidade: %d
+                           Cabecalho: %s
+                           Comentario: %s
+                           """.formatted(linha, coluna, intensidade, cabecalho, comentario));
+                    // Create a byte array to hold the pixel values
+                    byte[] pixels = new byte[linha * coluna * 3];
+                    // Read the pixel values
+                    int bytesRead = 0;
+                    while (bytesRead < pixels.length) {
+                        int count = fileInputStream.read(pixels, bytesRead, pixels.length - bytesRead);
+                        if (count == -1) {
+                            break;
+                        }
+                        bytesRead += count;
+                    }
+                    int aux = 0;
+                    for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+//                            Incrementar em um cada vez que le para ter todas as tres cores por vez
+                            matrizR[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
+                            aux++;
+                            matrizG[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
+                            aux++;
+                            matrizB[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
+                            aux++;
+                        }
+                    }
+                    fileInputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (magic.equals("P3")) {
+//                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
+                try {
+                    File ArquivoObjeto = new File(filepath);
+                    Scanner Leitor = new Scanner(ArquivoObjeto);
+                    //Leitura do cabecalho, comentario, tamanho e intensidade
+                    cabecalho = Leitor.nextLine();
+                    System.out.println(cabecalho);
+                    comentario = Leitor.nextLine();
+                    System.out.println(comentario);
+                    String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
+                    intensidade = Integer.parseInt(Leitor.nextLine());
+                    //Leitura do tamanho de colunas e linhas
+                    linha = Integer.parseInt(ColunaLinhaArquivo[0]);
+                    coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
+                    matrizR = new Integer[linha][coluna];
+                    matrizG = new Integer[linha][coluna];
+                    matrizB = new Integer[linha][coluna];
+                    System.out.println("""
                            Nome do arquivo: %s
                            linha: %d
                            coluna: %d
@@ -104,21 +167,49 @@ public class PPMImage {
                            Cabecalho: %s
                            Comentario: %s
                            """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
-            //Armazenamento do conteudo da imagem
-            while (Leitor.hasNext()) {
-                for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
-                    for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
-                        matrizR[colunaVetor][linhaVetor] = Leitor.nextInt();
-                        matrizG[colunaVetor][linhaVetor] = Leitor.nextInt();
-                        matrizB[colunaVetor][linhaVetor] = Leitor.nextInt();
+                    //Armazenamento do conteudo da imagem
+                    while (Leitor.hasNext()) {
+                        for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
+                            for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
+                                matrizR[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                                matrizG[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                                matrizB[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+
+                            }
+                        }
                     }
+                    Leitor.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Ocorreu um erro no fechamento do arquivo");
+                    e.printStackTrace();
                 }
             }
-            Leitor.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Ocorreu um erro no fechamento do arquivo");
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static int readInteger(FileInputStream fileInputStream) {
+        String s = "";
+        try {
+            s = readLineBinary(fileInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Integer.parseInt(s);
+    }
+
+    private static String readLineBinary(FileInputStream fileInputStream) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            int c;
+            while ((c = fileInputStream.read()) != -1 && (c != '\n')) {
+                stringBuilder.append((char) c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString().trim();
     }
 
     /**
@@ -141,10 +232,10 @@ public class PPMImage {
             FileWriter escritor = new FileWriter(filepath);
             //Impressao do cabecalho, comentario, linha e coluna, intensidade do pixel
             System.out.println("""
-                           %s
-                           %s
-                           %d %d
-                           %d
+                               Cabecalho: %s
+                               Comentario: %s
+                               Quantidade de linha e coluna: %d %d
+                               Profundidade de cores: %d
                            """.formatted(cabecalho, comentario, linha, coluna, intensidade));
             //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
             escritor.write("""
