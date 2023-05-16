@@ -204,10 +204,10 @@ public class PGMImage {
             FileWriter escritor = new FileWriter(filepath);
             //Impressao do cabecalho, comentario, linha e coluna, intensidade do pixel
             System.out.println("""
-                           %s
-                           %s
-                           %d %d
-                           %d
+                                Cabecalho: %s
+                                Comentario: %s
+                                Quantidade de linha e coluna: %d %d
+                                Profundidade de cores: %d
                            """.formatted(cabecalho, comentario, linha, coluna, intensidade));
             //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
             escritor.write("""
