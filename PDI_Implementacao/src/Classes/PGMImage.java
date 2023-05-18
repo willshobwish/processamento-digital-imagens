@@ -667,4 +667,30 @@ public class PGMImage {
         }
         return new PGMImage(matrizModificada, linha, coluna, intensidade, cabecalho, comentario);
     }
+
+    public PGMImage media(int quantidade) {
+        if (quantidade % 2 == 0) {
+            System.out.println("A quantidade precisa ser impar");
+            return null;
+        } else {
+            Integer MatrizModificada[][] = Matriz;
+            int QuantidadePositiva = quantidade / 2;
+            int QuantidadeNegativa = QuantidadePositiva * - 1;
+            double SomaMedia = 0;
+            for (int linhaMatriz = QuantidadePositiva; linhaMatriz < linha - QuantidadePositiva; linhaMatriz++) {
+                for (int colunaMatriz = QuantidadePositiva; colunaMatriz < coluna - QuantidadePositiva; colunaMatriz++) {
+                    for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
+                        for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
+                            SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
+                        }
+                    }
+
+                    MatrizModificada[linhaMatriz - QuantidadePositiva][colunaMatriz - QuantidadePositiva] = (int) SomaMedia / (quantidade * quantidade);
+                    SomaMedia = 0;
+                }
+            }
+            return new PGMImage(MatrizModificada, linha - QuantidadePositiva, coluna - QuantidadePositiva, intensidade, cabecalho, comentario);
+        }
+    }
+
 }
