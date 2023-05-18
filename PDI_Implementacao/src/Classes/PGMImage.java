@@ -635,6 +635,19 @@ public class PGMImage {
         return histograma;
     }
 
+    public ArrayList<Integer> histogram(Integer MatrizInserida[][], int quantidade, int intensidade) {
+        ArrayList<Integer> histograma = new ArrayList<>();
+        for (int i = 0; i < intensidade + 1; i++) {
+            histograma.add(0);
+        }
+        for (int linhaMatriz = 0; linhaMatriz < quantidade; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < quantidade; colunaMatriz++) {
+                histograma.set(MatrizInserida[linhaMatriz][colunaMatriz], histograma.get(MatrizInserida[linhaMatriz][colunaMatriz]) + 1);
+            }
+        }
+        return histograma;
+    }
+
     public PGMImage equalizacao_histograma() {
         ArrayList<Integer> histograma = histogram(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
         ArrayList<Double> nk = new ArrayList<>();
