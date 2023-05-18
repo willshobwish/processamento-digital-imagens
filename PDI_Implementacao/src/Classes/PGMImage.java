@@ -693,4 +693,59 @@ public class PGMImage {
         }
     }
 
+    public PGMImage equalizacaoLocalHistograma(int quantidade) {
+        if (quantidade % 2 == 0) {
+            System.out.println("A quantidade precisa ser impar");
+            return null;
+        } else {
+            Integer subMatriz[][] = new Integer[quantidade][quantidade], MatrizFinal[][] = Matriz;
+            for (int indexLinha = 0; indexLinha < linha / quantidade; indexLinha++) {
+                for (int indexColuna = 0; indexColuna < coluna / quantidade; indexColuna++) {
+                    for (int subLinha = 0; subLinha < quantidade; subLinha++) {
+                        for (int subColuna = 0; subColuna < quantidade; subColuna++) {
+                            //System.out.print("%d %d|".formatted(indexLinha * quantidade + subLinha, indexColuna * quantidade + subColuna));
+                            subMatriz[subLinha][subColuna] = Matriz[indexLinha * quantidade + subLinha][indexColuna * quantidade + subColuna];
+                        }
+                        System.out.println("");
+
+                    }
+                    System.out.println("");
+
+                    ArrayList<Integer> histograma = new ArrayList<>();
+                    for (int i = 0; i < intensidade + 1; i++) {
+                        histograma.add(0);
+                    }
+                    for (int linhaMatriz = 0; linhaMatriz < quantidade; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < quantidade; colunaMatriz++) {
+                            histograma.set(subMatriz[linhaMatriz][colunaMatriz], histograma.get(subMatriz[linhaMatriz][colunaMatriz]) + 1);
+                        }
+                    }
+                    ArrayList<Integer> soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
+                    ArrayList<Double> nk = new ArrayList<>();
+                    double somaProbabilidade = 0.0;
+                    for (int i = 0; i < intensidade + 1; i++) {
+                        nk.add(0.0);
+                    }
+                    for (int i = 0; i < intensidade + 1; i++) {
+                        nk.set(i, (double) histograma.get(i) / (quantidade * quantidade));
+                        somaProbabilidade += nk.get(i);
+
+                        soma.set(i, (int) Math.floor(intensidade * somaProbabilidade));
+                    }
+                    Integer matrizModificada[][] = new Integer[quantidade][quantidade];
+                    for (int linhaMatriz = 0; linhaMatriz < quantidade; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < quantidade; colunaMatriz++) {
+                            matrizModificada[linhaMatriz][colunaMatriz] = soma.get(subMatriz[linhaMatriz][colunaMatriz]);
+                        }
+                    }
+                    for (int subLinha = 0; subLinha < quantidade; subLinha++) {
+                        for (int subColuna = 0; subColuna < quantidade; subColuna++) {
+                            MatrizFinal[indexLinha * quantidade + subLinha][indexColuna * quantidade + subColuna] = matrizModificada[subLinha][subColuna];
+                        }
+                    }
+                }
+            }
+            return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
+        }
+    }
 }
