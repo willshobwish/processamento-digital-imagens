@@ -8,6 +8,7 @@ import java.io.IOException;
 import static java.lang.Math.pow;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -182,6 +183,30 @@ public class PGMImage {
             e.printStackTrace();
         }
         return stringBuilder.toString().trim();
+    }
+
+    public Integer[][] getMatriz() {
+        return Matriz;
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public int getColuna() {
+        return coluna;
+    }
+
+    public int getIntensidade() {
+        return intensidade;
+    }
+
+    public String getCabecalho() {
+        return cabecalho;
+    }
+
+    public String getComentario() {
+        return comentario;
     }
 
     /**
@@ -747,5 +772,56 @@ public class PGMImage {
             }
             return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
         }
+    }
+
+    public PGMImage Mediana(int quantidade) {
+        Integer MatrizFinal[][] = new Integer[linha][coluna];
+        MatrizFinal = Matriz;
+
+        if (quantidade % 2 == 0) {
+            System.out.println("Quantidade nao pode ser par");
+        } else {
+            for (int linha = 0; linha < this.linha - quantidade; linha++) {
+                for (int coluna = 0; coluna < this.coluna - quantidade; coluna++) {
+                    ArrayList<Integer> vetorPixel = new ArrayList<>();
+                    for (int sublinha = 0; sublinha < quantidade; sublinha++) {
+                        for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
+                            vetorPixel.add(Matriz[linha + sublinha][coluna + subcoluna]);
+                        }
+                    }
+                    vetorPixel.sort(Comparator.naturalOrder());
+                    MatrizFinal[linha][coluna] = vetorPixel.get((int) quantidade * quantidade / 2);
+                }
+            }
+
+        }
+        return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
+    }
+
+    public PGMImage nitidez(int quantidade) {
+        Integer matriznova[][] = new Integer[linha][coluna];
+        Integer MatrizModificada[][] = new Integer[linha][coluna];
+        int QuantidadePositiva = quantidade / 2;
+        int QuantidadeNegativa = QuantidadePositiva * - 1;
+        double SomaMedia = 0;
+        for (int linhaMatriz = QuantidadePositiva; linhaMatriz < linha - QuantidadePositiva; linhaMatriz++) {
+            for (int colunaMatriz = QuantidadePositiva; colunaMatriz < coluna - QuantidadePositiva; colunaMatriz++) {
+                for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
+                    for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
+                        SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
+                    }
+                }
+
+                MatrizModificada[linhaMatriz - QuantidadePositiva][colunaMatriz - QuantidadePositiva] = (int) SomaMedia / (quantidade * quantidade);
+                SomaMedia = 0;
+            }
+        }
+        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                matriznova[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz] - MatrizModificada[linhaMatriz][colunaMatriz];
+                System.out.println("%d=%d|%d".formatted(matriznova[linhaMatriz][colunaMatriz], Matriz[linhaMatriz][colunaMatriz], MatrizModificada[linhaMatriz][colunaMatriz]));
+            }
+        }
+        return new PGMImage(matriznova, linha, coluna, intensidade, cabecalho, comentario);
     }
 }
