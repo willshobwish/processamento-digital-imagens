@@ -875,7 +875,8 @@ public class PGMImage {
         Integer[][] matrizFinal = new Integer[altura][largura];
 //        matrizFinal = Matriz;
         int kernelSize = 3;
-        Integer[][] matrizConvolucao = {{0, 1, 0}, {1, -4, 1}, {0, 1, 0}};
+        Integer[][] matrizConvolucao = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
+
         for (int i = 0; i < altura; i++) {
             for (int j = 0; j < largura; j++) {
                 int sum = 0;
@@ -927,7 +928,6 @@ public class PGMImage {
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 matriznova[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz] - MatrizModificada[linhaMatriz][colunaMatriz];
-                System.out.println("%d=%d|%d".formatted(matriznova[linhaMatriz][colunaMatriz], Matriz[linhaMatriz][colunaMatriz], MatrizModificada[linhaMatriz][colunaMatriz]));
             }
         }
         return new PGMImage(matriznova, altura, largura, intensidade, cabecalho, comentario);

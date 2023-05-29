@@ -39,8 +39,9 @@ public class Main {
         placa.Mediana(3).saveImage("src\\Assets\\todos\\medianaaaaaaaaaaaaa.pgm");
         moon.laplaciano().saveImage("src\\Assets\\todos\\laplaciado.pgm");
         lenaAscii.laplaciano().saveImage("src\\Assets\\todos\\lenana.pgm");
+        lenaAscii.rotate90().saveImage("src\\Assets\\todos\\lenana2.pgm");
 
-//        texto.nitidez(3).saveImage("src\\Assets\\todos\\nitide.pgm");
+        texto.nitidez(3).saveImage("src\\Assets\\todos\\nitide.pgm");
     }
 
 }
