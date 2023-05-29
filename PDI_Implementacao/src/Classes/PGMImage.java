@@ -775,6 +775,7 @@ public class PGMImage {
 
     public PGMImage Mediana(int quantidade) {
         Integer MatrizFinal[][] = new Integer[altura][largura];
+        int KernelDistance = quantidade / 2;
 //        MatrizFinal = Matriz;
 
         if (quantidade % 2 == 0) {
@@ -784,7 +785,6 @@ public class PGMImage {
             System.out.println(kernel);
             for (int linhaMatriz = 0; linhaMatriz < altura - 2; linhaMatriz++) {
                 for (int colunaMatriz = 0; colunaMatriz < largura - 2; colunaMatriz++) {
-
                     ArrayList<Integer> vetorPixel = new ArrayList<>();
                     for (int sublinha = 0; sublinha < quantidade; sublinha++) {
                         for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
@@ -801,76 +801,6 @@ public class PGMImage {
         return new PGMImage(MatrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
-//    public class KernelCondition {
-//
-//        public static void main(String[] args) {
-//            // Assuming you have a PGM image represented as Integer[][] array
-//            Integer[][] image = {
-//                {10, 20, 30, 40, 50},
-//                {60, 70, 80, 90, 100},
-//                {110, 120, 130, 140, 150},
-//                {160, 170, 180, 190, 200},
-//                {210, 220, 230, 240, 250}
-//            };
-//
-//            // Define the kernel
-//            int[][] kernel = {
-//                {-1, -1, -1},
-//                {-1, 8, -1},
-//                {-1, -1, -1}
-//            };
-//
-//            // Apply kernel condition
-//            Integer[][] result = applyKernelCondition(image, kernel);
-//
-//            // Display the resulting image
-//            for (Integer[] row : result) {
-//                for (Integer pixel : row) {
-//                    System.out.print(pixel + " ");
-//                }
-//                System.out.println();
-//            }
-//        }
-//
-//        public static Integer[][] applyKernelCondition(Integer[][] image, int[][] kernel) {
-//            int imageHeight = image.length;
-//            int imageWidth = image[0].length;
-//            int kernelSize = kernel.length;
-//
-//            Integer[][] result = new Integer[imageHeight][imageWidth];
-//
-//            // Loop through each pixel in the image
-//            for (int i = 0; i < imageHeight; i++) {
-//                for (int j = 0; j < imageWidth; j++) {
-//                    int sum = 0;
-//
-//                    // Apply the kernel to the current pixel and its neighbors
-//                    for (int k = 0; k < kernelSize; k++) {
-//                        for (int l = 0; l < kernelSize; l++) {
-//                            int rowIndex = i + k - kernelSize / 2;
-//                            int colIndex = j + l - kernelSize / 2;
-//
-//                            // Ensure the indices are within the image boundaries
-//                            if (rowIndex >= 0 && rowIndex < imageHeight && colIndex >= 0 && colIndex < imageWidth) {
-//                                sum += image[rowIndex][colIndex] * kernel[k][l];
-//                            }
-//                        }
-//                    }
-//
-//                    // Apply the kernel condition
-//                    if (sum > 255) {
-//                        result[i][j] = 255;
-//                    } else if (sum < 0) {
-//                        result[i][j] = 0;
-//                    } else {
-//                        result[i][j] = sum;
-//                    }
-//                }
-//            }
-//
-//            return result;
-//        }
-//    }
     public PGMImage laplaciano() {
         Integer[][] matrizFinal = new Integer[altura][largura];
 //        matrizFinal = Matriz;
