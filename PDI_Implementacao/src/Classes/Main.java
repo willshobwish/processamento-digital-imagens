@@ -23,7 +23,8 @@ public class Main {
         PGMImage quadrados = new PGMImage("src\\Assets\\originais\\quadrados.pgm");
         PGMImage placa = new PGMImage("src\\Assets\\originais\\placa_circuito.pgm");
         PGMImage texto = new PGMImage("src\\Assets\\originais\\dipxe.pgm");
-        //PPMImage lenaBinary = new PPMImage("src\\Assets\\originais\\lennabinary.ppm");
+        PGMImage moon = new PGMImage("src\\Assets\\originais\\blurry_moon2.pgm");
+//PPMImage lenaBinary = new PPMImage("src\\Assets\\originais\\lennabinary.ppm");
         //lenaBinary.saveImage("src\\Assets\\todos\\lenabinarypgm.pgm");
         //lenaAscii.saveImage("src\\Assets\\todos\\lenaascii.pgm");
         //lenaBinary.InvertChannels("r", "g", "b").saveImage("src\\Assets\\ppm\\RGB.ppm");
@@ -34,9 +35,12 @@ public class Main {
         //        lena.InvertChannels("b", "g", "r").saveImage("src\\Assets\\ppm\\BGR.ppm");
         //        quadrados.equalizacaoLocalHistograma(3).saveImage("src\\Assets\\todos\\quadrados.pgm");;
         //        lenaAscii.media(3).saveImage("src\\Assets\\todos\\lenamedia.pgm");
-        placa.test().saveImage("src\\Assets\\todos\\placa.pgm");
-        placa.Mediana(3).saveImage("src\\Assets\\todos\\mediana.pgm");
-        texto.nitidez(3).saveImage("src\\Assets\\todos\\nitide.pgm");
+        //        placa.test().saveImage("src\\Assets\\todos\\placa.pgm");
+//        placa.Mediana(3).saveImage("src\\Assets\\todos\\medianaaaaaaaaaaaaa.pgm");
+        moon.laplaciano().saveImage("src\\Assets\\todos\\laplaciado.pgm");
+        lenaAscii.laplaciano().saveImage("src\\Assets\\todos\\lenana.pgm");
+
+//        texto.nitidez(3).saveImage("src\\Assets\\todos\\nitide.pgm");
     }
 
 }

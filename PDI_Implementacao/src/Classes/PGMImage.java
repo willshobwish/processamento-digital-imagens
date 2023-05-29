@@ -776,26 +776,138 @@ public class PGMImage {
 
     public PGMImage Mediana(int quantidade) {
         Integer MatrizFinal[][] = new Integer[linha][coluna];
-        MatrizFinal = Matriz;
+//        MatrizFinal = Matriz;
 
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
-            for (int linha = 0; linha < this.linha - quantidade; linha++) {
-                for (int coluna = 0; coluna < this.coluna - quantidade; coluna++) {
-                    ArrayList<Integer> vetorPixel = new ArrayList<>();
-                    for (int sublinha = 0; sublinha < quantidade; sublinha++) {
-                        for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
-                            vetorPixel.add(Matriz[linha + sublinha][coluna + subcoluna]);
+            int kernel = quantidade / 2;
+            System.out.println(kernel);
+            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+
+                    if (linhaMatriz < kernel || linhaMatriz >= linhaMatriz - kernel || colunaMatriz < kernel || colunaMatriz >= colunaMatriz - kernel) {
+                        MatrizFinal[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+                    } else {
+                        ArrayList<Integer> vetorPixel = new ArrayList<>();
+                        for (int sublinha = 0; sublinha < quantidade; sublinha++) {
+                            for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
+
+                                vetorPixel.add(Matriz[linhaMatriz + sublinha][colunaMatriz + subcoluna]);
+                            }
                         }
+                        vetorPixel.sort(Comparator.naturalOrder());
+                        MatrizFinal[linhaMatriz][colunaMatriz] = vetorPixel.get((int) quantidade * quantidade / 2);
                     }
-                    vetorPixel.sort(Comparator.naturalOrder());
-                    MatrizFinal[linha][coluna] = vetorPixel.get((int) quantidade * quantidade / 2);
                 }
             }
 
         }
         return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
+    }
+
+    public class KernelCondition {
+
+        public static void main(String[] args) {
+            // Assuming you have a PGM image represented as Integer[][] array
+            Integer[][] image = {
+                {10, 20, 30, 40, 50},
+                {60, 70, 80, 90, 100},
+                {110, 120, 130, 140, 150},
+                {160, 170, 180, 190, 200},
+                {210, 220, 230, 240, 250}
+            };
+
+            // Define the kernel
+            int[][] kernel = {
+                {-1, -1, -1},
+                {-1, 8, -1},
+                {-1, -1, -1}
+            };
+
+            // Apply kernel condition
+            Integer[][] result = applyKernelCondition(image, kernel);
+
+            // Display the resulting image
+            for (Integer[] row : result) {
+                for (Integer pixel : row) {
+                    System.out.print(pixel + " ");
+                }
+                System.out.println();
+            }
+        }
+
+        public static Integer[][] applyKernelCondition(Integer[][] image, int[][] kernel) {
+            int imageHeight = image.length;
+            int imageWidth = image[0].length;
+            int kernelSize = kernel.length;
+
+            Integer[][] result = new Integer[imageHeight][imageWidth];
+
+            // Loop through each pixel in the image
+            for (int i = 0; i < imageHeight; i++) {
+                for (int j = 0; j < imageWidth; j++) {
+                    int sum = 0;
+
+                    // Apply the kernel to the current pixel and its neighbors
+                    for (int k = 0; k < kernelSize; k++) {
+                        for (int l = 0; l < kernelSize; l++) {
+                            int rowIndex = i + k - kernelSize / 2;
+                            int colIndex = j + l - kernelSize / 2;
+
+                            // Ensure the indices are within the image boundaries
+                            if (rowIndex >= 0 && rowIndex < imageHeight && colIndex >= 0 && colIndex < imageWidth) {
+                                sum += image[rowIndex][colIndex] * kernel[k][l];
+                            }
+                        }
+                    }
+
+                    // Apply the kernel condition
+                    if (sum > 255) {
+                        result[i][j] = 255;
+                    } else if (sum < 0) {
+                        result[i][j] = 0;
+                    } else {
+                        result[i][j] = sum;
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
+
+    public PGMImage laplaciano() {
+        Integer[][] matrizFinal = new Integer[linha][coluna];
+//        matrizFinal = Matriz;
+        int kernelSize = 3;
+        Integer[][] matrizConvolucao = {{0, 1, 0}, {1, -4, 1}, {0, 1, 0}};
+        for (int linhaMatriz = 0; linhaMatriz < linha - 2; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < coluna - 2; colunaMatriz++) {
+                int soma = 0;
+                // Apply the kernel to the current pixel and its neighbors
+                for (int k = 0; k < kernelSize; k++) {
+                    for (int l = 0; l < kernelSize; l++) {
+                        int rowIndex = linhaMatriz + k - kernelSize / 2;
+                        int colIndex = colunaMatriz + l - kernelSize / 2;
+
+                        // Ensure the indices are within the image boundaries
+                        if (rowIndex >= 0 && rowIndex < linha && colIndex >= 0 && colIndex < coluna) {
+                            soma += Matriz[rowIndex][colIndex] * matrizConvolucao[k][l];
+                        }
+                    }
+                }
+                if (soma > 255) {
+                    matrizFinal[linhaMatriz][colunaMatriz] = 255;
+                } else if (soma < 0) {
+                    matrizFinal[linhaMatriz][colunaMatriz] = 0;
+                } else {
+                    matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                }
+            }
+
+        }
+        return new PGMImage(matrizFinal, linha - 2, coluna - 2, intensidade, cabecalho, comentario);
     }
 
     public PGMImage nitidez(int quantidade) {
