@@ -23,7 +23,7 @@ public class Main {
         PGMImage quadrados = new PGMImage("src\\Assets\\originais\\quadrados.pgm");
         PGMImage placa = new PGMImage("src\\Assets\\originais\\placa_circuito.pgm");
         PGMImage texto = new PGMImage("src\\Assets\\originais\\dipxe.pgm");
-        PGMImage moon = new PGMImage("src\\Assets\\originais\\blurry_moon2.pgm");
+        PGMImage moon = new PGMImage("src\\Assets\\originais\\blurry_moon.pgm");
 //PPMImage lenaBinary = new PPMImage("src\\Assets\\originais\\lennabinary.ppm");
         //lenaBinary.saveImage("src\\Assets\\todos\\lenabinarypgm.pgm");
         //lenaAscii.saveImage("src\\Assets\\todos\\lenaascii.pgm");
@@ -36,7 +36,7 @@ public class Main {
         //        quadrados.equalizacaoLocalHistograma(3).saveImage("src\\Assets\\todos\\quadrados.pgm");;
         //        lenaAscii.media(3).saveImage("src\\Assets\\todos\\lenamedia.pgm");
         //        placa.test().saveImage("src\\Assets\\todos\\placa.pgm");
-//        placa.Mediana(3).saveImage("src\\Assets\\todos\\medianaaaaaaaaaaaaa.pgm");
+        placa.Mediana(3).saveImage("src\\Assets\\todos\\medianaaaaaaaaaaaaa.pgm");
         moon.laplaciano().saveImage("src\\Assets\\todos\\laplaciado.pgm");
         lenaAscii.laplaciano().saveImage("src\\Assets\\todos\\lenana.pgm");
 

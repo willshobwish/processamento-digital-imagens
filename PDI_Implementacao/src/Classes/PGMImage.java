@@ -25,12 +25,12 @@ public class PGMImage {
     /**
      *
      */
-    protected int linha;
+    protected int altura;
 
     /**
      *
      */
-    protected int coluna;
+    protected int largura;
 
     /**
      *
@@ -50,16 +50,16 @@ public class PGMImage {
     /**
      *
      * @param Matriz
-     * @param linha
-     * @param coluna
+     * @param altura
+     * @param lagura
      * @param intensidade
      * @param cabecalho
      * @param comentario
      */
-    public PGMImage(Integer[][] Matriz, int linha, int coluna, int intensidade, String cabecalho, String comentario) {
+    public PGMImage(Integer[][] Matriz, int altura, int lagura, int intensidade, String cabecalho, String comentario) {
         this.Matriz = Matriz;
-        this.linha = linha;
-        this.coluna = coluna;
+        this.altura = altura;
+        this.largura = lagura;
         this.intensidade = intensidade;
         this.cabecalho = cabecalho;
         this.comentario = comentario;
@@ -83,19 +83,19 @@ public class PGMImage {
                     comentario = readLineBinary(fileInputStream);
 //                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
                     String[] width_height = readLineBinary(fileInputStream).split(" ");
-                    linha = Integer.parseInt(width_height[0]);
-                    coluna = Integer.parseInt(width_height[1]);
+                    altura = Integer.parseInt(width_height[1]);
+                    largura = Integer.parseInt(width_height[0]);
                     intensidade = readInteger(fileInputStream);
-                    Matriz = new Integer[linha][coluna];
+                    Matriz = new Integer[altura][largura];
                     System.out.println("""
                            Linha: %d
                            coluna: %d
                            Intensidade: %d
                            Cabecalho: %s
                            Comentario: %s
-                           """.formatted(linha, coluna, intensidade, cabecalho, comentario));
+                           """.formatted(altura, largura, intensidade, cabecalho, comentario));
                     // Create a byte array to hold the pixel values
-                    byte[] pixels = new byte[linha * coluna];
+                    byte[] pixels = new byte[altura * largura];
                     // Read the pixel values
                     int bytesRead = 0;
                     while (bytesRead < pixels.length) {
@@ -106,8 +106,8 @@ public class PGMImage {
                         bytesRead += count;
                     }
                     int aux = 0;
-                    for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                             Matriz[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
                             aux++;
                         }
@@ -131,22 +131,22 @@ public class PGMImage {
                     String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
                     this.intensidade = Integer.parseInt(Leitor.nextLine());
                     //Leitura do tamanho de colunas e linhas
-                    this.linha = Integer.parseInt(ColunaLinhaArquivo[0]);
-                    this.coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
-                    this.Matriz = new Integer[this.linha][this.coluna];
+                    this.altura = Integer.parseInt(ColunaLinhaArquivo[1]);
+                    this.largura = Integer.parseInt(ColunaLinhaArquivo[0]);
+                    this.Matriz = new Integer[altura][largura];
                     System.out.println("""
                            Nome do arquivo: %s
-                           linha: %d
-                           coluna: %d
+                           Altura: %d
+                           Largura: %d
                            Intensidade: %d
                            Cabecalho: %s
                            Comentario: %s
-                           """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
+                           """.formatted(ArquivoObjeto.getName(), altura, largura, intensidade, cabecalho, comentario));
                     //Armazenamento do conteudo da imagem
                     while (Leitor.hasNext()) {
-                        for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
-                            for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
-                                Matriz[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
+                        for (int linhaAltura = 0; linhaAltura < altura; linhaAltura++) {
+                            for (int linhaLargura = 0; linhaLargura < largura; linhaLargura++) {
+                                Matriz[linhaAltura][linhaLargura] = Integer.valueOf(Leitor.next());
                             }
                         }
                     }
@@ -190,11 +190,11 @@ public class PGMImage {
     }
 
     public int getLinha() {
-        return linha;
+        return altura;
     }
 
     public int getColuna() {
-        return coluna;
+        return largura;
     }
 
     public int getIntensidade() {
@@ -233,21 +233,20 @@ public class PGMImage {
                                 Comentario: %s
                                 Quantidade de linha e coluna: %d %d
                                 Profundidade de cores: %d
-                           """.formatted(cabecalho, comentario, linha, coluna, intensidade));
+                           """.formatted(cabecalho, comentario, altura, largura, intensidade));
             //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
             escritor.write("""
                            %s
                            %s
                            %d %d
                            %d
-                           """.formatted(cabecalho, comentario + " gerado pelo java", linha, coluna, intensidade));
+                           """.formatted(cabecalho, comentario + " gerado pelo java", largura, altura, intensidade));
             //Escrita da matriz em arquivo
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-                    escritor.write("""
-                                    %d
-                                    """.formatted(Matriz[linhaMatriz][colunaMatriz]));
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    escritor.write("%d ".formatted(Matriz[linhaMatriz][colunaMatriz]));
                 }
+                escritor.write("\n");
             }
             escritor.close();
             System.out.println("Escrito corretamente no arquivo.");
@@ -262,13 +261,13 @@ public class PGMImage {
      * @return
      */
     public PGMImage Negative() {
-        Integer ImagemNegativa[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemNegativa[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 ImagemNegativa[linhaMatriz][colunaMatriz] = intensidade - Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(ImagemNegativa, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemNegativa, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -277,9 +276,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage Darken(int quantidade) {
-        Integer ImagemEscurecida[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemEscurecida[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (Matriz[linhaMatriz][colunaMatriz] - quantidade < 0) {
                     ImagemEscurecida[linhaMatriz][colunaMatriz] = 0;
                 } else {
@@ -287,7 +286,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(ImagemEscurecida, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemEscurecida, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -296,9 +295,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage ClarearAdicao(int Quantidade) {
-        Integer ImagemClareada[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemClareada[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
 
                 if (Matriz[linhaMatriz][colunaMatriz] + Quantidade > intensidade) {
                     ImagemClareada[linhaMatriz][colunaMatriz] = intensidade;
@@ -308,7 +307,7 @@ public class PGMImage {
 
             }
         }
-        return new PGMImage(ImagemClareada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemClareada, altura, largura, intensidade, cabecalho, comentario);
 
     }
 
@@ -318,9 +317,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage ClarearMultiplicao(float Quantidade) {
-        Integer ImagemClareada[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemClareada[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 float temp = Matriz[linhaMatriz][colunaMatriz] * Quantidade;
                 if (temp > intensidade) {
                     temp = intensidade;
@@ -328,7 +327,7 @@ public class PGMImage {
                 ImagemClareada[linhaMatriz][colunaMatriz] = (int) temp;
             }
         }
-        return new PGMImage(ImagemClareada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemClareada, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -336,15 +335,15 @@ public class PGMImage {
      * @return
      */
     public PGMImage rotateMinus90() {
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
-        Comentario("Rotacao -90", coluna, linha);
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemRotacionada[][] = new Integer[largura][altura];
+        Comentario("Rotacao -90", largura, altura);
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 System.out.println("linha coluna: %d x %d = %d".formatted(colunaMatriz, linhaMatriz, Matriz[linhaMatriz][colunaMatriz]));
-                ImagemRotacionada[coluna - 1 - colunaMatriz][linhaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+                ImagemRotacionada[largura - 1 - colunaMatriz][linhaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemRotacionada, largura, altura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -353,13 +352,13 @@ public class PGMImage {
      */
     public PGMImage rotate90() {
 //Quantidade de linha e coluna inversa
-        Integer ImagemRotacionada[][] = new Integer[coluna][linha];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-                ImagemRotacionada[colunaMatriz][linha - 1 - linhaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+        Integer ImagemRotacionada[][] = new Integer[largura][altura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                ImagemRotacionada[colunaMatriz][altura - 1 - linhaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(ImagemRotacionada, coluna, linha, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemRotacionada, largura, altura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -367,13 +366,13 @@ public class PGMImage {
      * @return
      */
     public PGMImage rotate180() {
-        Integer ImagemRotacionada[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-                ImagemRotacionada[linha - 1 - linhaMatriz][coluna - 1 - colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+        Integer ImagemRotacionada[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                ImagemRotacionada[altura - 1 - linhaMatriz][largura - 1 - colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(ImagemRotacionada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemRotacionada, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -381,13 +380,13 @@ public class PGMImage {
      * @return
      */
     public PGMImage test() {
-        Integer ImagemTeste[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer ImagemTeste[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 ImagemTeste[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(ImagemTeste, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(ImagemTeste, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -401,7 +400,7 @@ public class PGMImage {
                            %s
                            linha e coluna original: %d x %d
                            linha e coluna modificado: %d x %d
-                           """.formatted(funcao, linha, coluna, colunaModificada, linhaModificada));
+                           """.formatted(funcao, altura, largura, colunaModificada, linhaModificada));
     }
 
     /**
@@ -409,14 +408,14 @@ public class PGMImage {
      * @return
      */
     public PGMImage espelhamentoHorizontal() {
-        Integer Espelhada[][] = new Integer[linha][coluna];
-        Comentario("Espelhamento horizontal", linha, coluna);
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-                Espelhada[linhaMatriz][coluna - 1 - colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+        Integer Espelhada[][] = new Integer[altura][largura];
+        Comentario("Espelhamento horizontal", altura, largura);
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                Espelhada[linhaMatriz][largura - 1 - colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(Espelhada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(Espelhada, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -424,13 +423,13 @@ public class PGMImage {
      * @return
      */
     public PGMImage espelhamentoVertical() {
-        Integer Espelhada[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
-                Espelhada[linha - 1 - linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
+        Integer Espelhada[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                Espelhada[altura - 1 - linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
             }
         }
-        return new PGMImage(Espelhada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(Espelhada, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -439,13 +438,13 @@ public class PGMImage {
      * @return
      */
     public PGMImage reducaoNivel(int quantidadeDeNiveis) {
-        Integer Reduzida[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer Reduzida[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 Reduzida[linhaMatriz][colunaMatriz] = (int) Math.ceil(Matriz[linhaMatriz][colunaMatriz] * (quantidadeDeNiveis - 1) / intensidade);
             }
         }
-        return new PGMImage(Reduzida, linha, coluna, quantidadeDeNiveis, cabecalho, comentario);
+        return new PGMImage(Reduzida, altura, largura, quantidadeDeNiveis, cabecalho, comentario);
     }
 
     /**
@@ -454,9 +453,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage binarizacao(int limiar) {
-        Integer Reduzida[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer Reduzida[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (Matriz[linhaMatriz][colunaMatriz] <= limiar) {
                     Reduzida[linhaMatriz][colunaMatriz] = intensidade;
                 } else {
@@ -464,7 +463,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(Reduzida, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(Reduzida, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -476,9 +475,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage binaryRange(int start, int end, int level, int greyLevel) {
-        Integer Reduzida[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer Reduzida[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (Matriz[linhaMatriz][colunaMatriz] > start && Matriz[linhaMatriz][colunaMatriz] < end) {
                     Reduzida[linhaMatriz][colunaMatriz] = level;
                 } else {
@@ -486,7 +485,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(Reduzida, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(Reduzida, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -497,9 +496,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage rangeHighlight(int start, int end, int quantidade) {
-        Integer Reduzida[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer Reduzida[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (Matriz[linhaMatriz][colunaMatriz] > start && Matriz[linhaMatriz][colunaMatriz] < end) {
                     Reduzida[linhaMatriz][colunaMatriz] = quantidade;
                 } else {
@@ -507,7 +506,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(Reduzida, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(Reduzida, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -517,9 +516,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage subtract(int c, int a) {
-        Integer MatrizCorreta[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer MatrizCorreta[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 double resultadoDivisao = (double) Matriz[linhaMatriz][colunaMatriz] / intensidade,
                         resultadoPotencia = pow(resultadoDivisao, a),
                         resultadoMultiplicacao = resultadoPotencia * c;
@@ -531,7 +530,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(MatrizCorreta, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(MatrizCorreta, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -541,9 +540,9 @@ public class PGMImage {
      * @return
      */
     public PGMImage transformacaoPotencia(int c, double beta) {
-        Integer MatrizCorreta[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer MatrizCorreta[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 double resultadoDivisao = (double) Matriz[linhaMatriz][colunaMatriz] / intensidade,
                         resultadoPotencia = pow(resultadoDivisao, beta),
                         resultadoMultiplicacao = resultadoPotencia * c;
@@ -555,7 +554,7 @@ public class PGMImage {
                 }
             }
         }
-        return new PGMImage(MatrizCorreta, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(MatrizCorreta, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -564,10 +563,10 @@ public class PGMImage {
      * @return
      */
     public PGMImage aumentaResolucao(int quantidadeAumento) {
-        int colunaAumentada = linha * quantidadeAumento, linhaAumentada = coluna * quantidadeAumento;
+        int colunaAumentada = altura * quantidadeAumento, linhaAumentada = largura * quantidadeAumento;
         Integer matrizAumentada[][] = new Integer[colunaAumentada][linhaAumentada];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 for (int quantidadeLinha = 0; quantidadeLinha < quantidadeAumento; quantidadeLinha++) {
                     for (int quantidadeColuna = 0; quantidadeColuna < quantidadeAumento; quantidadeColuna++) {
                         matrizAumentada[linhaMatriz * quantidadeAumento + quantidadeLinha][colunaMatriz * quantidadeAumento + quantidadeColuna] = Matriz[linhaMatriz][colunaMatriz];
@@ -584,7 +583,7 @@ public class PGMImage {
      * @return
      */
     public PGMImage diminuiResolucao(int quantidadeReducao) {
-        int colunaReduzida = linha / quantidadeReducao, linhaReduzida = coluna / quantidadeReducao, somaPixeis = 0;
+        int colunaReduzida = altura / quantidadeReducao, linhaReduzida = largura / quantidadeReducao, somaPixeis = 0;
         Integer[][] matrizReduzida = new Integer[colunaReduzida][linhaReduzida];
         for (int linhaMatriz = 0; linhaMatriz < colunaReduzida; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < linhaReduzida; colunaMatriz++) {
@@ -610,8 +609,8 @@ public class PGMImage {
         for (int i = 0; i < intensidade; i++) {
             histograma.add(0);
         }
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 histograma.set(Matriz[linhaMatriz][colunaMatriz], histograma.get(Matriz[linhaMatriz][colunaMatriz]) + 1);
             }
         }
@@ -650,8 +649,8 @@ public class PGMImage {
         for (int i = 0; i < intensidade + 1; i++) {
             histograma.add(0);
         }
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 histograma.set(Matriz[linhaMatriz][colunaMatriz], histograma.get(Matriz[linhaMatriz][colunaMatriz]) + 1);
             }
         }
@@ -679,18 +678,18 @@ public class PGMImage {
             nk.add(0.0);
         }
         for (int i = 0; i < intensidade + 1; i++) {
-            nk.set(i, (double) histograma.get(i) / (linha * coluna));
+            nk.set(i, (double) histograma.get(i) / (altura * largura));
             somaProbabilidade += nk.get(i);
             soma.set(i, (int) Math.floor(intensidade * somaProbabilidade));
             System.out.println(soma.get(i));
         }
-        Integer matrizModificada[][] = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer matrizModificada[][] = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 matrizModificada[linhaMatriz][colunaMatriz] = soma.get(Matriz[linhaMatriz][colunaMatriz]);
             }
         }
-        return new PGMImage(matrizModificada, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(matrizModificada, altura, largura, intensidade, cabecalho, comentario);
     }
 
     public PGMImage media(int quantidade) {
@@ -702,8 +701,8 @@ public class PGMImage {
             int QuantidadePositiva = quantidade / 2;
             int QuantidadeNegativa = QuantidadePositiva * - 1;
             double SomaMedia = 0;
-            for (int linhaMatriz = QuantidadePositiva; linhaMatriz < linha - QuantidadePositiva; linhaMatriz++) {
-                for (int colunaMatriz = QuantidadePositiva; colunaMatriz < coluna - QuantidadePositiva; colunaMatriz++) {
+            for (int linhaMatriz = QuantidadePositiva; linhaMatriz < altura - QuantidadePositiva; linhaMatriz++) {
+                for (int colunaMatriz = QuantidadePositiva; colunaMatriz < largura - QuantidadePositiva; colunaMatriz++) {
                     for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
                         for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
                             SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
@@ -714,7 +713,7 @@ public class PGMImage {
                     SomaMedia = 0;
                 }
             }
-            return new PGMImage(MatrizModificada, linha - QuantidadePositiva, coluna - QuantidadePositiva, intensidade, cabecalho, comentario);
+            return new PGMImage(MatrizModificada, altura - QuantidadePositiva, largura - QuantidadePositiva, intensidade, cabecalho, comentario);
         }
     }
 
@@ -724,8 +723,8 @@ public class PGMImage {
             return null;
         } else {
             Integer subMatriz[][] = new Integer[quantidade][quantidade], MatrizFinal[][] = Matriz;
-            for (int indexLinha = 0; indexLinha < linha / quantidade; indexLinha++) {
-                for (int indexColuna = 0; indexColuna < coluna / quantidade; indexColuna++) {
+            for (int indexLinha = 0; indexLinha < altura / quantidade; indexLinha++) {
+                for (int indexColuna = 0; indexColuna < largura / quantidade; indexColuna++) {
                     for (int subLinha = 0; subLinha < quantidade; subLinha++) {
                         for (int subColuna = 0; subColuna < quantidade; subColuna++) {
                             //System.out.print("%d %d|".formatted(indexLinha * quantidade + subLinha, indexColuna * quantidade + subColuna));
@@ -770,12 +769,12 @@ public class PGMImage {
                     }
                 }
             }
-            return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
+            return new PGMImage(MatrizFinal, altura, largura, intensidade, cabecalho, comentario);
         }
     }
 
     public PGMImage Mediana(int quantidade) {
-        Integer MatrizFinal[][] = new Integer[linha][coluna];
+        Integer MatrizFinal[][] = new Integer[altura][largura];
 //        MatrizFinal = Matriz;
 
         if (quantidade % 2 == 0) {
@@ -783,141 +782,138 @@ public class PGMImage {
         } else {
             int kernel = quantidade / 2;
             System.out.println(kernel);
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < altura - 2; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura - 2; colunaMatriz++) {
 
-                    if (linhaMatriz < kernel || linhaMatriz >= linhaMatriz - kernel || colunaMatriz < kernel || colunaMatriz >= colunaMatriz - kernel) {
-                        MatrizFinal[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
-                    } else {
-                        ArrayList<Integer> vetorPixel = new ArrayList<>();
-                        for (int sublinha = 0; sublinha < quantidade; sublinha++) {
-                            for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
+                    ArrayList<Integer> vetorPixel = new ArrayList<>();
+                    for (int sublinha = 0; sublinha < quantidade; sublinha++) {
+                        for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
 
-                                vetorPixel.add(Matriz[linhaMatriz + sublinha][colunaMatriz + subcoluna]);
-                            }
-                        }
-                        vetorPixel.sort(Comparator.naturalOrder());
-                        MatrizFinal[linhaMatriz][colunaMatriz] = vetorPixel.get((int) quantidade * quantidade / 2);
-                    }
-                }
-            }
-
-        }
-        return new PGMImage(MatrizFinal, linha, coluna, intensidade, cabecalho, comentario);
-    }
-
-    public class KernelCondition {
-
-        public static void main(String[] args) {
-            // Assuming you have a PGM image represented as Integer[][] array
-            Integer[][] image = {
-                {10, 20, 30, 40, 50},
-                {60, 70, 80, 90, 100},
-                {110, 120, 130, 140, 150},
-                {160, 170, 180, 190, 200},
-                {210, 220, 230, 240, 250}
-            };
-
-            // Define the kernel
-            int[][] kernel = {
-                {-1, -1, -1},
-                {-1, 8, -1},
-                {-1, -1, -1}
-            };
-
-            // Apply kernel condition
-            Integer[][] result = applyKernelCondition(image, kernel);
-
-            // Display the resulting image
-            for (Integer[] row : result) {
-                for (Integer pixel : row) {
-                    System.out.print(pixel + " ");
-                }
-                System.out.println();
-            }
-        }
-
-        public static Integer[][] applyKernelCondition(Integer[][] image, int[][] kernel) {
-            int imageHeight = image.length;
-            int imageWidth = image[0].length;
-            int kernelSize = kernel.length;
-
-            Integer[][] result = new Integer[imageHeight][imageWidth];
-
-            // Loop through each pixel in the image
-            for (int i = 0; i < imageHeight; i++) {
-                for (int j = 0; j < imageWidth; j++) {
-                    int sum = 0;
-
-                    // Apply the kernel to the current pixel and its neighbors
-                    for (int k = 0; k < kernelSize; k++) {
-                        for (int l = 0; l < kernelSize; l++) {
-                            int rowIndex = i + k - kernelSize / 2;
-                            int colIndex = j + l - kernelSize / 2;
-
-                            // Ensure the indices are within the image boundaries
-                            if (rowIndex >= 0 && rowIndex < imageHeight && colIndex >= 0 && colIndex < imageWidth) {
-                                sum += image[rowIndex][colIndex] * kernel[k][l];
-                            }
+                            vetorPixel.add(Matriz[linhaMatriz + sublinha][colunaMatriz + subcoluna]);
                         }
                     }
-
-                    // Apply the kernel condition
-                    if (sum > 255) {
-                        result[i][j] = 255;
-                    } else if (sum < 0) {
-                        result[i][j] = 0;
-                    } else {
-                        result[i][j] = sum;
-                    }
+                    vetorPixel.sort(Comparator.naturalOrder());
+                    MatrizFinal[linhaMatriz][colunaMatriz] = vetorPixel.get((int) quantidade * quantidade / 2);
                 }
             }
-
-            return result;
         }
+
+        return new PGMImage(MatrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
+//    public class KernelCondition {
+//
+//        public static void main(String[] args) {
+//            // Assuming you have a PGM image represented as Integer[][] array
+//            Integer[][] image = {
+//                {10, 20, 30, 40, 50},
+//                {60, 70, 80, 90, 100},
+//                {110, 120, 130, 140, 150},
+//                {160, 170, 180, 190, 200},
+//                {210, 220, 230, 240, 250}
+//            };
+//
+//            // Define the kernel
+//            int[][] kernel = {
+//                {-1, -1, -1},
+//                {-1, 8, -1},
+//                {-1, -1, -1}
+//            };
+//
+//            // Apply kernel condition
+//            Integer[][] result = applyKernelCondition(image, kernel);
+//
+//            // Display the resulting image
+//            for (Integer[] row : result) {
+//                for (Integer pixel : row) {
+//                    System.out.print(pixel + " ");
+//                }
+//                System.out.println();
+//            }
+//        }
+//
+//        public static Integer[][] applyKernelCondition(Integer[][] image, int[][] kernel) {
+//            int imageHeight = image.length;
+//            int imageWidth = image[0].length;
+//            int kernelSize = kernel.length;
+//
+//            Integer[][] result = new Integer[imageHeight][imageWidth];
+//
+//            // Loop through each pixel in the image
+//            for (int i = 0; i < imageHeight; i++) {
+//                for (int j = 0; j < imageWidth; j++) {
+//                    int sum = 0;
+//
+//                    // Apply the kernel to the current pixel and its neighbors
+//                    for (int k = 0; k < kernelSize; k++) {
+//                        for (int l = 0; l < kernelSize; l++) {
+//                            int rowIndex = i + k - kernelSize / 2;
+//                            int colIndex = j + l - kernelSize / 2;
+//
+//                            // Ensure the indices are within the image boundaries
+//                            if (rowIndex >= 0 && rowIndex < imageHeight && colIndex >= 0 && colIndex < imageWidth) {
+//                                sum += image[rowIndex][colIndex] * kernel[k][l];
+//                            }
+//                        }
+//                    }
+//
+//                    // Apply the kernel condition
+//                    if (sum > 255) {
+//                        result[i][j] = 255;
+//                    } else if (sum < 0) {
+//                        result[i][j] = 0;
+//                    } else {
+//                        result[i][j] = sum;
+//                    }
+//                }
+//            }
+//
+//            return result;
+//        }
+//    }
     public PGMImage laplaciano() {
-        Integer[][] matrizFinal = new Integer[linha][coluna];
+        Integer[][] matrizFinal = new Integer[altura][largura];
 //        matrizFinal = Matriz;
         int kernelSize = 3;
         Integer[][] matrizConvolucao = {{0, 1, 0}, {1, -4, 1}, {0, 1, 0}};
-        for (int linhaMatriz = 0; linhaMatriz < linha - 2; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna - 2; colunaMatriz++) {
-                int soma = 0;
+        for (int i = 0; i < altura; i++) {
+            for (int j = 0; j < largura; j++) {
+                int sum = 0;
+
                 // Apply the kernel to the current pixel and its neighbors
-                for (int k = 0; k < kernelSize; k++) {
-                    for (int l = 0; l < kernelSize; l++) {
-                        int rowIndex = linhaMatriz + k - kernelSize / 2;
-                        int colIndex = colunaMatriz + l - kernelSize / 2;
+                for (int k = 0; k < 3; k++) {
+                    for (int l = 0; l < 3; l++) {
+                        int rowIndex = i + k - 3 / 2;
+                        int colIndex = j + l - 3 / 2;
 
                         // Ensure the indices are within the image boundaries
-                        if (rowIndex >= 0 && rowIndex < linha && colIndex >= 0 && colIndex < coluna) {
-                            soma += Matriz[rowIndex][colIndex] * matrizConvolucao[k][l];
+                        if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
+                            sum += Matriz[rowIndex][colIndex] * matrizConvolucao[k][l];
                         }
                     }
                 }
-                if (soma > 255) {
-                    matrizFinal[linhaMatriz][colunaMatriz] = 255;
-                } else if (soma < 0) {
-                    matrizFinal[linhaMatriz][colunaMatriz] = 0;
+
+                // Apply the kernel condition
+                if (sum > 255) {
+                    matrizFinal[i][j] = 255;
+                } else if (sum < 0) {
+                    matrizFinal[i][j] = 0;
                 } else {
-                    matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                    matrizFinal[i][j] = sum;
                 }
             }
-
         }
-        return new PGMImage(matrizFinal, linha - 2, coluna - 2, intensidade, cabecalho, comentario);
+        return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
     public PGMImage nitidez(int quantidade) {
-        Integer matriznova[][] = new Integer[linha][coluna];
-        Integer MatrizModificada[][] = new Integer[linha][coluna];
+        Integer matriznova[][] = new Integer[altura][largura];
+        Integer MatrizModificada[][] = new Integer[altura][largura];
         int QuantidadePositiva = quantidade / 2;
         int QuantidadeNegativa = QuantidadePositiva * - 1;
         double SomaMedia = 0;
-        for (int linhaMatriz = QuantidadePositiva; linhaMatriz < linha - QuantidadePositiva; linhaMatriz++) {
-            for (int colunaMatriz = QuantidadePositiva; colunaMatriz < coluna - QuantidadePositiva; colunaMatriz++) {
+        for (int linhaMatriz = QuantidadePositiva; linhaMatriz < altura - QuantidadePositiva; linhaMatriz++) {
+            for (int colunaMatriz = QuantidadePositiva; colunaMatriz < largura - QuantidadePositiva; colunaMatriz++) {
                 for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
                     for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
                         SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
@@ -928,12 +924,12 @@ public class PGMImage {
                 SomaMedia = 0;
             }
         }
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 matriznova[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz] - MatrizModificada[linhaMatriz][colunaMatriz];
                 System.out.println("%d=%d|%d".formatted(matriznova[linhaMatriz][colunaMatriz], Matriz[linhaMatriz][colunaMatriz], MatrizModificada[linhaMatriz][colunaMatriz]));
             }
         }
-        return new PGMImage(matriznova, linha, coluna, intensidade, cabecalho, comentario);
+        return new PGMImage(matriznova, altura, largura, intensidade, cabecalho, comentario);
     }
 }
