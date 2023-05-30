@@ -189,11 +189,11 @@ public class PGMImage {
         return Matriz;
     }
 
-    public int getLinha() {
+    public int getAltura() {
         return altura;
     }
 
-    public int getColuna() {
+    public int getLargura() {
         return largura;
     }
 
@@ -837,29 +837,22 @@ public class PGMImage {
         return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
-    public PGMImage nitidez(int quantidade) {
-        Integer matriznova[][] = new Integer[altura][largura];
-        Integer MatrizModificada[][] = new Integer[altura][largura];
-        int QuantidadePositiva = quantidade / 2;
-        int QuantidadeNegativa = QuantidadePositiva * - 1;
-        double SomaMedia = 0;
-        for (int linhaMatriz = QuantidadePositiva; linhaMatriz < altura - QuantidadePositiva; linhaMatriz++) {
-            for (int colunaMatriz = QuantidadePositiva; colunaMatriz < largura - QuantidadePositiva; colunaMatriz++) {
-                for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
-                    for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
-                        SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
-                    }
-                }
+    public PGMImage nitidez(int kernelMedia, double constante) {
+        PGMImage imagemMedia = new PGMImage(Matriz, altura, largura, intensidade, cabecalho, comentario).media(kernelMedia);
+        Integer[][] media = imagemMedia.getMatriz();
+        altura = imagemMedia.getAltura();
+        largura = imagemMedia.getLargura();
+        Integer[][] mascara = new Integer[altura][largura];
+        Integer[][] matrizComMascara = new Integer[altura][largura];
 
-                MatrizModificada[linhaMatriz - QuantidadePositiva][colunaMatriz - QuantidadePositiva] = (int) SomaMedia / (quantidade * quantidade);
-                SomaMedia = 0;
+        for (int alturaMatriz = 0; alturaMatriz < altura; alturaMatriz++) {
+            for (int larguraMatriz = 0; larguraMatriz < largura; larguraMatriz++) {
+                mascara[alturaMatriz][larguraMatriz] = media[alturaMatriz][larguraMatriz] - Matriz[alturaMatriz][larguraMatriz];
+                matrizComMascara[alturaMatriz][larguraMatriz] = (int) (Matriz[alturaMatriz][larguraMatriz] + mascara[alturaMatriz][larguraMatriz] * constante);
             }
         }
-        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
-                matriznova[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz] - MatrizModificada[linhaMatriz][colunaMatriz];
-            }
-        }
-        return new PGMImage(matriznova, altura, largura, intensidade, cabecalho, comentario);
+        imagemMedia.saveImage("src\\Assets\\todos\\media.pgm");
+        new PGMImage(mascara, altura, largura, intensidade, cabecalho, comentario).saveImage("src\\Assets\\todos\\mascara.pgm");
+        return new PGMImage(matrizComMascara, altura, largura, intensidade, cabecalho, comentario);
     }
 }
