@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.PGM;
 
 import controller.Controlador;
 
@@ -10,12 +10,12 @@ import controller.Controlador;
  *
  * @author Willian
  */
-public class OpenFile extends javax.swing.JFrame {
+public class SavePGMFile extends javax.swing.JFrame {
 
     /**
-     * Creates new form File
+     * Creates new form SaveFile
      */
-    public OpenFile() {
+    public SavePGMFile() {
         initComponents();
     }
 
@@ -31,9 +31,9 @@ public class OpenFile extends javax.swing.JFrame {
         jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Abrir imagem PGM");
+        setTitle("Salvar imagem PGM");
 
-        jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -56,7 +56,7 @@ public class OpenFile extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
-        Controlador.getInstance().abrirImagem(jFileChooser1.getSelectedFile().getAbsolutePath());
+        Controlador.getInstance().salvarImagemPGM(jFileChooser1.getSelectedFile().getAbsolutePath());
         dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -77,13 +77,13 @@ public class OpenFile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpenFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SavePGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpenFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SavePGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpenFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SavePGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpenFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SavePGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -91,7 +91,7 @@ public class OpenFile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OpenFile().setVisible(true);
+                new SavePGMFile().setVisible(true);
             }
         });
     }

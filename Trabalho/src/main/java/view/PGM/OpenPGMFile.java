@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.PGM;
 
 import controller.Controlador;
 
@@ -10,12 +10,12 @@ import controller.Controlador;
  *
  * @author Willian
  */
-public class SaveFile extends javax.swing.JFrame {
+public class OpenPGMFile extends javax.swing.JFrame {
 
     /**
-     * Creates new form SaveFile
+     * Creates new form File
      */
-    public SaveFile() {
+    public OpenPGMFile() {
         initComponents();
     }
 
@@ -31,9 +31,9 @@ public class SaveFile extends javax.swing.JFrame {
         jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Salvar imagem PGM");
+        setTitle("Abrir imagem PGM");
 
-        jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -56,7 +56,7 @@ public class SaveFile extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
-        Controlador.getInstance().salvarImagem(jFileChooser1.getSelectedFile().getAbsolutePath());
+        Controlador.getInstance().abrirImagemPGM(jFileChooser1.getSelectedFile().getAbsolutePath());
         dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -77,20 +77,23 @@ public class SaveFile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SaveFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenPGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SaveFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenPGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SaveFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenPGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SaveFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenPGMFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SaveFile().setVisible(true);
+                new OpenPGMFile().setVisible(true);
             }
         });
     }
