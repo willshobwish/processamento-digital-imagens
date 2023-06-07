@@ -4,6 +4,8 @@
  */
 package view;
 
+import controller.Controlador;
+
 /**
  *
  * @author Willian
@@ -28,7 +30,7 @@ public class File extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +57,8 @@ public class File extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
-        System.out.println(jFileChooser1.getSelectedFile());
+        Controlador.getInstance().abrirImagem(jFileChooser1.getSelectedFile().getAbsolutePath());
+        dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**
