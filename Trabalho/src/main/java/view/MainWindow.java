@@ -4,7 +4,11 @@
  */
 package view;
 
+import view.PGM.SavePGMFile;
+import view.PGM.OpenPGMFile;
 import controller.Controlador;
+import view.PPM.OpenPPMFile;
+import view.PPM.SavePPMFile;
 
 /**
  *
@@ -29,8 +33,12 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
+        groupMediaMediana = new javax.swing.ButtonGroup();
+        groupLaplaciano = new javax.swing.ButtonGroup();
+        groupExtracaoRGB = new javax.swing.ButtonGroup();
+        groupJuncaoR = new javax.swing.ButtonGroup();
+        groupJuncaoG = new javax.swing.ButtonGroup();
+        griupJuncaoB = new javax.swing.ButtonGroup();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -89,6 +97,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trabalho de processamento digital de imagens");
@@ -114,10 +124,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Equalização de histograma geral", jPanel2);
 
+        groupExtracaoRGB.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Red");
 
+        groupExtracaoRGB.add(jRadioButton2);
         jRadioButton2.setText("Green");
 
+        groupExtracaoRGB.add(jRadioButton3);
         jRadioButton3.setText("Blue");
 
         jLabel3.setText("Separação de cores");
@@ -156,26 +170,38 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
+        groupJuncaoR.add(jRadioButton10);
+        jRadioButton10.setSelected(true);
         jRadioButton10.setText("Red");
 
+        groupJuncaoR.add(jRadioButton11);
         jRadioButton11.setText("Green");
 
+        groupJuncaoR.add(jRadioButton12);
         jRadioButton12.setText("Blue");
 
         jLabel9.setText("Red");
 
+        groupJuncaoG.add(jRadioButton13);
         jRadioButton13.setText("Red");
 
+        groupJuncaoG.add(jRadioButton14);
+        jRadioButton14.setSelected(true);
         jRadioButton14.setText("Green");
 
+        groupJuncaoG.add(jRadioButton15);
         jRadioButton15.setText("Blue");
 
         jLabel10.setText("Green");
 
+        griupJuncaoB.add(jRadioButton16);
         jRadioButton16.setText("Red");
 
+        griupJuncaoB.add(jRadioButton17);
         jRadioButton17.setText("Green");
 
+        griupJuncaoB.add(jRadioButton18);
+        jRadioButton18.setSelected(true);
         jRadioButton18.setText("Blue");
 
         jLabel11.setText("Blue");
@@ -278,11 +304,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo de filtro");
 
-        buttonGroup2.add(radioMedia);
+        groupMediaMediana.add(radioMedia);
         radioMedia.setSelected(true);
         radioMedia.setText("Média");
 
-        buttonGroup2.add(radioMediana);
+        groupMediaMediana.add(radioMediana);
         radioMediana.setText("Mediana");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -375,16 +401,16 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel1.setText("Laplaciano");
 
-        buttonGroup3.add(jRadioButton6);
+        groupLaplaciano.add(jRadioButton6);
         jRadioButton6.setText("jRadioButton6");
 
-        buttonGroup3.add(jRadioButton7);
+        groupLaplaciano.add(jRadioButton7);
         jRadioButton7.setText("jRadioButton7");
 
-        buttonGroup3.add(jRadioButton8);
+        groupLaplaciano.add(jRadioButton8);
         jRadioButton8.setText("jRadioButton8");
 
-        buttonGroup3.add(jRadioButton9);
+        groupLaplaciano.add(jRadioButton9);
         jRadioButton9.setText("jRadioButton9");
 
         jButton5.setText("Aplicar laplaciano");
@@ -517,6 +543,23 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Imagem PPM");
+
+        jMenuItem4.setText("Abrir imagem");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem5.setText("Salvar imagem");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem5);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -540,13 +583,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        OpenFile file = new OpenFile();
+        OpenPGMFile file = new OpenPGMFile();
         file.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        new SaveFile().setVisible(true);
+        new SavePGMFile().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void buttonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFiltroActionPerformed
@@ -560,6 +603,16 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        new OpenPPMFile().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        new SavePPMFile().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public void atualiza(String informcao) {
         jTextArea1.setText(informcao);
@@ -604,8 +657,12 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonFiltro;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup griupJuncaoB;
+    private javax.swing.ButtonGroup groupExtracaoRGB;
+    private javax.swing.ButtonGroup groupJuncaoG;
+    private javax.swing.ButtonGroup groupJuncaoR;
+    private javax.swing.ButtonGroup groupLaplaciano;
+    private javax.swing.ButtonGroup groupMediaMediana;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -630,6 +687,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -4,9 +4,17 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    <Component class="javax.swing.ButtonGroup" name="groupMediaMediana">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup3">
+    <Component class="javax.swing.ButtonGroup" name="groupLaplaciano">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="groupExtracaoRGB">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="groupJuncaoR">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="groupJuncaoG">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="griupJuncaoB">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
@@ -52,6 +60,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Imagem PPM"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir imagem"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Salvar imagem"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -205,16 +231,26 @@
               <SubComponents>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton1">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupExtracaoRGB"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Red"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton2">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupExtracaoRGB"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Green"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton3">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupExtracaoRGB"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Blue"/>
                   </Properties>
                 </Component>
@@ -314,16 +350,26 @@
               <SubComponents>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton10">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoR"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Red"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton11">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoR"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Green"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton12">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoR"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Blue"/>
                   </Properties>
                 </Component>
@@ -334,16 +380,26 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton13">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoG"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Red"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton14">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoG"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Green"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton15">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="groupJuncaoG"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Blue"/>
                   </Properties>
                 </Component>
@@ -354,16 +410,26 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton16">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="griupJuncaoB"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Red"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton17">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="griupJuncaoB"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Green"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton18">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="griupJuncaoB"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Blue"/>
                   </Properties>
                 </Component>
@@ -496,7 +562,7 @@
                 <Component class="javax.swing.JRadioButton" name="radioMedia">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup2"/>
+                      <ComponentRef name="groupMediaMediana"/>
                     </Property>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="M&#xe9;dia"/>
@@ -505,7 +571,7 @@
                 <Component class="javax.swing.JRadioButton" name="radioMediana">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup2"/>
+                      <ComponentRef name="groupMediaMediana"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Mediana"/>
                   </Properties>
@@ -649,7 +715,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButton6">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup3"/>
+                      <ComponentRef name="groupLaplaciano"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jRadioButton6"/>
                   </Properties>
@@ -657,7 +723,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButton7">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup3"/>
+                      <ComponentRef name="groupLaplaciano"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jRadioButton7"/>
                   </Properties>
@@ -665,7 +731,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButton8">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup3"/>
+                      <ComponentRef name="groupLaplaciano"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jRadioButton8"/>
                   </Properties>
@@ -673,7 +739,7 @@
                 <Component class="javax.swing.JRadioButton" name="jRadioButton9">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroup3"/>
+                      <ComponentRef name="groupLaplaciano"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jRadioButton9"/>
                   </Properties>
