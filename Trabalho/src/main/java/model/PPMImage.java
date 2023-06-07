@@ -29,12 +29,12 @@ public class PPMImage {
     /**
      * Quantidade de linhas da imagem
      */
-    protected int linha;
+    protected int altura;
 
     /**
      * Quantidade de coluna da imagems
      */
-    protected int coluna;
+    protected int largura;
 
     /**
      * A profundidade de cor da imagem
@@ -67,8 +67,8 @@ public class PPMImage {
         this.matrizR = matrizR;
         this.matrizG = matrizG;
         this.matrizB = matrizB;
-        this.linha = linha;
-        this.coluna = coluna;
+        this.altura = linha;
+        this.largura = coluna;
         this.intensidade = intensidade;
         this.cabecalho = cabecalho;
         this.comentario = comentario;
@@ -97,21 +97,21 @@ public class PPMImage {
                     comentario = readLineBinary(fileInputStream);
 //                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
                     String[] width_height = readLineBinary(fileInputStream).split(" ");
-                    linha = Integer.parseInt(width_height[0]);
-                    coluna = Integer.parseInt(width_height[1]);
+                    altura = Integer.parseInt(width_height[0]);
+                    largura = Integer.parseInt(width_height[1]);
                     intensidade = readInteger(fileInputStream);
-                    matrizR = new Integer[linha][coluna];
-                    matrizG = new Integer[linha][coluna];
-                    matrizB = new Integer[linha][coluna];
+                    matrizR = new Integer[altura][largura];
+                    matrizG = new Integer[altura][largura];
+                    matrizB = new Integer[altura][largura];
                     System.out.println("""
                            Linha: %d
                            coluna: %d
                            Intensidade: %d
                            Cabecalho: %s
                            Comentario: %s
-                           """.formatted(linha, coluna, intensidade, cabecalho, comentario));
+                           """.formatted(altura, largura, intensidade, cabecalho, comentario));
                     // Create a byte array to hold the pixel values
-                    byte[] pixels = new byte[linha * coluna * 3];
+                    byte[] pixels = new byte[altura * largura * 3];
                     // Read the pixel values
                     int bytesRead = 0;
                     while (bytesRead < pixels.length) {
@@ -122,8 +122,8 @@ public class PPMImage {
                         bytesRead += count;
                     }
                     int aux = 0;
-                    for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                        for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+                    for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                        for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
 //                            Incrementar em um cada vez que le para ter todas as tres cores por vez
                             matrizR[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
                             aux++;
@@ -152,11 +152,11 @@ public class PPMImage {
                     String[] ColunaLinhaArquivo = Leitor.nextLine().split(" ");
                     intensidade = Integer.parseInt(Leitor.nextLine());
                     //Leitura do tamanho de colunas e linhas
-                    linha = Integer.parseInt(ColunaLinhaArquivo[0]);
-                    coluna = Integer.parseInt(ColunaLinhaArquivo[1]);
-                    matrizR = new Integer[linha][coluna];
-                    matrizG = new Integer[linha][coluna];
-                    matrizB = new Integer[linha][coluna];
+                    altura = Integer.parseInt(ColunaLinhaArquivo[0]);
+                    largura = Integer.parseInt(ColunaLinhaArquivo[1]);
+                    matrizR = new Integer[altura][largura];
+                    matrizG = new Integer[altura][largura];
+                    matrizB = new Integer[altura][largura];
                     System.out.println("""
                            Nome do arquivo: %s
                            linha: %d
@@ -164,11 +164,11 @@ public class PPMImage {
                            Intensidade: %d
                            Cabecalho: %s
                            Comentario: %s
-                           """.formatted(ArquivoObjeto.getName(), linha, coluna, intensidade, cabecalho, comentario));
+                           """.formatted(ArquivoObjeto.getName(), altura, largura, intensidade, cabecalho, comentario));
                     //Armazenamento do conteudo da imagem
                     while (Leitor.hasNext()) {
-                        for (int colunaVetor = 0; colunaVetor < linha; colunaVetor++) {
-                            for (int linhaVetor = 0; linhaVetor < coluna; linhaVetor++) {
+                        for (int colunaVetor = 0; colunaVetor < altura; colunaVetor++) {
+                            for (int linhaVetor = 0; linhaVetor < largura; linhaVetor++) {
                                 matrizR[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
                                 matrizG[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
                                 matrizB[colunaVetor][linhaVetor] = Integer.valueOf(Leitor.next());
@@ -234,17 +234,17 @@ public class PPMImage {
                                Comentario: %s
                                Quantidade de linha e coluna: %d %d
                                Profundidade de cores: %d
-                           """.formatted(cabecalho, comentario, linha, coluna, intensidade));
+                           """.formatted(cabecalho, comentario, altura, largura, intensidade));
             //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
             escritor.write("""
                            %s
                            %s
                            %d %d
                            %d
-                           """.formatted(cabecalho, comentario + " gerado pelo java", linha, coluna, intensidade));
+                           """.formatted(cabecalho, comentario + " gerado pelo java", largura, altura, intensidade));
             //Escrita da matriz em arquivo
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                     escritor.write("""
                                     %d %d %d
                                     """.formatted(matrizR[linhaMatriz][colunaMatriz], matrizG[linhaMatriz][colunaMatriz], matrizB[linhaMatriz][colunaMatriz]));
@@ -294,10 +294,10 @@ public class PPMImage {
                            %s
                            %d %d
                            %d
-                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+                           """.formatted("P2", comentario + " gerado pelo java", altura, largura, intensidade));
             //Escrita da matriz em arquivo
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                     writer.write("""
                                     %d
                                     """.formatted(matrizR[linhaMatriz][colunaMatriz]));
@@ -317,10 +317,10 @@ public class PPMImage {
                            %s
                            %d %d
                            %d
-                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+                           """.formatted("P2", comentario + " gerado pelo java", altura, largura, intensidade));
             //Escrita da matriz em arquivo
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                     writer.write("""
                                     %d
                                     """.formatted(matrizG[linhaMatriz][colunaMatriz]));
@@ -340,10 +340,10 @@ public class PPMImage {
                            %s
                            %d %d
                            %d
-                           """.formatted("P2", comentario + " gerado pelo java", linha, coluna, intensidade));
+                           """.formatted("P2", comentario + " gerado pelo java", altura, largura, intensidade));
             //Escrita da matriz em arquivo
-            for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                     writer.write("""
                                     %d
                                     """.formatted(matrizB[linhaMatriz][colunaMatriz]));
@@ -365,9 +365,9 @@ public class PPMImage {
      * @return
      */
     public PPMImage Clarear(int r, int g, int b) {
-        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer[][] newMatrizR = new Integer[altura][largura], newMatrizG = new Integer[altura][largura], newMatrizB = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (matrizR[linhaMatriz][colunaMatriz] + r > intensidade) {
                     newMatrizR[linhaMatriz][colunaMatriz] = intensidade;
                 } else {
@@ -385,7 +385,7 @@ public class PPMImage {
                 }
             }
         }
-        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -396,9 +396,9 @@ public class PPMImage {
      * @return
      */
     public PPMImage Escurecer(int r, int g, int b) {
-        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
-        for (int linhaMatriz = 0; linhaMatriz < linha; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < coluna; colunaMatriz++) {
+        Integer[][] newMatrizR = new Integer[altura][largura], newMatrizG = new Integer[altura][largura], newMatrizB = new Integer[altura][largura];
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 if (matrizR[linhaMatriz][colunaMatriz] - r < 0) {
                     newMatrizR[linhaMatriz][colunaMatriz] = 0;
                 } else {
@@ -416,7 +416,7 @@ public class PPMImage {
                 }
             }
         }
-        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -427,7 +427,7 @@ public class PPMImage {
      * @return
      */
     public PPMImage InvertChannels(String r, String g, String b) {
-        Integer[][] newMatrizR = new Integer[linha][coluna], newMatrizG = new Integer[linha][coluna], newMatrizB = new Integer[linha][coluna];
+        Integer[][] newMatrizR = new Integer[altura][largura], newMatrizG = new Integer[altura][largura], newMatrizB = new Integer[altura][largura];
         switch (r) {
             case "r":
                 newMatrizR = matrizR;
@@ -467,7 +467,16 @@ public class PPMImage {
             default:
                 throw new AssertionError();
         }
-        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, linha, coluna, intensidade, cabecalho, comentario);
+        return new PPMImage(newMatrizR, newMatrizG, newMatrizB, altura, largura, intensidade, cabecalho, comentario);
     }
 
+    public String getInformation() {
+        return """
+            Altura: %d
+            Largura: %d
+            Quantidade de bits: %d
+            Cabeçalho: %s
+            Comentário: %s
+               """.formatted(altura, largura, intensidade, cabecalho, comentario);
+    }
 }
