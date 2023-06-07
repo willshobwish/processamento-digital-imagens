@@ -31,6 +31,7 @@ public class OpenFile extends javax.swing.JFrame {
         jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Abrir imagem PGM");
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
@@ -43,13 +44,11 @@ public class OpenFile extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFileChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
