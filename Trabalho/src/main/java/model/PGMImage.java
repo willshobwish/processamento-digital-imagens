@@ -699,7 +699,9 @@ public class PGMImage {
         } else {
             int metadePositiva = (int) Math.floor(kernelSize / 2.0);
             int metadeNegativa = metadePositiva * -1;
-            Integer MatrizModificada[][] = new Integer[altura - metadePositiva][largura - metadePositiva];
+
+//            Integer MatrizModificada[][] = new Integer[altura - metadePositiva][largura - metadePositiva];
+            Integer MatrizModificada[][] = Matriz;
 
             double SomaMedia = 0;
             for (int alturaMatriz = metadePositiva; alturaMatriz < altura - metadePositiva; alturaMatriz++) {
@@ -713,7 +715,9 @@ public class PGMImage {
                     SomaMedia = 0;
                 }
             }
-            return new PGMImage(MatrizModificada, altura - (int) Math.ceil(kernelSize / 2.0), largura - (int) Math.ceil(kernelSize / 2.0), intensidade, cabecalho, comentario);
+//            return new PGMImage(MatrizModificada, altura - (int) Math.ceil(kernelSize / 2.0), largura - (int) Math.ceil(kernelSize / 2.0), intensidade, cabecalho, comentario);
+            return new PGMImage(MatrizModificada, altura, largura, intensidade, cabecalho, comentario);
+
         }
     }
 
@@ -851,18 +855,18 @@ public class PGMImage {
                 matrizComMascara[alturaMatriz][larguraMatriz] = (int) (Matriz[alturaMatriz][larguraMatriz] + mascara[alturaMatriz][larguraMatriz] * constante);
             }
         }
-        imagemMedia.saveImage("src\\Assets\\todos\\media.pgm");
-        new PGMImage(mascara, altura, largura, intensidade, cabecalho, comentario).saveImage("src\\Assets\\todos\\mascara.pgm");
+//        imagemMedia.saveImage("src\\Assets\\todos\\media.pgm");
+//        new PGMImage(mascara, altura, largura, intensidade, cabecalho, comentario).saveImage("src\\Assets\\todos\\mascara.pgm");
         return new PGMImage(matrizComMascara, altura, largura, intensidade, cabecalho, comentario);
     }
 
     public String getInformation() {
         return """
-            Linha: %d
-            coluna: %d
-            Intensidade: %d
-            Cabecalho: %s
-            Comentario: %s
+            Altura: %d
+            Largura: %d
+            Quantidade de bits: %d
+            Cabeçalho: %s
+            Comentário: %s
                """.formatted(altura, largura, intensidade, cabecalho, comentario);
     }
 }
