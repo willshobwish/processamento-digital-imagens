@@ -38,4 +38,8 @@ public class Controlador {
         fileclosefilepath = filepath;
         pgmimage.saveImage(filepath + ".pgm");
     }
+
+    public void media(int quantidade) {
+        pgmimage = pgmimage.media(quantidade);
+    }
 }
