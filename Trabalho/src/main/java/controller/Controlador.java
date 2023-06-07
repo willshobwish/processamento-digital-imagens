@@ -6,6 +6,7 @@ package controller;
 
 import model.PGMImage;
 import view.MainWindow;
+import view.SaveFile;
 
 /**
  *
@@ -16,7 +17,8 @@ public class Controlador {
     private static Controlador controlador = new Controlador();
     private static PGMImage pgmimage;
     private MainWindow mainwindow = new MainWindow();
-    private String filepath;
+    private String fileopenfilepath;
+    private String fileclosefilepath;
 
     private Controlador() {
         mainwindow.setVisible(true);
@@ -28,8 +30,12 @@ public class Controlador {
 
     public void abrirImagem(String filepath) {
         pgmimage = new PGMImage(filepath);
-        this.filepath = filepath;
+        fileopenfilepath = filepath;
         mainwindow.atualiza(pgmimage.getInformation());
     }
 
+    public void salvarImagem(String filepath) {
+        fileclosefilepath = filepath;
+        pgmimage.saveImage(filepath + ".pgm");
+    }
 }
