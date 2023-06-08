@@ -65,6 +65,10 @@ public class PGMImage {
         this.comentario = comentario;
     }
 
+    /**
+     *
+     * @param filepath
+     */
     public PGMImage(String filepath) {
         try {
             System.out.println("Abertura de imagem PGM binario");
@@ -185,26 +189,50 @@ public class PGMImage {
         return stringBuilder.toString().trim();
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer[][] getMatriz() {
         return Matriz;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAltura() {
         return altura;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLargura() {
         return largura;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIntensidade() {
         return intensidade;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCabecalho() {
         return cabecalho;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getComentario() {
         return comentario;
     }
@@ -644,6 +672,10 @@ public class PGMImage {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Integer> histogram() {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade + 1; i++) {
@@ -657,6 +689,13 @@ public class PGMImage {
         return histograma;
     }
 
+    /**
+     *
+     * @param MatrizInserida
+     * @param quantidade
+     * @param intensidade
+     * @return
+     */
     public ArrayList<Integer> histogram(Integer MatrizInserida[][], int quantidade, int intensidade) {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade + 1; i++) {
@@ -670,6 +709,10 @@ public class PGMImage {
         return histograma;
     }
 
+    /**
+     *
+     * @return
+     */
     public PGMImage equalizacao_histograma() {
         ArrayList<Integer> histograma = histogram(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
         ArrayList<Double> nk = new ArrayList<>();
@@ -692,6 +735,11 @@ public class PGMImage {
         return new PGMImage(matrizModificada, altura, largura, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param kernelSize
+     * @return
+     */
     public PGMImage media(int kernelSize) {
         if (kernelSize % 2 == 0) {
             System.out.println("A quantidade precisa ser impar");
@@ -721,6 +769,11 @@ public class PGMImage {
         }
     }
 
+    /**
+     *
+     * @param quantidade
+     * @return
+     */
     public PGMImage equalizacaoLocalHistograma(int quantidade) {
         if (quantidade % 2 == 0) {
             System.out.println("A quantidade precisa ser impar");
@@ -777,6 +830,11 @@ public class PGMImage {
         }
     }
 
+    /**
+     *
+     * @param quantidade
+     * @return
+     */
     public PGMImage Mediana(int quantidade) {
         Integer MatrizFinal[][] = new Integer[altura][largura];
         int KernelDistance = quantidade / 2;
@@ -805,6 +863,10 @@ public class PGMImage {
         return new PGMImage(MatrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public PGMImage laplaciano() {
         Integer[][] matrizFinal = new Integer[altura][largura];
 //        matrizFinal = Matriz;
@@ -841,6 +903,12 @@ public class PGMImage {
         return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @param kernelMedia
+     * @param constante
+     * @return
+     */
     public PGMImage nitidez(int kernelMedia, double constante) {
         PGMImage imagemMedia = new PGMImage(Matriz, altura, largura, intensidade, cabecalho, comentario).media(kernelMedia);
         Integer[][] media = imagemMedia.getMatriz();
@@ -860,6 +928,10 @@ public class PGMImage {
         return new PGMImage(matrizComMascara, altura, largura, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInformation() {
         return """
             Altura: %d

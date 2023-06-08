@@ -10,6 +10,10 @@ package controller;
  */
 public class Main {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Controlador.getInstance();
     }

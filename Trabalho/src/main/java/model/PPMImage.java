@@ -470,6 +470,10 @@ public class PPMImage {
         return new PPMImage(newMatrizR, newMatrizG, newMatrizB, altura, largura, intensidade, cabecalho, comentario);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInformation() {
         return """
             Altura: %d
