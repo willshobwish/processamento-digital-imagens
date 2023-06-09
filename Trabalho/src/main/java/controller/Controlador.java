@@ -29,6 +29,7 @@ public class Controlador {
     }
 
     /**
+     * Padrao Singleton
      *
      * @return
      */
@@ -140,7 +141,6 @@ public class Controlador {
 
     /**
      *
-     * @param r
      * @param r
      * @param g
      * @param b

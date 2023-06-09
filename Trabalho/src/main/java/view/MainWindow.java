@@ -327,7 +327,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         groupExtracaoSalvarOuMemoria.add(radioExtracaoUtilizarEmMemoria);
-        radioExtracaoUtilizarEmMemoria.setText("Utilizar em memória");
+        radioExtracaoUtilizarEmMemoria.setText("Utilizar em memória (extrai o canal selecionado e é transformado em imagem PGM)");
         radioExtracaoUtilizarEmMemoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioExtracaoUtilizarEmMemoriaActionPerformed(evt);
@@ -357,7 +357,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(radioExtracaoSalvarImagem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioExtracaoUtilizarEmMemoria)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +455,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonJuntar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel13))
-                .addContainerGap(600, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

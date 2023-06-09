@@ -483,7 +483,7 @@
                                   <Component id="radioExtracaoUtilizarEmMemoria" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="415" max="32767" attributes="0"/>
+                          <EmptySpace pref="209" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -575,7 +575,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="groupExtracaoSalvarOuMemoria"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Utilizar em mem&#xf3;ria"/>
+                    <Property name="text" type="java.lang.String" value="Utilizar em mem&#xf3;ria (extrai o canal selecionado e &#xe9; transformado em imagem PGM)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioExtracaoUtilizarEmMemoriaActionPerformed"/>
