@@ -7,6 +7,7 @@ package controller;
 import model.PGMImage;
 import model.PPMImage;
 import view.MainWindow;
+import view.PPM.channels.SavePPMChannelsFile;
 
 /**
  *
@@ -18,7 +19,9 @@ public class Controlador {
     private static PGMImage pgmimage;
     private PPMImage ppmimage;
     private MainWindow mainwindow = new MainWindow();
-    private String fileopenfilepath;
+    private String filepathPPM;
+    private String filepathPGM;
+
     private String fileclosefilepath;
 
     private Controlador() {
@@ -41,7 +44,7 @@ public class Controlador {
      */
     public void abrirImagemPGM(String filepath) {
         pgmimage = new PGMImage(filepath);
-        fileopenfilepath = filepath;
+        filepathPGM = filepath;
         mainwindow.atualiza(pgmimage.getInformation());
     }
 
@@ -61,7 +64,7 @@ public class Controlador {
      */
     public void abrirImagemPPM(String filepath) {
         ppmimage = new PPMImage(filepath);
-        fileopenfilepath = filepath;
+        filepathPPM = filepath;
         mainwindow.atualiza(ppmimage.getInformation());
     }
 
@@ -111,11 +114,19 @@ public class Controlador {
 
     }
 
+//    public void getExtracaoRGBFilepath(String filepath) {
+//        ppmimga
+//    }
+    public void dialogExtracaoRGB() {
+        new SavePPMChannelsFile().setVisible(true);
+    }
+
     /**
      *
+     *
      */
-    public void extracaoRGB() {
-
+    public void extracaoRGB(String fileapath) {
+        ppmimage.saveImageChannels(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
     }
 
     /**
@@ -124,4 +135,61 @@ public class Controlador {
     public void juncaoRGB() {
 
     }
+
+    public static Controlador getControlador() {
+        return controlador;
+    }
+
+    public static void setControlador(Controlador controlador) {
+        Controlador.controlador = controlador;
+    }
+
+    public static PGMImage getPgmimage() {
+        return pgmimage;
+    }
+
+    public static void setPgmimage(PGMImage pgmimage) {
+        Controlador.pgmimage = pgmimage;
+    }
+
+    public PPMImage getPpmimage() {
+        return ppmimage;
+    }
+
+    public void setPpmimage(PPMImage ppmimage) {
+        this.ppmimage = ppmimage;
+    }
+
+    public MainWindow getMainwindow() {
+        return mainwindow;
+    }
+
+    public void setMainwindow(MainWindow mainwindow) {
+        this.mainwindow = mainwindow;
+    }
+
+    public String getFilepathPPM() {
+        return filepathPPM;
+    }
+
+    public void setFilepathPPM(String filepathPPM) {
+        this.filepathPPM = filepathPPM;
+    }
+
+    public String getFilepathPGM() {
+        return filepathPGM;
+    }
+
+    public void setFilepathPGM(String filepathPGM) {
+        this.filepathPGM = filepathPGM;
+    }
+
+    public String getFileclosefilepath() {
+        return fileclosefilepath;
+    }
+
+    public void setFileclosefilepath(String fileclosefilepath) {
+        this.fileclosefilepath = fileclosefilepath;
+    }
+
 }

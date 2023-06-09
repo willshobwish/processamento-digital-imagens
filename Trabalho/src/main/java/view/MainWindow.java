@@ -7,8 +7,10 @@ package view;
 import view.PGM.SavePGMFile;
 import view.PGM.OpenPGMFile;
 import controller.Controlador;
+import javax.swing.JRadioButton;
 import view.PPM.OpenPPMFile;
 import view.PPM.SavePPMFile;
+import view.PPM.channels.SavePPMChannelsFile;
 
 /**
  *
@@ -39,6 +41,7 @@ public class MainWindow extends javax.swing.JFrame {
         groupJuncaoR = new javax.swing.ButtonGroup();
         groupJuncaoG = new javax.swing.ButtonGroup();
         griupJuncaoB = new javax.swing.ButtonGroup();
+        groupExtracaoSalvarOuMemoria = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
         panelFiltragemEspacial = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -64,11 +67,14 @@ public class MainWindow extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         panelJuncaoExtracao = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        radioExtracaoRed = new javax.swing.JRadioButton();
+        radioExtracaoGreen = new javax.swing.JRadioButton();
+        radioExtracaoBlue = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        radioExtracaoTodos = new javax.swing.JRadioButton();
+        radioExtracaoSalvarImagem = new javax.swing.JRadioButton();
+        radioExtracaoUtilizarEmMemoria = new javax.swing.JRadioButton();
         jPanel6 = new javax.swing.JPanel();
         jRadioButton10 = new javax.swing.JRadioButton();
         jRadioButton11 = new javax.swing.JRadioButton();
@@ -288,19 +294,33 @@ public class MainWindow extends javax.swing.JFrame {
 
         tabbedPane.addTab("Filtragem espacial", panelFiltragemEspacial);
 
-        groupExtracaoRGB.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Red");
+        groupExtracaoRGB.add(radioExtracaoRed);
+        radioExtracaoRed.setSelected(true);
+        radioExtracaoRed.setText("Red");
 
-        groupExtracaoRGB.add(jRadioButton2);
-        jRadioButton2.setText("Green");
+        groupExtracaoRGB.add(radioExtracaoGreen);
+        radioExtracaoGreen.setText("Green");
 
-        groupExtracaoRGB.add(jRadioButton3);
-        jRadioButton3.setText("Blue");
+        groupExtracaoRGB.add(radioExtracaoBlue);
+        radioExtracaoBlue.setText("Blue");
 
         jLabel3.setText("Separação de cores");
 
         jButton2.setText("Extrair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        groupExtracaoRGB.add(radioExtracaoTodos);
+        radioExtracaoTodos.setText("Todos");
+
+        groupExtracaoSalvarOuMemoria.add(radioExtracaoSalvarImagem);
+        radioExtracaoSalvarImagem.setText("Salvar imagem");
+
+        groupExtracaoSalvarOuMemoria.add(radioExtracaoUtilizarEmMemoria);
+        radioExtracaoUtilizarEmMemoria.setText("Utilizar em memória");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -308,16 +328,24 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(radioExtracaoRed, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioExtracaoGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioExtracaoBlue, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(radioExtracaoTodos))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(radioExtracaoSalvarImagem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(476, Short.MAX_VALUE))
+                        .addComponent(radioExtracaoUtilizarEmMemoria)))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,12 +354,17 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(radioExtracaoRed)
+                    .addComponent(radioExtracaoGreen)
+                    .addComponent(radioExtracaoBlue)
+                    .addComponent(radioExtracaoTodos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioExtracaoSalvarImagem)
+                    .addComponent(radioExtracaoUtilizarEmMemoria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         groupJuncaoR.add(jRadioButton10);
@@ -597,6 +630,9 @@ public class MainWindow extends javax.swing.JFrame {
         if (radioMedia.isSelected()) {
             Controlador.getInstance().media((int) spinnerQuantidadeFiltro.getValue());
         }
+        if (radioMediana.isSelected()) {
+            Controlador.getInstance().mediana((int) spinnerQuantidadeFiltro.getValue());
+        }
     }//GEN-LAST:event_buttonFiltroActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -613,6 +649,12 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         new SavePPMFile().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+//        new SavePPMChannelsFile().setVisible(true);
+        Controlador.getInstance().dialogExtracaoRGB();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      *
@@ -658,11 +700,36 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
 
+    public JRadioButton getRadioExtracaoBlue() {
+        return radioExtracaoBlue;
+    }
+
+    public JRadioButton getRadioExtracaoGreen() {
+        return radioExtracaoGreen;
+    }
+
+    public JRadioButton getRadioExtracaoRed() {
+        return radioExtracaoRed;
+    }
+
+    public JRadioButton getRadioExtracaoSalvarImagem() {
+        return radioExtracaoSalvarImagem;
+    }
+
+    public JRadioButton getRadioExtracaoTodos() {
+        return radioExtracaoTodos;
+    }
+
+    public JRadioButton getRadioExtracaoUtilizarEmMemoria() {
+        return radioExtracaoUtilizarEmMemoria;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonFiltro;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup griupJuncaoB;
     private javax.swing.ButtonGroup groupExtracaoRGB;
+    private javax.swing.ButtonGroup groupExtracaoSalvarOuMemoria;
     private javax.swing.ButtonGroup groupJuncaoG;
     private javax.swing.ButtonGroup groupJuncaoR;
     private javax.swing.ButtonGroup groupLaplaciano;
@@ -697,7 +764,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton10;
     private javax.swing.JRadioButton jRadioButton11;
     private javax.swing.JRadioButton jRadioButton12;
@@ -707,8 +773,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton16;
     private javax.swing.JRadioButton jRadioButton17;
     private javax.swing.JRadioButton jRadioButton18;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
@@ -722,6 +786,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panelFiltragemEspacial;
     private javax.swing.JPanel panelInformacoes;
     private javax.swing.JPanel panelJuncaoExtracao;
+    private javax.swing.JRadioButton radioExtracaoBlue;
+    private javax.swing.JRadioButton radioExtracaoGreen;
+    private javax.swing.JRadioButton radioExtracaoRed;
+    private javax.swing.JRadioButton radioExtracaoSalvarImagem;
+    private javax.swing.JRadioButton radioExtracaoTodos;
+    private javax.swing.JRadioButton radioExtracaoUtilizarEmMemoria;
     private javax.swing.JRadioButton radioMedia;
     private javax.swing.JRadioButton radioMediana;
     private javax.swing.JSpinner spinnerQuantidadeFiltro;

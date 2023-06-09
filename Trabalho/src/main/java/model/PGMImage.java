@@ -71,7 +71,7 @@ public class PGMImage {
      */
     public PGMImage(String filepath) {
         try {
-            System.out.println("Abertura de imagem PGM binario");
+            System.out.println("Abertura de imagem PGM");
             FileInputStream fileInputStream = new FileInputStream(filepath);
             String magic = readLineBinary(fileInputStream);
             fileInputStream.close();
