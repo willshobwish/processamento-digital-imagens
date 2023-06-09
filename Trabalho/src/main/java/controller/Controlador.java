@@ -117,6 +117,9 @@ public class Controlador {
 //    public void getExtracaoRGBFilepath(String filepath) {
 //        ppmimga
 //    }
+    /**
+     *
+     */
     public void dialogExtracaoRGB() {
         new SavePPMChannelsFile().setVisible(true);
     }
@@ -124,6 +127,7 @@ public class Controlador {
     /**
      *
      *
+     * @param fileapath
      */
     public void extracaoRGB(String fileapath) {
         ppmimage.saveImageChannels(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
@@ -131,63 +135,123 @@ public class Controlador {
 
     /**
      *
+     * @param r
+     * @param r
+     * @param g
+     * @param b
      */
     public void juncaoRGB(String r, String g, String b) {
         ppmimage.InvertChannels(r, g, b);
     }
 
+    /**
+     *
+     * @return
+     */
     public static Controlador getControlador() {
         return controlador;
     }
 
+    /**
+     *
+     * @param controlador
+     */
     public static void setControlador(Controlador controlador) {
         Controlador.controlador = controlador;
     }
 
+    /**
+     *
+     * @return
+     */
     public static PGMImage getPgmimage() {
         return pgmimage;
     }
 
+    /**
+     *
+     * @param pgmimage
+     */
     public static void setPgmimage(PGMImage pgmimage) {
         Controlador.pgmimage = pgmimage;
     }
 
+    /**
+     *
+     * @return
+     */
     public PPMImage getPpmimage() {
         return ppmimage;
     }
 
+    /**
+     *
+     * @param ppmimage
+     */
     public void setPpmimage(PPMImage ppmimage) {
         this.ppmimage = ppmimage;
     }
 
+    /**
+     *
+     * @return
+     */
     public MainWindow getMainwindow() {
         return mainwindow;
     }
 
+    /**
+     *
+     * @param mainwindow
+     */
     public void setMainwindow(MainWindow mainwindow) {
         this.mainwindow = mainwindow;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFilepathPPM() {
         return filepathPPM;
     }
 
+    /**
+     *
+     * @param filepathPPM
+     */
     public void setFilepathPPM(String filepathPPM) {
         this.filepathPPM = filepathPPM;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFilepathPGM() {
         return filepathPGM;
     }
 
+    /**
+     *
+     * @param filepathPGM
+     */
     public void setFilepathPGM(String filepathPGM) {
         this.filepathPGM = filepathPGM;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFileclosefilepath() {
         return fileclosefilepath;
     }
 
+    /**
+     *
+     * @param fileclosefilepath
+     */
     public void setFileclosefilepath(String fileclosefilepath) {
         this.fileclosefilepath = fileclosefilepath;
     }

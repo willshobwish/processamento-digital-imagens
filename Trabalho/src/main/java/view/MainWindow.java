@@ -766,26 +766,50 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoBlue() {
         return radioExtracaoBlue;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoGreen() {
         return radioExtracaoGreen;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoRed() {
         return radioExtracaoRed;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoSalvarImagem() {
         return radioExtracaoSalvarImagem;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoTodos() {
         return radioExtracaoTodos;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRadioButton getRadioExtracaoUtilizarEmMemoria() {
         return radioExtracaoUtilizarEmMemoria;
     }

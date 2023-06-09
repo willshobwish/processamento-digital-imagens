@@ -261,6 +261,10 @@ public class PPMImage {
     /**
      *
      * @param filepath
+     * @param R
+     * @param G
+     * @param todos
+     * @param B
      */
     public void saveImageChannels(String filepath, boolean R, boolean G, boolean B, boolean todos) {
         try {
