@@ -130,7 +130,12 @@ public class Controlador {
      * @param fileapath
      */
     public void extracaoRGB(String fileapath) {
-        ppmimage.saveImageChannels(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
+        if (mainwindow.getRadioExtracaoSalvarImagem().isSelected()) {
+            ppmimage.saveImageChannels(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
+        }
+        if (mainwindow.getRadioExtracaoUtilizarEmMemoria().isSelected()) {
+            pgmimage = ppmimage.saveImageChannels(mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected());
+        }
     }
 
     /**

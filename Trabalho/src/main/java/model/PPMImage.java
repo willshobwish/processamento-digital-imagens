@@ -429,6 +429,19 @@ public class PPMImage {
         }
     }
 
+    public PGMImage saveImageChannels(boolean R, boolean G, boolean B) {
+        if (R) {
+            return new PGMImage(matrizR, altura, largura, intensidade, "P2", comentario);
+        }
+        if (G) {
+            return new PGMImage(matrizG, altura, largura, intensidade, "P2", comentario);
+        }
+        if (B) {
+            return new PGMImage(matrizB, altura, largura, intensidade, "P2", comentario);
+        }
+        return null;
+    }
+
     /**
      *
      * @param r

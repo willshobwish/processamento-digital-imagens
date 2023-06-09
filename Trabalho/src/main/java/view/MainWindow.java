@@ -676,7 +676,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 //        new SavePPMChannelsFile().setVisible(true);
-        Controlador.getInstance().dialogExtracaoRGB();
+        if (radioExtracaoSalvarImagem.isSelected()) {
+            Controlador.getInstance().dialogExtracaoRGB();
+
+        }
+        if (radioExtracaoUtilizarEmMemoria.isSelected()) {
+            Controlador.getInstance().extracaoRGB(null);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void radioExtracaoUtilizarEmMemoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioExtracaoUtilizarEmMemoriaActionPerformed
