@@ -132,8 +132,8 @@ public class Controlador {
     /**
      *
      */
-    public void juncaoRGB() {
-
+    public void juncaoRGB(String r, String g, String b) {
+        ppmimage.InvertChannels(r, g, b);
     }
 
     public static Controlador getControlador() {
