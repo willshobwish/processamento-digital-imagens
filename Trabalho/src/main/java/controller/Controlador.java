@@ -97,8 +97,8 @@ public class Controlador {
     /**
      *
      */
-    public void laplaciano() {
-
+    public void laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
+        pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4);
     }
 
     /**
@@ -112,6 +112,7 @@ public class Controlador {
      *
      */
     public void equalizacaoGlobal() {
+        pgmimage = pgmimage.equalizacao_histograma();
 
     }
 

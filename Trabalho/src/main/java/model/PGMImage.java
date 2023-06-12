@@ -867,40 +867,134 @@ public class PGMImage {
      *
      * @return
      */
-    public PGMImage laplaciano() {
+    public PGMImage laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
         Integer[][] matrizFinal = new Integer[altura][largura];
-//        matrizFinal = Matriz;
-        int kernelSize = 3;
-        Integer[][] matrizConvolucao = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
+        Integer[][] matrizConvolucao1 = {{0, 1, 0}, {1, 4, 1}, {0, 1, 0}};
+        Integer[][] matrizConvolucao2 = {{1, 1, 1}, {1, 8, 1}, {1, 1, 1}};
+        Integer[][] matrizConvolucao3 = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
+        Integer[][] matrizConvolucao4 = {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}};
 
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < largura; j++) {
-                int sum = 0;
+        if (tipo1) {
+            for (int i = 0; i < altura; i++) {
+                for (int j = 0; j < largura; j++) {
+                    int sum = 0;
 
-                // Apply the kernel to the current pixel and its neighbors
-                for (int k = 0; k < 3; k++) {
-                    for (int l = 0; l < 3; l++) {
-                        int rowIndex = i + k - 3 / 2;
-                        int colIndex = j + l - 3 / 2;
+                    // Apply the kernel to the current pixel and its neighbors
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            int rowIndex = i + k - 3 / 2;
+                            int colIndex = j + l - 3 / 2;
 
-                        // Ensure the indices are within the image boundaries
-                        if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
-                            sum += Matriz[rowIndex][colIndex] * matrizConvolucao[k][l];
+                            // Ensure the indices are within the image boundaries
+                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
+                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao1[k][l];
+                            }
                         }
                     }
-                }
 
-                // Apply the kernel condition
-                if (sum > 255) {
-                    matrizFinal[i][j] = 255;
-                } else if (sum < 0) {
-                    matrizFinal[i][j] = 0;
-                } else {
-                    matrizFinal[i][j] = sum;
+                    // Apply the kernel condition
+                    if (sum > 255) {
+                        matrizFinal[i][j] = 255;
+                    } else if (sum < 0) {
+                        matrizFinal[i][j] = 0;
+                    } else {
+                        matrizFinal[i][j] = sum;
+                    }
                 }
             }
+            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
-        return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+        if (tipo2) {
+            for (int i = 0; i < altura; i++) {
+                for (int j = 0; j < largura; j++) {
+                    int sum = 0;
+
+                    // Apply the kernel to the current pixel and its neighbors
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            int rowIndex = i + k - 3 / 2;
+                            int colIndex = j + l - 3 / 2;
+
+                            // Ensure the indices are within the image boundaries
+                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
+                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao2[k][l];
+                            }
+                        }
+                    }
+
+                    // Apply the kernel condition
+                    if (sum > 255) {
+                        matrizFinal[i][j] = 255;
+                    } else if (sum < 0) {
+                        matrizFinal[i][j] = 0;
+                    } else {
+                        matrizFinal[i][j] = sum;
+                    }
+                }
+            }
+            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+        }
+        if (tipo3) {
+            for (int i = 0; i < altura; i++) {
+                for (int j = 0; j < largura; j++) {
+                    int sum = 0;
+
+                    // Apply the kernel to the current pixel and its neighbors
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            int rowIndex = i + k - 3 / 2;
+                            int colIndex = j + l - 3 / 2;
+
+                            // Ensure the indices are within the image boundaries
+                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
+                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao3[k][l];
+                            }
+                        }
+                    }
+
+                    // Apply the kernel condition
+                    if (sum > 255) {
+                        matrizFinal[i][j] = 255;
+                    } else if (sum < 0) {
+                        matrizFinal[i][j] = 0;
+                    } else {
+                        matrizFinal[i][j] = sum;
+                    }
+                }
+            }
+            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+        }
+        if (tipo4) {
+            for (int i = 0; i < altura; i++) {
+                for (int j = 0; j < largura; j++) {
+                    int sum = 0;
+
+                    // Apply the kernel to the current pixel and its neighbors
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            int rowIndex = i + k - 3 / 2;
+                            int colIndex = j + l - 3 / 2;
+
+                            // Ensure the indices are within the image boundaries
+                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
+                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao4[k][l];
+                            }
+                        }
+                    }
+
+                    // Apply the kernel condition
+                    if (sum > 255) {
+                        matrizFinal[i][j] = 255;
+                    } else if (sum < 0) {
+                        matrizFinal[i][j] = 0;
+                    } else {
+                        matrizFinal[i][j] = sum;
+                    }
+                }
+            }
+            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+        }
+        return null;
     }
 
     /**
