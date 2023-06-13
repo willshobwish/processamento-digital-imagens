@@ -75,7 +75,7 @@ public class PPMImage {
     }
 
     /**
-     * AAAs
+     *
      *
      * @param filepath
      */
@@ -83,9 +83,9 @@ public class PPMImage {
         try {
             System.out.println("Abertura de imagem PPM binario");
             FileInputStream fileInputStream = new FileInputStream(filepath);
-            String magicNumber = readLineBinary(fileInputStream);
+            String codificacao = leituraLinhaBinario(fileInputStream);
             fileInputStream.close();
-            if (magicNumber.equals("P6")) {
+            if (codificacao.equals("P6")) {
 //                Para tratar arquivos binários é necessário utilizar um método mais "primitivo" do java que tem controle sobre a quantidade de leitura de bytes
                 try {
                     fileInputStream = new FileInputStream(filepath);
@@ -93,13 +93,13 @@ public class PPMImage {
 //                    Define o objeto matriz para P3 porque será escrito em ASCII posteriormente
                     cabecalho = "P3";
 //                    Pula o número mágico para o próxima linha
-                    readLineBinary(fileInputStream);
-                    comentario = readLineBinary(fileInputStream);
+                    leituraLinhaBinario(fileInputStream);
+                    comentario = leituraLinhaBinario(fileInputStream);
 //                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
-                    String[] width_height = readLineBinary(fileInputStream).split(" ");
+                    String[] width_height = leituraLinhaBinario(fileInputStream).split(" ");
                     altura = Integer.parseInt(width_height[0]);
                     largura = Integer.parseInt(width_height[1]);
-                    intensidade = readInteger(fileInputStream);
+                    intensidade = leituraInteiro(fileInputStream);
                     matrizR = new Integer[altura][largura];
                     matrizG = new Integer[altura][largura];
                     matrizB = new Integer[altura][largura];
@@ -110,27 +110,25 @@ public class PPMImage {
                            Cabecalho: %s
                            Comentario: %s
                            """.formatted(altura, largura, intensidade, cabecalho, comentario));
-                    // Create a byte array to hold the pixel values
                     byte[] pixels = new byte[altura * largura * 3];
-                    // Read the pixel values
-                    int bytesRead = 0;
-                    while (bytesRead < pixels.length) {
-                        int count = fileInputStream.read(pixels, bytesRead, pixels.length - bytesRead);
+                    int bytesLidos = 0;
+                    while (bytesLidos < pixels.length) {
+                        int count = fileInputStream.read(pixels, bytesLidos, pixels.length - bytesLidos);
                         if (count == -1) {
                             break;
                         }
-                        bytesRead += count;
+                        bytesLidos += count;
                     }
-                    int aux = 0;
+                    int auxiliar = 0;
                     for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
                         for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
 //                            Incrementar em um cada vez que le para ter todas as tres cores por vez
-                            matrizR[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
-                            aux++;
-                            matrizG[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
-                            aux++;
-                            matrizB[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
-                            aux++;
+                            matrizR[linhaMatriz][colunaMatriz] = pixels[auxiliar] & 0xFF;
+                            auxiliar++;
+                            matrizG[linhaMatriz][colunaMatriz] = pixels[auxiliar] & 0xFF;
+                            auxiliar++;
+                            matrizB[linhaMatriz][colunaMatriz] = pixels[auxiliar] & 0xFF;
+                            auxiliar++;
                         }
                     }
                     fileInputStream.close();
@@ -138,7 +136,7 @@ public class PPMImage {
                     e.printStackTrace();
                 }
             }
-            if (magicNumber.equals("P3")) {
+            if (codificacao.equals("P3")) {
 //                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
                 try {
                     System.out.println("Abertura de imagem PPM ASCII");
@@ -187,17 +185,17 @@ public class PPMImage {
         }
     }
 
-    private static int readInteger(FileInputStream fileInputStream) {
+    private static int leituraInteiro(FileInputStream fileInputStream) {
         String s = "";
         try {
-            s = readLineBinary(fileInputStream);
+            s = leituraLinhaBinario(fileInputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Integer.parseInt(s);
     }
 
-    private static String readLineBinary(FileInputStream fileInputStream) {
+    private static String leituraLinhaBinario(FileInputStream fileInputStream) {
         StringBuilder stringBuilder = new StringBuilder();
         try {
             int c;
@@ -214,7 +212,7 @@ public class PPMImage {
      *
      * @param filepath
      */
-    public void saveImage(String filepath) {
+    public void salvarImagem(String filepath) {
         try {
             File ponteiroArquivo = new File(filepath);
             if (ponteiroArquivo.createNewFile()) {
@@ -266,7 +264,7 @@ public class PPMImage {
      * @param todos
      * @param B
      */
-    public void saveImageChannels(String filepath, boolean R, boolean G, boolean B, boolean todos) {
+    public void salvarCanaisImagem(String filepath, boolean R, boolean G, boolean B, boolean todos) {
         try {
             if (R) {
                 File ponteiroArquivoR = new File(filepath + "R.pgm");
@@ -429,7 +427,14 @@ public class PPMImage {
         }
     }
 
-    public PGMImage saveImageChannels(boolean R, boolean G, boolean B) {
+    /**
+     *
+     * @param R
+     * @param G
+     * @param B
+     * @return
+     */
+    public PGMImage salvarImagemCanais(boolean R, boolean G, boolean B) {
         if (R) {
             return new PGMImage(matrizR, altura, largura, intensidade, "P2", comentario);
         }
@@ -511,7 +516,7 @@ public class PPMImage {
      * @param b
      * @return
      */
-    public PPMImage InvertChannels(String r, String g, String b) {
+    public PPMImage inverterCanais(String r, String g, String b) {
         Integer[][] newMatrizR = new Integer[altura][largura], newMatrizG = new Integer[altura][largura], newMatrizB = new Integer[altura][largura];
         switch (r) {
             case "r":
@@ -559,7 +564,7 @@ public class PPMImage {
      *
      * @return
      */
-    public String getInformation() {
+    public String getInformacao() {
         return """
             Altura: %d
             Largura: %d

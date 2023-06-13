@@ -73,9 +73,9 @@ public class PGMImage {
         try {
             System.out.println("Abertura de imagem PGM");
             FileInputStream fileInputStream = new FileInputStream(filepath);
-            String magic = readLineBinary(fileInputStream);
+            String codificacao = leituraLinhaBinaria(fileInputStream);
             fileInputStream.close();
-            if (magic.equals("P5")) {
+            if (codificacao.equals("P5")) {
 //                Para tratar arquivos binários é necessário utilizar um método mais "primitivo" do java que tem controle sobre a quantidade de leitura de bytes
                 try {
                     fileInputStream = new FileInputStream(filepath);
@@ -83,13 +83,13 @@ public class PGMImage {
 //                    Define o objeto matriz para P2 porque será escrito em ASCII posteriormente
                     cabecalho = "P2";
 //                    Pula o número mágico para o próxima linha
-                    readLineBinary(fileInputStream);
-                    comentario = readLineBinary(fileInputStream);
+                    leituraLinhaBinaria(fileInputStream);
+                    comentario = leituraLinhaBinaria(fileInputStream);
 //                    Como é possível ler somente uma linha direta, é necessário dividir a string e definir cada parte como linha e coluna
-                    String[] width_height = readLineBinary(fileInputStream).split(" ");
+                    String[] width_height = leituraLinhaBinaria(fileInputStream).split(" ");
                     altura = Integer.parseInt(width_height[1]);
                     largura = Integer.parseInt(width_height[0]);
-                    intensidade = readInteger(fileInputStream);
+                    intensidade = leituraInteiro(fileInputStream);
                     Matriz = new Integer[altura][largura];
                     System.out.println("""
                            Linha: %d
@@ -98,22 +98,23 @@ public class PGMImage {
                            Cabecalho: %s
                            Comentario: %s
                            """.formatted(altura, largura, intensidade, cabecalho, comentario));
-                    // Create a byte array to hold the pixel values
+                    // Cria um array de bytes
                     byte[] pixels = new byte[altura * largura];
-                    // Read the pixel values
-                    int bytesRead = 0;
-                    while (bytesRead < pixels.length) {
-                        int count = fileInputStream.read(pixels, bytesRead, pixels.length - bytesRead);
+                    // Cria um contador de quantidades de bytes lidos
+                    int bytesLidos = 0;
+                    while (bytesLidos < pixels.length) {
+                        int count = fileInputStream.read(pixels, bytesLidos, pixels.length - bytesLidos);
                         if (count == -1) {
                             break;
                         }
-                        bytesRead += count;
+                        bytesLidos += count;
                     }
-                    int aux = 0;
+                    int auxiliar = 0;
                     for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
                         for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
-                            Matriz[linhaMatriz][colunaMatriz] = pixels[aux] & 0xFF;
-                            aux++;
+//                            Transforma os bytes em numeros
+                            Matriz[linhaMatriz][colunaMatriz] = pixels[auxiliar] & 0xFF;
+                            auxiliar++;
                         }
                     }
                     fileInputStream.close();
@@ -121,7 +122,7 @@ public class PGMImage {
                     e.printStackTrace();
                 }
             }
-            if (magic.equals("P2")) {
+            if (codificacao.equals("P2")) {
 //                Para ler arquivos em ASCII podemos utilizar métodos menos primitivos e temos métodos mais simples e direto
                 try {
                     System.out.println("Abertura de imagem PGM ASCII");
@@ -166,26 +167,32 @@ public class PGMImage {
 
     }
 
-    private static int readInteger(FileInputStream fileInputStream) {
+//    Para ler a quantidade de bits de imagens binarias
+    private static int leituraInteiro(FileInputStream fileInputStream) {
         String s = "";
         try {
-            s = readLineBinary(fileInputStream);
+            s = leituraLinhaBinaria(fileInputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Integer.parseInt(s);
     }
 
-    private static String readLineBinary(FileInputStream fileInputStream) {
+//    Para leitura de imagens em formato binario
+    private static String leituraLinhaBinaria(FileInputStream fileInputStream) {
+//        Permite a alocacao de strings dinamicamente
         StringBuilder stringBuilder = new StringBuilder();
         try {
             int c;
+//            Concatena as informacoes (char) da imagem em formato binario
             while ((c = fileInputStream.read()) != -1 && (c != '\n')) {
+//                Junta a informacao lida no final
                 stringBuilder.append((char) c);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        O metodo trim seria para remover os espacos em brancos
         return stringBuilder.toString().trim();
     }
 
@@ -241,7 +248,7 @@ public class PGMImage {
      *
      * @param filepath
      */
-    public void saveImage(String filepath) {
+    public void salvarImagem(String filepath) {
         try {
             File ponteiroArquivo = new File(filepath);
             if (ponteiroArquivo.createNewFile()) {
@@ -288,7 +295,7 @@ public class PGMImage {
      *
      * @return
      */
-    public PGMImage Negative() {
+    public PGMImage negativo() {
         Integer ImagemNegativa[][] = new Integer[altura][largura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
@@ -303,7 +310,7 @@ public class PGMImage {
      * @param quantidade
      * @return
      */
-    public PGMImage Darken(int quantidade) {
+    public PGMImage escurecer(int quantidade) {
         Integer ImagemEscurecida[][] = new Integer[altura][largura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
@@ -362,7 +369,7 @@ public class PGMImage {
      *
      * @return
      */
-    public PGMImage rotateMinus90() {
+    public PGMImage rotacaoMenos90() {
         Integer ImagemRotacionada[][] = new Integer[largura][altura];
         Comentario("Rotacao -90", largura, altura);
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -378,7 +385,7 @@ public class PGMImage {
      *
      * @return
      */
-    public PGMImage rotate90() {
+    public PGMImage rotacao90() {
 //Quantidade de linha e coluna inversa
         Integer ImagemRotacionada[][] = new Integer[largura][altura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -393,7 +400,7 @@ public class PGMImage {
      *
      * @return
      */
-    public PGMImage rotate180() {
+    public PGMImage rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[altura][largura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
@@ -401,20 +408,6 @@ public class PGMImage {
             }
         }
         return new PGMImage(ImagemRotacionada, altura, largura, intensidade, cabecalho, comentario);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public PGMImage test() {
-        Integer ImagemTeste[][] = new Integer[altura][largura];
-        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
-            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
-                ImagemTeste[linhaMatriz][colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
-            }
-        }
-        return new PGMImage(ImagemTeste, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
@@ -632,7 +625,7 @@ public class PGMImage {
      *
      * @param filepath
      */
-    public void histogram(String filepath) {
+    public void histograma(String filepath) {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade; i++) {
             histograma.add(0);
@@ -676,7 +669,7 @@ public class PGMImage {
      *
      * @return
      */
-    public ArrayList<Integer> histogram() {
+    public ArrayList<Integer> histograma() {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade + 1; i++) {
             histograma.add(0);
@@ -696,7 +689,7 @@ public class PGMImage {
      * @param intensidade
      * @return
      */
-    public ArrayList<Integer> histogram(Integer MatrizInserida[][], int quantidade, int intensidade) {
+    public ArrayList<Integer> histograma(Integer MatrizInserida[][], int quantidade, int intensidade) {
         ArrayList<Integer> histograma = new ArrayList<>();
         for (int i = 0; i < intensidade + 1; i++) {
             histograma.add(0);
@@ -714,7 +707,7 @@ public class PGMImage {
      * @return
      */
     public PGMImage equalizacao_histograma() {
-        ArrayList<Integer> histograma = histogram(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
+        ArrayList<Integer> histograma = PGMImage.this.histograma(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
         ArrayList<Double> nk = new ArrayList<>();
         double somaProbabilidade = 0;
         for (int i = 0; i < intensidade + 1; i++) {
@@ -835,11 +828,9 @@ public class PGMImage {
      * @param quantidade
      * @return
      */
-    public PGMImage Mediana(int quantidade) {
-        Integer MatrizFinal[][] = new Integer[altura][largura];
+    public PGMImage mediana(int quantidade) {
+        Integer MatrizFinal[][] = Matriz;
         int KernelDistance = quantidade / 2;
-//        MatrizFinal = Matriz;
-
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
@@ -860,135 +851,123 @@ public class PGMImage {
             }
         }
 
-        return new PGMImage(MatrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+        return new PGMImage(MatrizFinal, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**
+     * , intensidade, cabecalho, comentario); }
      *
+     * /**
+     *
+     * @param tipo1
+     * @param tipo3
+     * @param tipo2
+     * @param tipo4
      * @return
      */
     public PGMImage laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
         Integer[][] matrizFinal = new Integer[altura][largura];
+//        Criacao dos tipos de convolucoes exibidos em aula
         Integer[][] matrizConvolucao1 = {{0, 1, 0}, {1, 4, 1}, {0, 1, 0}};
         Integer[][] matrizConvolucao2 = {{1, 1, 1}, {1, 8, 1}, {1, 1, 1}};
         Integer[][] matrizConvolucao3 = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
         Integer[][] matrizConvolucao4 = {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}};
 
         if (tipo1) {
-            for (int i = 0; i < altura; i++) {
-                for (int j = 0; j < largura; j++) {
-                    int sum = 0;
-
-                    // Apply the kernel to the current pixel and its neighbors
-                    for (int k = 0; k < 3; k++) {
-                        for (int l = 0; l < 3; l++) {
-                            int rowIndex = i + k - 3 / 2;
-                            int colIndex = j + l - 3 / 2;
-
-                            // Ensure the indices are within the image boundaries
-                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
-                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao1[k][l];
+//            Percorre a imagem
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    int soma = 0;
+//                    Percorre o kernel dentro da imagem
+                    for (int linhaKernel = 0; linhaKernel < 3; linhaKernel++) {
+                        for (int colunaKernel = 0; colunaKernel < 3; colunaKernel++) {
+//                            Realiza o calculo da localizacao do kernel na imagem
+                            int sublinha = linhaMatriz + linhaKernel - 3 / 2;
+                            int subcoluna = colunaMatriz + colunaKernel - 3 / 2;
+                            if (sublinha >= 0 && sublinha < altura && subcoluna >= 0 && subcoluna < largura) {
+                                soma += Matriz[sublinha][subcoluna] * matrizConvolucao1[linhaKernel][colunaKernel];
                             }
                         }
                     }
-
-                    // Apply the kernel condition
-                    if (sum > 255) {
-                        matrizFinal[i][j] = 255;
-                    } else if (sum < 0) {
-                        matrizFinal[i][j] = 0;
+//                    Checa se está dentro do limite de bits
+                    if (soma > intensidade) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                    } else if (soma < 0) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[i][j] = sum;
+                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
             return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo2) {
-            for (int i = 0; i < altura; i++) {
-                for (int j = 0; j < largura; j++) {
-                    int sum = 0;
-
-                    // Apply the kernel to the current pixel and its neighbors
-                    for (int k = 0; k < 3; k++) {
-                        for (int l = 0; l < 3; l++) {
-                            int rowIndex = i + k - 3 / 2;
-                            int colIndex = j + l - 3 / 2;
-
-                            // Ensure the indices are within the image boundaries
-                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
-                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao2[k][l];
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    int soma = 0;
+                    for (int linhaKernel = 0; linhaKernel < 3; linhaKernel++) {
+                        for (int colunaKernel = 0; colunaKernel < 3; colunaKernel++) {
+                            int sublinha = linhaMatriz + linhaKernel - 3 / 2;
+                            int subcoluna = colunaMatriz + colunaKernel - 3 / 2;
+                            if (sublinha >= 0 && sublinha < altura && subcoluna >= 0 && subcoluna < largura) {
+                                soma += Matriz[sublinha][subcoluna] * matrizConvolucao2[linhaKernel][colunaKernel];
                             }
                         }
                     }
-
-                    // Apply the kernel condition
-                    if (sum > 255) {
-                        matrizFinal[i][j] = 255;
-                    } else if (sum < 0) {
-                        matrizFinal[i][j] = 0;
+                    if (soma > intensidade) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                    } else if (soma < 0) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[i][j] = sum;
+                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
             return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo3) {
-            for (int i = 0; i < altura; i++) {
-                for (int j = 0; j < largura; j++) {
-                    int sum = 0;
-
-                    // Apply the kernel to the current pixel and its neighbors
-                    for (int k = 0; k < 3; k++) {
-                        for (int l = 0; l < 3; l++) {
-                            int rowIndex = i + k - 3 / 2;
-                            int colIndex = j + l - 3 / 2;
-
-                            // Ensure the indices are within the image boundaries
-                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
-                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao3[k][l];
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    int soma = 0;
+                    for (int linhaKernel = 0; linhaKernel < 3; linhaKernel++) {
+                        for (int colunaKernel = 0; colunaKernel < 3; colunaKernel++) {
+                            int sublinha = linhaMatriz + linhaKernel - 3 / 2;
+                            int subcoluna = colunaMatriz + colunaKernel - 3 / 2;
+                            if (sublinha >= 0 && sublinha < altura && subcoluna >= 0 && subcoluna < largura) {
+                                soma += Matriz[sublinha][subcoluna] * matrizConvolucao3[linhaKernel][colunaKernel];
                             }
                         }
                     }
-
-                    // Apply the kernel condition
-                    if (sum > 255) {
-                        matrizFinal[i][j] = 255;
-                    } else if (sum < 0) {
-                        matrizFinal[i][j] = 0;
+                    if (soma > intensidade) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                    } else if (soma < 0) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[i][j] = sum;
+                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
             return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo4) {
-            for (int i = 0; i < altura; i++) {
-                for (int j = 0; j < largura; j++) {
-                    int sum = 0;
-
-                    // Apply the kernel to the current pixel and its neighbors
-                    for (int k = 0; k < 3; k++) {
-                        for (int l = 0; l < 3; l++) {
-                            int rowIndex = i + k - 3 / 2;
-                            int colIndex = j + l - 3 / 2;
-
-                            // Ensure the indices are within the image boundaries
-                            if (rowIndex >= 0 && rowIndex < altura && colIndex >= 0 && colIndex < largura) {
-                                sum += Matriz[rowIndex][colIndex] * matrizConvolucao4[k][l];
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    int soma = 0;
+                    for (int linhaKernal = 0; linhaKernal < 3; linhaKernal++) {
+                        for (int colunaKernel = 0; colunaKernel < 3; colunaKernel++) {
+                            int sublinha = linhaMatriz + linhaKernal - 3 / 2;
+                            int subcoluna = colunaMatriz + colunaKernel - 3 / 2;
+                            if (sublinha >= 0 && sublinha < altura && subcoluna >= 0 && subcoluna < largura) {
+                                soma += Matriz[sublinha][subcoluna] * matrizConvolucao4[linhaKernal][colunaKernel];
                             }
                         }
                     }
-
-                    // Apply the kernel condition
-                    if (sum > 255) {
-                        matrizFinal[i][j] = 255;
-                    } else if (sum < 0) {
-                        matrizFinal[i][j] = 0;
+                    if (soma > intensidade) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                    } else if (soma < 0) {
+                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[i][j] = sum;
+                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
@@ -1017,8 +996,6 @@ public class PGMImage {
                 matrizComMascara[alturaMatriz][larguraMatriz] = (int) (Matriz[alturaMatriz][larguraMatriz] + mascara[alturaMatriz][larguraMatriz] * constante);
             }
         }
-//        imagemMedia.saveImage("src\\Assets\\todos\\media.pgm");
-//        new PGMImage(mascara, altura, largura, intensidade, cabecalho, comentario).saveImage("src\\Assets\\todos\\mascara.pgm");
         return new PGMImage(matrizComMascara, altura, largura, intensidade, cabecalho, comentario);
     }
 
@@ -1026,7 +1003,7 @@ public class PGMImage {
      *
      * @return
      */
-    public String getInformation() {
+    public String getInformcao() {
         return """
             Altura: %d
             Largura: %d
