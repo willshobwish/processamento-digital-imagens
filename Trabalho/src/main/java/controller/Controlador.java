@@ -46,7 +46,7 @@ public class Controlador {
     public void abrirImagemPGM(String filepath) {
         pgmimage = new PGMImage(filepath);
         filepathPGM = filepath;
-        mainwindow.atualiza(pgmimage.getInformation());
+        mainwindow.atualiza(pgmimage.getInformcao());
     }
 
     /**
@@ -55,7 +55,7 @@ public class Controlador {
      */
     public void salvarImagemPGM(String filepath) {
         fileclosefilepath = filepath;
-        pgmimage.saveImage(filepath + ".pgm");
+        pgmimage.salvarImagem(filepath + ".pgm");
     }
 
 //    Imagem PPM
@@ -66,7 +66,7 @@ public class Controlador {
     public void abrirImagemPPM(String filepath) {
         ppmimage = new PPMImage(filepath);
         filepathPPM = filepath;
-        mainwindow.atualiza(ppmimage.getInformation());
+        mainwindow.atualiza(ppmimage.getInformacao());
     }
 
     /**
@@ -75,7 +75,7 @@ public class Controlador {
      */
     public void salvarImagemPPM(String filepath) {
         fileclosefilepath = filepath;
-        ppmimage.saveImage(filepath + ".ppm");
+        ppmimage.salvarImagem(filepath + ".ppm");
     }
 
     /**
@@ -91,11 +91,17 @@ public class Controlador {
      * @param quantidade
      */
     public void mediana(int quantidade) {
-        pgmimage = pgmimage.Mediana(quantidade);
+        pgmimage = pgmimage.mediana(quantidade);
     }
 
     /**
      *
+     * @param tipo1
+     * @param tipo2
+     * @param tipo2
+     * @param tipo4
+     * @param tipo3
+     * @param tipo4
      */
     public void laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
         pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4);
@@ -133,10 +139,10 @@ public class Controlador {
      */
     public void extracaoRGB(String fileapath) {
         if (mainwindow.getRadioExtracaoSalvarImagem().isSelected()) {
-            ppmimage.saveImageChannels(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
+            ppmimage.salvarCanaisImagem(fileapath, mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected(), mainwindow.getRadioExtracaoTodos().isSelected());
         }
         if (mainwindow.getRadioExtracaoUtilizarEmMemoria().isSelected()) {
-            pgmimage = ppmimage.saveImageChannels(mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected());
+            pgmimage = ppmimage.salvarImagemCanais(mainwindow.getRadioExtracaoRed().isSelected(), mainwindow.getRadioExtracaoGreen().isSelected(), mainwindow.getRadioExtracaoBlue().isSelected());
         }
     }
 
@@ -147,7 +153,7 @@ public class Controlador {
      * @param b
      */
     public void juncaoRGB(String r, String g, String b) {
-        ppmimage.InvertChannels(r, g, b);
+        ppmimage.inverterCanais(r, g, b);
     }
 
     /**
