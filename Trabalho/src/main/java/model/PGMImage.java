@@ -834,14 +834,13 @@ public class PGMImage {
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
-            int kernel = quantidade / 2;
-            System.out.println(kernel);
-            for (int linhaMatriz = 0; linhaMatriz < altura - 2; linhaMatriz++) {
-                for (int colunaMatriz = 0; colunaMatriz < largura - 2; colunaMatriz++) {
+//            int kernel = quantidade / 2;
+//            System.out.println(kernel);
+            for (int linhaMatriz = KernelDistance; linhaMatriz < altura - KernelDistance; linhaMatriz++) {
+                for (int colunaMatriz = KernelDistance; colunaMatriz < largura - KernelDistance; colunaMatriz++) {
                     ArrayList<Integer> vetorPixel = new ArrayList<>();
-                    for (int sublinha = 0; sublinha < quantidade; sublinha++) {
-                        for (int subcoluna = 0; subcoluna < quantidade; subcoluna++) {
-
+                    for (int sublinha = KernelDistance * -1; sublinha <= KernelDistance; sublinha++) {
+                        for (int subcoluna = KernelDistance * -1; subcoluna <= KernelDistance; subcoluna++) {
                             vetorPixel.add(Matriz[linhaMatriz + sublinha][colunaMatriz + subcoluna]);
                         }
                     }
