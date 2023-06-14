@@ -692,28 +692,28 @@ public class PGMImage {
         return new PGMImage(matrizModificada, altura, largura, intensidade, cabecalho, comentario);
     }
 
-    public PGMImage media(int quantidade) {
-        if (quantidade % 2 == 0) {
+    public PGMImage media(int kernelSize) {
+        if (kernelSize % 2 == 0) {
             System.out.println("A quantidade precisa ser impar");
             return null;
         } else {
-            Integer MatrizModificada[][] = Matriz;
-            int QuantidadePositiva = quantidade / 2;
-            int QuantidadeNegativa = QuantidadePositiva * - 1;
+            int metadePositiva = (int) Math.floor(kernelSize / 2.0);
+            int metadeNegativa = metadePositiva * -1;
+            Integer MatrizModificada[][] = new Integer[altura - metadePositiva][largura - metadePositiva];
+
             double SomaMedia = 0;
-            for (int linhaMatriz = QuantidadePositiva; linhaMatriz < altura - QuantidadePositiva; linhaMatriz++) {
-                for (int colunaMatriz = QuantidadePositiva; colunaMatriz < largura - QuantidadePositiva; colunaMatriz++) {
-                    for (int SubLinha = QuantidadeNegativa; SubLinha <= QuantidadePositiva; SubLinha += 1) {
-                        for (int SubColuna = QuantidadeNegativa; SubColuna <= QuantidadePositiva; SubColuna += 1) {
-                            SomaMedia += Matriz[linhaMatriz + SubLinha][colunaMatriz + SubColuna];
+            for (int alturaMatriz = metadePositiva; alturaMatriz < altura - metadePositiva; alturaMatriz++) {
+                for (int larguraMatriz = metadePositiva; larguraMatriz < largura - metadePositiva; larguraMatriz++) {
+                    for (int subAltura = metadeNegativa; subAltura < metadePositiva; subAltura++) {
+                        for (int subLargura = metadeNegativa; subLargura < metadePositiva; subLargura++) {
+                            SomaMedia += Matriz[alturaMatriz + subAltura][larguraMatriz + subLargura];
                         }
                     }
-
-                    MatrizModificada[linhaMatriz - QuantidadePositiva][colunaMatriz - QuantidadePositiva] = (int) SomaMedia / (quantidade * quantidade);
+                    MatrizModificada[alturaMatriz - metadePositiva][larguraMatriz - metadePositiva] = (int) SomaMedia / (kernelSize * kernelSize);
                     SomaMedia = 0;
                 }
             }
-            return new PGMImage(MatrizModificada, altura - QuantidadePositiva, largura - QuantidadePositiva, intensidade, cabecalho, comentario);
+            return new PGMImage(MatrizModificada, altura - (int) Math.ceil(kernelSize / 2.0), largura - (int) Math.ceil(kernelSize / 2.0), intensidade, cabecalho, comentario);
         }
     }
 
@@ -775,9 +775,6 @@ public class PGMImage {
 
     public PGMImage Mediana(int quantidade) {
         Integer MatrizFinal[][] = new Integer[altura][largura];
-        int KernelDistance = quantidade / 2;
-//        MatrizFinal = Matriz;
-
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
@@ -797,7 +794,6 @@ public class PGMImage {
                 }
             }
         }
-
         return new PGMImage(MatrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
     }
 
@@ -847,7 +843,7 @@ public class PGMImage {
 
         for (int alturaMatriz = 0; alturaMatriz < altura; alturaMatriz++) {
             for (int larguraMatriz = 0; larguraMatriz < largura; larguraMatriz++) {
-                mascara[alturaMatriz][larguraMatriz] = media[alturaMatriz][larguraMatriz] - Matriz[alturaMatriz][larguraMatriz];
+                mascara[alturaMatriz][larguraMatriz] = Matriz[alturaMatriz][larguraMatriz] - media[alturaMatriz][larguraMatriz];
                 matrizComMascara[alturaMatriz][larguraMatriz] = (int) (Matriz[alturaMatriz][larguraMatriz] + mascara[alturaMatriz][larguraMatriz] * constante);
             }
         }
