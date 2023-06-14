@@ -153,7 +153,7 @@ public class Controlador {
      * @param b
      */
     public void juncaoRGB(String r, String g, String b) {
-        ppmimage.inverterCanais(r, g, b);
+        ppmimage = ppmimage.inverterCanais(r, g, b);
     }
 
     /**
