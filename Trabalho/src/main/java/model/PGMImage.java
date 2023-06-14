@@ -738,27 +738,21 @@ public class PGMImage {
             System.out.println("A quantidade precisa ser impar");
             return null;
         } else {
-            int metadePositiva = (int) Math.floor(kernelSize / 2.0);
-            int metadeNegativa = metadePositiva * -1;
-
-//            Integer MatrizModificada[][] = new Integer[altura - metadePositiva][largura - metadePositiva];
+            int kernel = kernelSize / 2;
             Integer MatrizModificada[][] = Matriz;
-
             double SomaMedia = 0;
-            for (int alturaMatriz = metadePositiva; alturaMatriz < altura - metadePositiva; alturaMatriz++) {
-                for (int larguraMatriz = metadePositiva; larguraMatriz < largura - metadePositiva; larguraMatriz++) {
-                    for (int subAltura = metadeNegativa; subAltura < metadePositiva; subAltura++) {
-                        for (int subLargura = metadeNegativa; subLargura < metadePositiva; subLargura++) {
+            for (int alturaMatriz = kernel; alturaMatriz < altura - kernel; alturaMatriz++) {
+                for (int larguraMatriz = kernel; larguraMatriz < largura - kernel; larguraMatriz++) {
+                    for (int subAltura = kernel * -1; subAltura <= kernel; subAltura++) {
+                        for (int subLargura = kernel * -1; subLargura <= kernel; subLargura++) {
                             SomaMedia += Matriz[alturaMatriz + subAltura][larguraMatriz + subLargura];
                         }
                     }
-                    MatrizModificada[alturaMatriz - metadePositiva][larguraMatriz - metadePositiva] = (int) SomaMedia / (kernelSize * kernelSize);
+                    MatrizModificada[alturaMatriz][larguraMatriz] = (int) SomaMedia / (kernelSize * kernelSize);
                     SomaMedia = 0;
                 }
             }
-//            return new PGMImage(MatrizModificada, altura - (int) Math.ceil(kernelSize / 2.0), largura - (int) Math.ceil(kernelSize / 2.0), intensidade, cabecalho, comentario);
             return new PGMImage(MatrizModificada, altura, largura, intensidade, cabecalho, comentario);
-
         }
     }
 
@@ -984,8 +978,6 @@ public class PGMImage {
     public PGMImage nitidez(int kernelMedia, double constante) {
         PGMImage imagemMedia = new PGMImage(Matriz, altura, largura, intensidade, cabecalho, comentario).media(kernelMedia);
         Integer[][] media = imagemMedia.getMatriz();
-        altura = imagemMedia.getAltura();
-        largura = imagemMedia.getLargura();
         Integer[][] mascara = new Integer[altura][largura];
         Integer[][] matrizComMascara = new Integer[altura][largura];
 
