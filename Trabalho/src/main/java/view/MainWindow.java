@@ -83,9 +83,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
-        jSpinner3 = new javax.swing.JSpinner();
+        spinnerHighBoostMedia = new javax.swing.JSpinner();
         jButton4 = new javax.swing.JButton();
+        textHighBoostConstante = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         radioTipo1 = new javax.swing.JRadioButton();
@@ -415,9 +415,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel8.setText("Constante");
 
-        jSpinner3.setName(""); // NOI18N
-
         jButton4.setText("Aplicar high boost");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        textHighBoostConstante.setText("0");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -436,10 +441,10 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGap(0, 300, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8)
-                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(spinnerHighBoostMedia, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(textHighBoostConstante))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel8Layout.setVerticalGroup(
@@ -450,11 +455,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spinnerHighBoostMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textHighBoostConstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -749,6 +754,11 @@ public class MainWindow extends javax.swing.JFrame {
         Controlador.getInstance().laplaciano(radioTipo1.isSelected(), radioTipo2.isSelected(), radioTipo3.isSelected(), radioTipo4.isSelected());
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Controlador.getInstance().highBoost((int) spinnerHighBoostMedia.getValue(), Double.valueOf(textHighBoostConstante.getText()));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      *
      * @param informcao
@@ -892,8 +902,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel panelEqualizacaoGeral;
@@ -912,7 +920,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioTipo2;
     private javax.swing.JRadioButton radioTipo3;
     private javax.swing.JRadioButton radioTipo4;
+    private javax.swing.JSpinner spinnerHighBoostMedia;
     private javax.swing.JSpinner spinnerQuantidadeFiltro;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTextField textHighBoostConstante;
     // End of variables declaration//GEN-END:variables
 }

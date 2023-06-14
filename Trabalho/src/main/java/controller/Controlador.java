@@ -110,8 +110,8 @@ public class Controlador {
     /**
      *
      */
-    public void highBoost() {
-
+    public void highBoost(int kernelMedia, double constante) {
+        pgmimage = pgmimage.nitidez(kernelMedia, constante);
     }
 
     /**
