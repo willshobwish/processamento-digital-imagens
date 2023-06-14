@@ -5,6 +5,7 @@
 package view.PPM;
 
 import controller.Controlador;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -34,6 +35,7 @@ public class OpenPPMFile extends javax.swing.JFrame {
         setTitle("Abrir imagem PPM");
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("imagem ppm","ppm"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);

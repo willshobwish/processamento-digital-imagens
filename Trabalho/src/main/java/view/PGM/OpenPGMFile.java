@@ -5,6 +5,7 @@
 package view.PGM;
 
 import controller.Controlador;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -34,6 +35,8 @@ public class OpenPGMFile extends javax.swing.JFrame {
         setTitle("Abrir imagem PGM");
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setDialogTitle("");
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("Imagens pgm","pgm"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
