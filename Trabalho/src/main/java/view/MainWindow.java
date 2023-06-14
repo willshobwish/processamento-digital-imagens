@@ -545,7 +545,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         tabbedPane.addTab("Filtragem espacial", panelFiltragemEspacial);
 
-        jLabel2.setText("Sobre a imagem carregada");
+        jLabel2.setText("Informações sobre a imagem carregada");
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);

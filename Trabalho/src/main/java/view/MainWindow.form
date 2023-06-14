@@ -865,7 +865,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sobre a imagem carregada"/>
+                <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es sobre a imagem carregada"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
