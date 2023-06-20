@@ -47,6 +47,10 @@ public class Controlador {
         pgmimage = new PGMImage(filepath);
         filepathPGM = filepath;
         mainwindow.atualiza(pgmimage.getInformcao());
+
+        mainwindow.getTextOperacoes().setText("""
+                                              Imagem PGM aberta
+                                              """);
     }
 
     /**
@@ -56,6 +60,10 @@ public class Controlador {
     public void salvarImagemPGM(String filepath) {
         fileclosefilepath = filepath;
         pgmimage.salvarImagem(filepath + ".pgm");
+        mainwindow.getTextOperacoes().setText("""
+                                              Imagem PGM salvo em %s
+                                              """.formatted(filepath + ".pgm"));
+
     }
 
 //    Imagem PPM
@@ -67,6 +75,7 @@ public class Controlador {
         ppmimage = new PPMImage(filepath);
         filepathPPM = filepath;
         mainwindow.atualiza(ppmimage.getInformacao());
+        mainwindow.getTextOperacoes().setText("Abertura de imagem PPM");
     }
 
     /**
@@ -76,22 +85,31 @@ public class Controlador {
     public void salvarImagemPPM(String filepath) {
         fileclosefilepath = filepath;
         ppmimage.salvarImagem(filepath + ".ppm");
+        mainwindow.getTextOperacoes().setText("""
+               Imagem PPM salvo em %s
+               """.formatted(filepath + ".ppm"));
     }
 
     /**
      *
      * @param quantidade
      */
-    public void media(int quantidade) {
+    public String media(int quantidade) {
         pgmimage = pgmimage.media(quantidade);
+        return """
+               Filtro de média com kernel de %d foi aplicado na imagem
+               """.formatted(quantidade);
     }
 
     /**
      *
      * @param quantidade
      */
-    public void mediana(int quantidade) {
+    public String mediana(int quantidade) {
         pgmimage = pgmimage.mediana(quantidade);
+        return """
+               Filtro de mediana com kernel de %d foi aplicado na imagem
+               """.formatted(quantidade);
     }
 
     /**
@@ -103,23 +121,31 @@ public class Controlador {
      * @param tipo3
      * @param tipo4
      */
-    public void laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
+    public String laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
         pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4);
+        return """
+               Fitro Laplaciano aplicado na imagem
+               """;
     }
 
     /**
      *
      */
-    public void highBoost(int kernelMedia, double constante) {
+    public String highBoost(int kernelMedia, double constante) {
         pgmimage = pgmimage.nitidez(kernelMedia, constante);
+        return """
+               Filtro high boost com média %d e constante %.2f foi aplicado na imagem
+               """.formatted(kernelMedia, constante);
     }
 
     /**
      *
      */
-    public void equalizacaoGlobal() {
+    public String equalizacaoGlobal() {
         pgmimage = pgmimage.equalizacao_histograma();
-
+        return """
+               Equalização global do histograma foi aplicado na imagem
+               """;
     }
 
 //    public void getExtracaoRGBFilepath(String filepath) {
@@ -152,8 +178,11 @@ public class Controlador {
      * @param g
      * @param b
      */
-    public void juncaoRGB(String r, String g, String b) {
+    public String juncaoRGB(String r, String g, String b) {
         ppmimage = ppmimage.inverterCanais(r, g, b);
+        return """
+               Junção de canais de imagem PPM aplicado
+               """;
     }
 
     /**
