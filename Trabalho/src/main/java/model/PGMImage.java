@@ -856,16 +856,21 @@ public class PGMImage {
      * @param tipo3
      * @param tipo2
      * @param tipo4
+     * @param aplicar
      * @return
      */
-    public PGMImage laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
-        Integer[][] matrizFinal = new Integer[altura][largura];
+    public PGMImage laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4, boolean aplicar) {
+        Integer[][] mascara = new Integer[altura][largura], matrizMascara = Matriz;
 //        Criacao dos tipos de convolucoes exibidos em aula
         Integer[][] matrizConvolucao1 = {{0, 1, 0}, {1, 4, 1}, {0, 1, 0}};
         Integer[][] matrizConvolucao2 = {{1, 1, 1}, {1, 8, 1}, {1, 1, 1}};
         Integer[][] matrizConvolucao3 = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};
         Integer[][] matrizConvolucao4 = {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}};
-
+        for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+            for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                mascara[linhaMatriz][colunaMatriz] = 0;
+            }
+        }
         if (tipo1) {
 //            Percorre a imagem
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -884,15 +889,15 @@ public class PGMImage {
                     }
 //                    Checa se está dentro do limite de bits
                     if (soma > intensidade) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                        mascara[linhaMatriz][colunaMatriz] = intensidade;
                     } else if (soma < 0) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
+                        mascara[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                        mascara[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
-            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo2) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -908,15 +913,15 @@ public class PGMImage {
                         }
                     }
                     if (soma > intensidade) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                        mascara[linhaMatriz][colunaMatriz] = intensidade;
                     } else if (soma < 0) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
+                        mascara[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                        mascara[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
-            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo3) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -932,15 +937,15 @@ public class PGMImage {
                         }
                     }
                     if (soma > intensidade) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                        mascara[linhaMatriz][colunaMatriz] = intensidade;
                     } else if (soma < 0) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
+                        mascara[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                        mascara[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
-            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo4) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -956,17 +961,29 @@ public class PGMImage {
                         }
                     }
                     if (soma > intensidade) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = intensidade;
+                        mascara[linhaMatriz][colunaMatriz] = intensidade;
                     } else if (soma < 0) {
-                        matrizFinal[linhaMatriz][colunaMatriz] = 0;
+                        mascara[linhaMatriz][colunaMatriz] = 0;
                     } else {
-                        matrizFinal[linhaMatriz][colunaMatriz] = soma;
+                        mascara[linhaMatriz][colunaMatriz] = soma;
                     }
                 }
             }
-            return new PGMImage(matrizFinal, altura - 2, largura - 2, intensidade, cabecalho, comentario);
+//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
-        return null;
+        if (aplicar) {
+            for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
+                for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+                    if (mascara[linhaMatriz][colunaMatriz] + Matriz[linhaMatriz][colunaMatriz] > intensidade) {
+                        matrizMascara[linhaMatriz][colunaMatriz] = intensidade;
+                    } else {
+                        matrizMascara[linhaMatriz][colunaMatriz] = mascara[linhaMatriz][colunaMatriz] + Matriz[linhaMatriz][colunaMatriz];
+                    }
+                }
+            }
+            return new PGMImage(matrizMascara, altura, largura, intensidade, cabecalho, comentario);
+        }
+        return new PGMImage(mascara, altura, largura, intensidade, cabecalho, comentario);
     }
 
     /**

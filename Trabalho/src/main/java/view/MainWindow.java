@@ -95,10 +95,17 @@ public class MainWindow extends javax.swing.JFrame {
         radioTipo3 = new javax.swing.JRadioButton();
         radioTipo4 = new javax.swing.JRadioButton();
         jButton5 = new javax.swing.JButton();
+        checkBoxAplicar = new javax.swing.JCheckBox();
         panelInformacoes = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        panelRotacao = new javax.swing.JPanel();
+        buttonRotacao90 = new javax.swing.JButton();
+        buttonRotacao180 = new javax.swing.JButton();
+        buttonRotacaoMenos90 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        panelOperacacao = new javax.swing.JPanel();
         textOperacoes = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -175,7 +182,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(radioExtracaoSalvarImagem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioExtracaoUtilizarEmMemoria)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,7 +371,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(panelEqualizacaoGeralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(459, Short.MAX_VALUE))
+                .addContainerGap(519, Short.MAX_VALUE))
         );
         panelEqualizacaoGeralLayout.setVerticalGroup(
             panelEqualizacaoGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,12 +462,12 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
-                                .addGap(0, 300, Short.MAX_VALUE)))
+                                .addGap(0, 360, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -509,6 +516,13 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        checkBoxAplicar.setText("Aplicar a máscara na imagem");
+        checkBoxAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAplicarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -523,8 +537,9 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(radioTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radioTipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(radioTipo3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioTipo4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(radioTipo4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkBoxAplicar))
+                        .addGap(0, 147, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -540,6 +555,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(radioTipo3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioTipo4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxAplicar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -567,7 +584,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Filtragem espacial", panelFiltragemEspacial);
@@ -589,7 +606,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(panelInformacoesLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 537, Short.MAX_VALUE)))
+                        .addGap(0, 603, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformacoesLayout.setVerticalGroup(
@@ -603,6 +620,73 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         tabbedPane.addTab("Informações da imagem", panelInformacoes);
+
+        buttonRotacao90.setText("90º");
+        buttonRotacao90.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRotacao90ActionPerformed(evt);
+            }
+        });
+
+        buttonRotacao180.setText("180º");
+        buttonRotacao180.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRotacao180ActionPerformed(evt);
+            }
+        });
+
+        buttonRotacaoMenos90.setText("-90º");
+        buttonRotacaoMenos90.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRotacaoMenos90ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Rotacionar a imagem em:");
+
+        javax.swing.GroupLayout panelRotacaoLayout = new javax.swing.GroupLayout(panelRotacao);
+        panelRotacao.setLayout(panelRotacaoLayout);
+        panelRotacaoLayout.setHorizontalGroup(
+            panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRotacaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRotacaoLayout.createSequentialGroup()
+                        .addComponent(buttonRotacao90)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRotacao180)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRotacaoMenos90))
+                    .addComponent(jLabel14))
+                .addContainerGap(620, Short.MAX_VALUE))
+        );
+        panelRotacaoLayout.setVerticalGroup(
+            panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRotacaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonRotacao90)
+                    .addComponent(buttonRotacao180)
+                    .addComponent(buttonRotacaoMenos90))
+                .addContainerGap(417, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Rotação", panelRotacao);
+
+        javax.swing.GroupLayout panelOperacacaoLayout = new javax.swing.GroupLayout(panelOperacacao);
+        panelOperacacao.setLayout(panelOperacacaoLayout);
+        panelOperacacaoLayout.setHorizontalGroup(
+            panelOperacacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 854, Short.MAX_VALUE)
+        );
+        panelOperacacaoLayout.setVerticalGroup(
+            panelOperacacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 468, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("tab6", panelOperacacao);
 
         textOperacoes.setEditable(false);
 
@@ -667,17 +751,20 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane)
-                    .addComponent(textOperacoes))
+                    .addComponent(textOperacoes)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textOperacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -788,7 +875,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        textOperacoes.setText(Controlador.getInstance().laplaciano(radioTipo1.isSelected(), radioTipo2.isSelected(), radioTipo3.isSelected(), radioTipo4.isSelected()));
+        textOperacoes.setText(Controlador.getInstance().laplaciano(radioTipo1.isSelected(), radioTipo2.isSelected(), radioTipo3.isSelected(), radioTipo4.isSelected(), checkBoxAplicar.isSelected()));
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -796,6 +883,25 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         textOperacoes.setText(Controlador.getInstance().highBoost((int) spinnerHighBoostMedia.getValue(), Double.valueOf(textHighBoostConstante.getText())));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void checkBoxAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAplicarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxAplicarActionPerformed
+
+    private void buttonRotacao90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRotacao90ActionPerformed
+        // TODO add your handling code here:
+        textOperacoes.setText(Controlador.getInstance().rotacao90());
+    }//GEN-LAST:event_buttonRotacao90ActionPerformed
+
+    private void buttonRotacao180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRotacao180ActionPerformed
+        // TODO add your handling code here:
+        textOperacoes.setText(Controlador.getInstance().rotacao180());
+    }//GEN-LAST:event_buttonRotacao180ActionPerformed
+
+    private void buttonRotacaoMenos90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRotacaoMenos90ActionPerformed
+        // TODO add your handling code here:
+        textOperacoes.setText(Controlador.getInstance().rotacaoMenos90());
+    }//GEN-LAST:event_buttonRotacaoMenos90ActionPerformed
 
     /**
      *
@@ -889,10 +995,18 @@ public class MainWindow extends javax.swing.JFrame {
         return radioExtracaoUtilizarEmMemoria;
     }
 
+    /**
+     *
+     * @return
+     */
     public JTextField getTextOperacoes() {
         return textOperacoes;
     }
 
+    /**
+     *
+     * @param textOperacoes
+     */
     public void setTextOperacoes(JTextField textOperacoes) {
         this.textOperacoes = textOperacoes;
     }
@@ -910,6 +1024,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton buttonFiltro;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonJuntar;
+    private javax.swing.JButton buttonRotacao180;
+    private javax.swing.JButton buttonRotacao90;
+    private javax.swing.JButton buttonRotacaoMenos90;
+    private javax.swing.JCheckBox checkBoxAplicar;
     private javax.swing.ButtonGroup griupJuncaoB;
     private javax.swing.ButtonGroup groupExtracaoRGB;
     private javax.swing.ButtonGroup groupExtracaoSalvarOuMemoria;
@@ -926,6 +1044,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -955,6 +1074,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panelFiltragemEspacial;
     private javax.swing.JPanel panelInformacoes;
     private javax.swing.JPanel panelJuncaoExtracao;
+    private javax.swing.JPanel panelOperacacao;
+    private javax.swing.JPanel panelRotacao;
     private javax.swing.JRadioButton radioExtracaoBlue;
     private javax.swing.JRadioButton radioExtracaoGreen;
     private javax.swing.JRadioButton radioExtracaoRed;

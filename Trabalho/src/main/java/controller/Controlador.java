@@ -21,7 +21,6 @@ public class Controlador {
     private MainWindow mainwindow = new MainWindow();
     private String filepathPPM;
     private String filepathPGM;
-
     private String fileclosefilepath;
 
     private Controlador() {
@@ -93,6 +92,7 @@ public class Controlador {
     /**
      *
      * @param quantidade
+     * @return
      */
     public String media(int quantidade) {
         pgmimage = pgmimage.media(quantidade);
@@ -104,6 +104,7 @@ public class Controlador {
     /**
      *
      * @param quantidade
+     * @return
      */
     public String mediana(int quantidade) {
         pgmimage = pgmimage.mediana(quantidade);
@@ -116,13 +117,13 @@ public class Controlador {
      *
      * @param tipo1
      * @param tipo2
-     * @param tipo2
      * @param tipo4
+     * @param aplicar
      * @param tipo3
-     * @param tipo4
+     * @return
      */
-    public String laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4) {
-        pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4);
+    public String laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4, boolean aplicar) {
+        pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4, aplicar);
         return """
                Fitro Laplaciano aplicado na imagem
                """;
@@ -130,6 +131,11 @@ public class Controlador {
 
     /**
      *
+     * @param kernelMedia
+     * @param kernelMedia
+     * @param constante
+     * @return
+     * @return
      */
     public String highBoost(int kernelMedia, double constante) {
         pgmimage = pgmimage.nitidez(kernelMedia, constante);
@@ -140,6 +146,7 @@ public class Controlador {
 
     /**
      *
+     * @return @return
      */
     public String equalizacaoGlobal() {
         pgmimage = pgmimage.equalizacao_histograma();
@@ -177,6 +184,7 @@ public class Controlador {
      * @param r
      * @param g
      * @param b
+     * @return
      */
     public String juncaoRGB(String r, String g, String b) {
         ppmimage = ppmimage.inverterCanais(r, g, b);
@@ -184,6 +192,40 @@ public class Controlador {
                Junção de canais de imagem PPM aplicado
                """;
     }
+
+    /**
+     *
+     * @return
+     */
+    public String rotacao90() {
+        pgmimage = pgmimage.rotacao90();
+        return """
+               Rotação em 90º da imagem
+               """;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String rotacao180() {
+        pgmimage = pgmimage.rotacao180();
+        return """
+               Rotação em 180º da imagem
+               """;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String rotacaoMenos90() {
+        pgmimage = pgmimage.rotacaoMenos90();
+        return """
+               Rotação em -90º da imagem
+               """;
+    }
+//    Getters e setters
 
     /**
      *
