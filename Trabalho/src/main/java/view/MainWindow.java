@@ -105,6 +105,9 @@ public class MainWindow extends javax.swing.JFrame {
         buttonRotacao180 = new javax.swing.JButton();
         buttonRotacaoMenos90 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        buttonEspelhamentoHorizontal = new javax.swing.JButton();
+        buttonEspelhamentoVertical = new javax.swing.JButton();
         panelOperacacao = new javax.swing.JPanel();
         textOperacoes = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
@@ -644,20 +647,41 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel14.setText("Rotacionar a imagem em:");
 
+        jLabel15.setText("Espelhamento");
+
+        buttonEspelhamentoHorizontal.setText("Horizontal");
+        buttonEspelhamentoHorizontal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEspelhamentoHorizontalActionPerformed(evt);
+            }
+        });
+
+        buttonEspelhamentoVertical.setText("Vertical");
+        buttonEspelhamentoVertical.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEspelhamentoVerticalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRotacaoLayout = new javax.swing.GroupLayout(panelRotacao);
         panelRotacao.setLayout(panelRotacaoLayout);
         panelRotacaoLayout.setHorizontalGroup(
             panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRotacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelRotacaoLayout.createSequentialGroup()
                         .addComponent(buttonRotacao90)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonRotacao180)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonRotacaoMenos90))
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addGroup(panelRotacaoLayout.createSequentialGroup()
+                        .addComponent(buttonEspelhamentoHorizontal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonEspelhamentoVertical))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(620, Short.MAX_VALUE))
         );
         panelRotacaoLayout.setVerticalGroup(
@@ -670,10 +694,16 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(buttonRotacao90)
                     .addComponent(buttonRotacao180)
                     .addComponent(buttonRotacaoMenos90))
-                .addContainerGap(417, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEspelhamentoHorizontal)
+                    .addComponent(buttonEspelhamentoVertical))
+                .addContainerGap(366, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Rotação", panelRotacao);
+        tabbedPane.addTab("Rotação e espelhamento", panelRotacao);
 
         javax.swing.GroupLayout panelOperacacaoLayout = new javax.swing.GroupLayout(panelOperacacao);
         panelOperacacao.setLayout(panelOperacacaoLayout);
@@ -903,6 +933,15 @@ public class MainWindow extends javax.swing.JFrame {
         textOperacoes.setText(Controlador.getInstance().rotacaoMenos90());
     }//GEN-LAST:event_buttonRotacaoMenos90ActionPerformed
 
+    private void buttonEspelhamentoHorizontalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEspelhamentoHorizontalActionPerformed
+        // TODO add your handling code here:
+        textOperacoes.setText(Controlador.getInstance().espelhamentoHorizontal());
+    }//GEN-LAST:event_buttonEspelhamentoHorizontalActionPerformed
+
+    private void buttonEspelhamentoVerticalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEspelhamentoVerticalActionPerformed
+        textOperacoes.setText(Controlador.getInstance().espelhamentoVertical());
+    }//GEN-LAST:event_buttonEspelhamentoVerticalActionPerformed
+
     /**
      *
      * @param informcao
@@ -1021,6 +1060,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton RedBlue;
     private javax.swing.JRadioButton RedGreen;
     private javax.swing.JRadioButton RedRed;
+    private javax.swing.JButton buttonEspelhamentoHorizontal;
+    private javax.swing.JButton buttonEspelhamentoVertical;
     private javax.swing.JButton buttonFiltro;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonJuntar;
@@ -1045,6 +1086,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

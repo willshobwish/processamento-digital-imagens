@@ -426,7 +426,7 @@ public class PGMImage {
 
     /**
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage espelhamentoHorizontal() {
         Integer Espelhada[][] = new Integer[altura][largura];
@@ -441,7 +441,7 @@ public class PGMImage {
 
     /**
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage espelhamentoVertical() {
         Integer Espelhada[][] = new Integer[altura][largura];
@@ -456,7 +456,7 @@ public class PGMImage {
     /**
      *
      * @param quantidadeDeNiveis
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage reducaoNivel(int quantidadeDeNiveis) {
         Integer Reduzida[][] = new Integer[altura][largura];
@@ -471,7 +471,7 @@ public class PGMImage {
     /**
      *
      * @param limiar
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage binarizacao(int limiar) {
         Integer Reduzida[][] = new Integer[altura][largura];
@@ -493,7 +493,7 @@ public class PGMImage {
      * @param end
      * @param level
      * @param greyLevel
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage binaryRange(int start, int end, int level, int greyLevel) {
         Integer Reduzida[][] = new Integer[altura][largura];
@@ -514,7 +514,7 @@ public class PGMImage {
      * @param start
      * @param end
      * @param quantidade
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage rangeHighlight(int start, int end, int quantidade) {
         Integer Reduzida[][] = new Integer[altura][largura];
@@ -534,7 +534,7 @@ public class PGMImage {
      *
      * @param c
      * @param a
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage subtract(int c, int a) {
         Integer MatrizCorreta[][] = new Integer[altura][largura];
@@ -558,7 +558,7 @@ public class PGMImage {
      *
      * @param c
      * @param beta
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage transformacaoPotencia(int c, double beta) {
         Integer MatrizCorreta[][] = new Integer[altura][largura];
@@ -581,7 +581,7 @@ public class PGMImage {
     /**
      *
      * @param quantidadeAumento
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage aumentaResolucao(int quantidadeAumento) {
         int colunaAumentada = altura * quantidadeAumento, linhaAumentada = largura * quantidadeAumento;
@@ -601,7 +601,7 @@ public class PGMImage {
     /**
      *
      * @param quantidadeReducao
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage diminuiResolucao(int quantidadeReducao) {
         int colunaReduzida = altura / quantidadeReducao, linhaReduzida = largura / quantidadeReducao, somaPixeis = 0;
@@ -704,7 +704,7 @@ public class PGMImage {
 
     /**
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage equalizacao_histograma() {
         ArrayList<Integer> histograma = PGMImage.this.histograma(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
@@ -731,7 +731,7 @@ public class PGMImage {
     /**
      *
      * @param kernelSize
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage media(int kernelSize) {
         if (kernelSize % 2 == 0) {
@@ -759,7 +759,7 @@ public class PGMImage {
     /**
      *
      * @param quantidade
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage equalizacaoLocalHistograma(int quantidade) {
         if (quantidade % 2 == 0) {
@@ -818,9 +818,10 @@ public class PGMImage {
     }
 
     /**
+     * Realiza o processamento de mediana na imagem
      *
      * @param quantidade
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage mediana(int quantidade) {
         Integer MatrizFinal[][] = Matriz;
@@ -828,8 +829,6 @@ public class PGMImage {
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
-//            int kernel = quantidade / 2;
-//            System.out.println(kernel);
             for (int linhaMatriz = KernelDistance; linhaMatriz < altura - KernelDistance; linhaMatriz++) {
                 for (int colunaMatriz = KernelDistance; colunaMatriz < largura - KernelDistance; colunaMatriz++) {
                     ArrayList<Integer> vetorPixel = new ArrayList<>();
@@ -848,15 +847,15 @@ public class PGMImage {
     }
 
     /**
-     * , intensidade, cabecalho, comentario); }
-     *
-     * /**
+     * Aplica o filtro Laplaciano em uma imagem PGM
      *
      * @param tipo1
      * @param tipo3
      * @param tipo2
      * @param tipo4
-     * @param aplicar
+     * @param aplicar Caso seja verdadeiro, um objeto PGM com a mascara
+     * aplicada, caso contrario retorna um objeto PGM que contem somente a
+     * mascara
      * @return
      */
     public PGMImage laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4, boolean aplicar) {
@@ -897,7 +896,6 @@ public class PGMImage {
                     }
                 }
             }
-//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo2) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -921,7 +919,6 @@ public class PGMImage {
                     }
                 }
             }
-//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo3) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -945,7 +942,6 @@ public class PGMImage {
                     }
                 }
             }
-//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (tipo4) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -969,7 +965,6 @@ public class PGMImage {
                     }
                 }
             }
-//            return new PGMImage(mascara, altura - 2, largura - 2, intensidade, cabecalho, comentario);
         }
         if (aplicar) {
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
@@ -987,6 +982,7 @@ public class PGMImage {
     }
 
     /**
+     * Realiza o processamento de high boost em uma immagem
      *
      * @param kernelMedia
      * @param constante
@@ -1009,7 +1005,7 @@ public class PGMImage {
 
     /**
      *
-     * @return
+     * @return Uma string com todas as informacoes de uma imagem
      */
     public String getInformcao() {
         return """

@@ -30,7 +30,7 @@ public class Controlador {
     /**
      * Padrao Singleton
      *
-     * @return
+     * @return retorna a instancia do controlador da aplicacao
      */
     public static Controlador getInstance() {
         return controlador;
@@ -39,6 +39,7 @@ public class Controlador {
 //    Metodos de abertura e salvamento de imagens
 //    Imagem PGM
     /**
+     * Metodo para abertura de imagens do tipo PGM
      *
      * @param filepath
      */
@@ -53,6 +54,7 @@ public class Controlador {
     }
 
     /**
+     * Metodo de escrita de imagens do tipo PGM
      *
      * @param filepath
      */
@@ -67,6 +69,7 @@ public class Controlador {
 
 //    Imagem PPM
     /**
+     * Abertura de imagens PPM
      *
      * @param filepath
      */
@@ -78,6 +81,7 @@ public class Controlador {
     }
 
     /**
+     * Escrita de imagens PPM
      *
      * @param filepath
      */
@@ -90,9 +94,10 @@ public class Controlador {
     }
 
     /**
+     * Calcula a media de uma imagem PGM
      *
      * @param quantidade
-     * @return
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String media(int quantidade) {
         pgmimage = pgmimage.media(quantidade);
@@ -102,6 +107,7 @@ public class Controlador {
     }
 
     /**
+     * Calcula a mediana de uma imagem PGM
      *
      * @param quantidade
      * @return
@@ -114,13 +120,16 @@ public class Controlador {
     }
 
     /**
+     * Aplica o filtro Laplaciano, caso o aplicar seja selecionado na interface,
+     * aplica-se a mascara na imagem, caso contrario retorna a mascara
      *
-     * @param tipo1
-     * @param tipo2
-     * @param tipo4
-     * @param aplicar
-     * @param tipo3
-     * @return
+     * @param tipo1 {{0, 1, 0}, {1, 4, 1}, {0, 1, 0}}
+     * @param tipo2 {{1, 1, 1}, {1, 8, 1}, {1, 1, 1}}
+     * @param tipo3 {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}}
+     * @param tipo4 {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}}
+     * @param aplicar caso seja verdadeiro, aplica a mascara gerado pelo filtro
+     * na imagem, caso contrario retorna a mascara
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4, boolean aplicar) {
         pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4, aplicar);
@@ -130,12 +139,12 @@ public class Controlador {
     }
 
     /**
+     * Aplica nitidez na imagem
      *
-     * @param kernelMedia
-     * @param kernelMedia
-     * @param constante
-     * @return
-     * @return
+     * @param kernelMedia tamanho do filtro da media (tamanho do kernel da
+     * media)
+     * @param constante constante que eh multiplicado antes de aplicar a mascara
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String highBoost(int kernelMedia, double constante) {
         pgmimage = pgmimage.nitidez(kernelMedia, constante);
@@ -145,8 +154,9 @@ public class Controlador {
     }
 
     /**
+     * Aplica a equalizacao de histograma global
      *
-     * @return @return
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String equalizacaoGlobal() {
         pgmimage = pgmimage.equalizacao_histograma();
@@ -155,18 +165,20 @@ public class Controlador {
                """;
     }
 
-//    public void getExtracaoRGBFilepath(String filepath) {
-//        ppmimga
-//    }
     /**
-     *
+     * Abertura de uma janela que permite que salve cada canal de uma imagem PPM
+     * em PGM (RGB em PGM)
      */
     public void dialogExtracaoRGB() {
         new SavePPMChannelsFile().setVisible(true);
     }
 
     /**
-     *
+     * Realiza a operacao de extracao de cores dos canais de uma imagem PPM,
+     * caso a seja selecionado para salvar, ele chama o metodo para abrir uma
+     * outra janela, caso seja selecionado para utilizar o canal especifico em
+     * memoria, sera alocado para a variavel PGM e podera ser realizado os
+     * processamentos em PGM
      *
      * @param fileapath
      */
@@ -180,11 +192,13 @@ public class Controlador {
     }
 
     /**
+     * Modificacao de canais de cores de imagens PPM para a entrada que o
+     * usuario definir
      *
-     * @param r
-     * @param g
-     * @param b
-     * @return
+     * @param r qual cor que o canal Red do PPM deve assumir
+     * @param g qual cor que o canal Green do PPM deve assumir
+     * @param b qual cor que o canal Blue do PPM deve assumir
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String juncaoRGB(String r, String g, String b) {
         ppmimage = ppmimage.inverterCanais(r, g, b);
@@ -194,8 +208,9 @@ public class Controlador {
     }
 
     /**
+     * Rotaciona a imagem PGM em 90 graus
      *
-     * @return
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String rotacao90() {
         pgmimage = pgmimage.rotacao90();
@@ -205,8 +220,9 @@ public class Controlador {
     }
 
     /**
+     * Rotaciona a imagem PGM em 180 graus
      *
-     * @return
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String rotacao180() {
         pgmimage = pgmimage.rotacao180();
@@ -216,13 +232,28 @@ public class Controlador {
     }
 
     /**
+     * Rotaciona a imagem em menos 90 graus
      *
-     * @return
+     * @return uma string que contem a descricao da operacao realizada
      */
     public String rotacaoMenos90() {
         pgmimage = pgmimage.rotacaoMenos90();
         return """
                Rotação em -90º da imagem
+               """;
+    }
+
+    public String espelhamentoVertical() {
+        pgmimage = pgmimage.espelhamentoVertical();
+        return """
+                   Espelhamento vertical aplicado na imagem
+                   """;
+    }
+
+    public String espelhamentoHorizontal() {
+        pgmimage = pgmimage.espelhamentoHorizontal();
+        return """
+               Espelhamento vertical aplicado na imagem
                """;
     }
 //    Getters e setters
