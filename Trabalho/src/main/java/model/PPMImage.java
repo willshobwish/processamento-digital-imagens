@@ -510,10 +510,11 @@ public class PPMImage {
     }
 
     /**
+     * Redefine os canais pelas cores escolhidas pelo usuario
      *
-     * @param r
-     * @param g
-     * @param b
+     * @param r A cor que sera o canal Red na imagem
+     * @param g A cor que sera o canal Green na imagem
+     * @param b A cor que sera o canal Blue na imagem
      * @return
      */
     public PPMImage inverterCanais(String r, String g, String b) {
@@ -562,7 +563,8 @@ public class PPMImage {
 
     /**
      *
-     * @return
+     *
+     * @return Uma string com todas as informacoes de uma imagem
      */
     public String getInformacao() {
         return """

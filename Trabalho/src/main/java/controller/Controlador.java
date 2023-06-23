@@ -266,7 +266,109 @@ public class Controlador {
                """;
     }
 
+    /**
+     * Clareamento de uma imagem somando os pixels por uma constante
+     *
+     * @param quantidade
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String adicao(int quantidade) {
+        pgmimage = pgmimage.ClarearAdicao(quantidade);
+        return """
+               Adicao de constante aplicado na imagem
+               """;
+    }
+
+    /**
+     * Escurecimento de uma imagem subtraindo por uma constante
+     *
+     * @param quantidade
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String subtracao(int quantidade) {
+        pgmimage = pgmimage.escurecer(quantidade);
+        return """
+               Subratação de constante aplicado na imagem
+               """;
+    }
+
+    /**
+     * Clarear uma imagem por multiplicao de constante
+     *
+     * @param quantidade
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String multiplicacao(float quantidade) {
+        pgmimage = pgmimage.ClarearMultiplicao(quantidade);
+        return """
+               Multiplicação de constante aplicado na imagem
+               """;
+    }
+
+    /**
+     * Binarizacao de uma imagem com o limiar
+     *
+     * @param quantidade Limiar para binarizar uma imagem
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String binarizacao(int quantidade) {
+        pgmimage = pgmimage.binarizacao(quantidade);
+        return """
+               Binarização aplicado na imagem
+               """;
+    }
+
+    /**
+     * Reducao de quantidade de bits para representacao de uma imagem
+     *
+     * @param quantidade Quantidade de reducao de nivel de bits para
+     * representacao
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String reducaoNivel(int quantidade) {
+        pgmimage = pgmimage.reducaoNivel(quantidade);
+        return """
+               Reducação de bits aplicado na imagem
+               """;
+    }
+
+    /**
+     * Aplica o processamento negativo de uma imagem
+     *
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String negativo() {
+        pgmimage = pgmimage.negativo();
+        return """
+               Negativo aplicado na imagem
+               """;
+    }
+
+    /**
+     *
+     * @param quantidade Quantidade que deve aumentar a resolucao de uma imagem
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String aumentaResolucao(int quantidade) {
+        pgmimage = pgmimage.aumentaResolucao(quantidade);
+        return """
+               Aumento de resolução aplicado na imagem
+               """;
+    }
+
+    /**
+     *
+     * @param quantidade Quantidade que deve diminuir a resolucao de uma imagem
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String diminuiResolucao(int quantidade) {
+        pgmimage = pgmimage.diminuiResolucao(quantidade);
+        return """
+               Redução de resolução aplicado na imagem
+               """;
+    }
 //    Getters e setters
+
     /**
      *
      * @return

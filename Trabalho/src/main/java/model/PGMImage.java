@@ -81,7 +81,7 @@ public class PGMImage {
                     fileInputStream = new FileInputStream(filepath);
 //                    Leitura do cabeçalho
 //                    Define o objeto matriz para P2 porque será escrito em ASCII posteriormente
-                    cabecalho = "P2";
+                    cabecalho = "P5";
 //                    Pula o número mágico para o próxima linha
                     leituraLinhaBinaria(fileInputStream);
                     comentario = leituraLinhaBinaria(fileInputStream);
@@ -270,12 +270,13 @@ public class PGMImage {
                                 Profundidade de cores: %d
                            """.formatted(cabecalho, comentario, altura, largura, intensidade));
             //Escrita do cabecalho, comentario, linha e coluna, intensidade do pixel
+            String cabecalhoGravacao = "P2";
             escritor.write("""
                            %s
                            %s
                            %d %d
                            %d
-                           """.formatted(cabecalho, comentario + " gerado pelo java", largura, altura, intensidade));
+                           """.formatted(cabecalhoGravacao, comentario + " gerado pelo java", largura, altura, intensidade));
             //Escrita da matriz em arquivo
             for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
                 for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
@@ -292,13 +293,15 @@ public class PGMImage {
     }
 
     /**
+     * Torna a imagem negativa
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage negativo() {
         Integer ImagemNegativa[][] = new Integer[altura][largura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
+//                Sera o inverso do pixel atual
                 ImagemNegativa[linhaMatriz][colunaMatriz] = intensidade - Matriz[linhaMatriz][colunaMatriz];
             }
         }
@@ -306,9 +309,10 @@ public class PGMImage {
     }
 
     /**
+     * Subtrai a constante dos pixels da imagem
      *
-     * @param quantidade
-     * @return
+     * @param quantidade Constante que sera subtraido de cada pixel
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage escurecer(int quantidade) {
         Integer ImagemEscurecida[][] = new Integer[altura][largura];
@@ -325,9 +329,10 @@ public class PGMImage {
     }
 
     /**
+     * Clareia a imagem somando os pixels a constante
      *
-     * @param Quantidade
-     * @return
+     * @param Quantidade Constante que sera somado a cada pixel da imagem
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage ClarearAdicao(int Quantidade) {
         Integer ImagemClareada[][] = new Integer[altura][largura];
@@ -347,9 +352,10 @@ public class PGMImage {
     }
 
     /**
+     * Clareia uma imagem multiplicando uma constante pelos pixels da imagem
      *
-     * @param Quantidade
-     * @return
+     * @param Quantidade Constante que sera multiplicado
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage ClarearMultiplicao(float Quantidade) {
         Integer ImagemClareada[][] = new Integer[altura][largura];
@@ -366,12 +372,12 @@ public class PGMImage {
     }
 
     /**
+     * Aplica a rotacao em -90 graus em uma imagem
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage rotacaoMenos90() {
         Integer ImagemRotacionada[][] = new Integer[largura][altura];
-        Comentario("Rotacao -90", largura, altura);
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 System.out.println("linha coluna: %d x %d = %d".formatted(colunaMatriz, linhaMatriz, Matriz[linhaMatriz][colunaMatriz]));
@@ -382,8 +388,9 @@ public class PGMImage {
     }
 
     /**
+     * Aplica a rotacao em 90 graus em uma imagem
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage rotacao90() {
 //Quantidade de linha e coluna inversa
@@ -397,8 +404,9 @@ public class PGMImage {
     }
 
     /**
+     * Aplica a rotacao em 180 graus em uma imagem
      *
-     * @return
+     * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage rotacao180() {
         Integer ImagemRotacionada[][] = new Integer[altura][largura];
@@ -411,26 +419,12 @@ public class PGMImage {
     }
 
     /**
-     *
-     * @param funcao
-     * @param colunaModificada
-     * @param linhaModificada
-     */
-    public void Comentario(String funcao, int colunaModificada, int linhaModificada) {
-        System.out.println("""
-                           %s
-                           linha e coluna original: %d x %d
-                           linha e coluna modificado: %d x %d
-                           """.formatted(funcao, altura, largura, colunaModificada, linhaModificada));
-    }
-
-    /**
+     * Aplica o espelhamento horizontal em uma imagem
      *
      * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage espelhamentoHorizontal() {
         Integer Espelhada[][] = new Integer[altura][largura];
-        Comentario("Espelhamento horizontal", altura, largura);
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
                 Espelhada[linhaMatriz][largura - 1 - colunaMatriz] = Matriz[linhaMatriz][colunaMatriz];
@@ -440,6 +434,7 @@ public class PGMImage {
     }
 
     /**
+     * Aplica o espelhamento vertical em uma imagem
      *
      * @return Um objeto do tipo PGM com o processamento aplicado
      */
@@ -454,8 +449,9 @@ public class PGMImage {
     }
 
     /**
+     * Reduz a quantidade de bits para representacao de uma imagem
      *
-     * @param quantidadeDeNiveis
+     * @param quantidadeDeNiveis Quantidade de bits total no final
      * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage reducaoNivel(int quantidadeDeNiveis) {
@@ -1004,6 +1000,7 @@ public class PGMImage {
     }
 
     /**
+     * Retorna as informacoes de uma imagem
      *
      * @return Uma string com todas as informacoes de uma imagem
      */

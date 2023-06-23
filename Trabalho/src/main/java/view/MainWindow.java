@@ -109,6 +109,27 @@ public class MainWindow extends javax.swing.JFrame {
         buttonEspelhamentoHorizontal = new javax.swing.JButton();
         buttonEspelhamentoVertical = new javax.swing.JButton();
         panelOperacacao = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        buttonAdicao = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        spinnerConstante = new javax.swing.JSpinner();
+        buttonSubtracao = new javax.swing.JButton();
+        buttonMultiplicacao = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        textMultiplicacaoQuantidade = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        spinnerBinarizacao = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        buttonBinarizacao = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        buttonNegativo = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        spinnerResolucao = new javax.swing.JSpinner();
+        jLabel21 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         textOperacoes = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -381,7 +402,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(panelEqualizacaoGeralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Equalização de histograma geral", panelEqualizacaoGeral);
@@ -519,6 +540,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        checkBoxAplicar.setSelected(true);
         checkBoxAplicar.setText("Aplicar a máscara na imagem");
         checkBoxAplicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -587,7 +609,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Filtragem espacial", panelFiltragemEspacial);
@@ -618,7 +640,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -700,23 +722,210 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(panelRotacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonEspelhamentoHorizontal)
                     .addComponent(buttonEspelhamentoVertical))
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap(456, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Rotação e espelhamento", panelRotacao);
+
+        buttonAdicao.setText("Adição");
+        buttonAdicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdicaoActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Quantidade");
+
+        buttonSubtracao.setText("Subtração");
+        buttonSubtracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSubtracaoActionPerformed(evt);
+            }
+        });
+
+        buttonMultiplicacao.setText("Multiplicação");
+        buttonMultiplicacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMultiplicacaoActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Quantidade multiplicação");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel16)
+                    .addComponent(spinnerConstante)
+                    .addComponent(buttonAdicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonSubtracao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonMultiplicacao, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jLabel19)
+                    .addComponent(textMultiplicacaoQuantidade))
+                .addContainerGap(214, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinnerConstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonAdicao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSubtracao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textMultiplicacaoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonMultiplicacao)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel17.setText("Binarização");
+
+        jLabel18.setText("Limiar:");
+
+        buttonBinarizacao.setText("Binarizar");
+        buttonBinarizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBinarizacaoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spinnerBinarizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(buttonBinarizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(162, 162, 162))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinnerBinarizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBinarizacao)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+
+        buttonNegativo.setText("Negativo");
+        buttonNegativo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNegativoActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Aplicar o negativo em uma imagem");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonNegativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonNegativo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel21.setText("Modificação de resolução");
+
+        jButton1.setText("Aumentar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Diminuir");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spinnerResolucao)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinnerResolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout panelOperacacaoLayout = new javax.swing.GroupLayout(panelOperacacao);
         panelOperacacao.setLayout(panelOperacacaoLayout);
         panelOperacacaoLayout.setHorizontalGroup(
             panelOperacacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGroup(panelOperacacaoLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOperacacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOperacacaoLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelOperacacaoLayout.setVerticalGroup(
             panelOperacacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelOperacacaoLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 225, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("tab6", panelOperacacao);
+        tabbedPane.addTab("Processamento geral", panelOperacacao);
 
         textOperacoes.setEditable(false);
 
@@ -799,7 +1008,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void avisoConstanteNegativa() {
+        JOptionPane.showMessageDialog(this,
+                "A quantidade da constante precisa ser positiva",
+                "Constante não suportado",
+                JOptionPane.ERROR_MESSAGE);
+    }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         OpenPGMFile file = new OpenPGMFile();
@@ -942,6 +1156,66 @@ public class MainWindow extends javax.swing.JFrame {
         textOperacoes.setText(Controlador.getInstance().espelhamentoVertical());
     }//GEN-LAST:event_buttonEspelhamentoVerticalActionPerformed
 
+    private void buttonAdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicaoActionPerformed
+        // TODO add your handling code here:
+        if ((int) spinnerConstante.getValue() < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().adicao((int) spinnerConstante.getValue()));
+        }
+    }//GEN-LAST:event_buttonAdicaoActionPerformed
+
+    private void buttonSubtracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtracaoActionPerformed
+        // TODO add your handling code here:
+        if ((int) spinnerConstante.getValue() < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().subtracao((int) spinnerConstante.getValue()));
+        }
+    }//GEN-LAST:event_buttonSubtracaoActionPerformed
+
+    private void buttonMultiplicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMultiplicacaoActionPerformed
+        // TODO add your handling code here:
+        if (Float.parseFloat(textMultiplicacaoQuantidade.getText()) < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().multiplicacao(Float.parseFloat(textMultiplicacaoQuantidade.getText())));
+        }
+    }//GEN-LAST:event_buttonMultiplicacaoActionPerformed
+
+    private void buttonBinarizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinarizacaoActionPerformed
+        // TODO add your handling code here:
+        if ((int) spinnerBinarizacao.getValue() < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().binarizacao((int) spinnerBinarizacao.getValue()));
+        }
+    }//GEN-LAST:event_buttonBinarizacaoActionPerformed
+
+    private void buttonNegativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNegativoActionPerformed
+        // TODO add your handling code here:
+        textOperacoes.setText(Controlador.getInstance().negativo());
+    }//GEN-LAST:event_buttonNegativoActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        if ((int) spinnerResolucao.getValue() < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().diminuiResolucao((int) spinnerResolucao.getValue()));
+        }
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if ((int) spinnerResolucao.getValue() < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().aumentaResolucao((int) spinnerResolucao.getValue()));
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      *
      * @param informcao
@@ -964,16 +1238,24 @@ public class MainWindow extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1060,14 +1342,19 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton RedBlue;
     private javax.swing.JRadioButton RedGreen;
     private javax.swing.JRadioButton RedRed;
+    private javax.swing.JButton buttonAdicao;
+    private javax.swing.JButton buttonBinarizacao;
     private javax.swing.JButton buttonEspelhamentoHorizontal;
     private javax.swing.JButton buttonEspelhamentoVertical;
     private javax.swing.JButton buttonFiltro;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonJuntar;
+    private javax.swing.JButton buttonMultiplicacao;
+    private javax.swing.JButton buttonNegativo;
     private javax.swing.JButton buttonRotacao180;
     private javax.swing.JButton buttonRotacao90;
     private javax.swing.JButton buttonRotacaoMenos90;
+    private javax.swing.JButton buttonSubtracao;
     private javax.swing.JCheckBox checkBoxAplicar;
     private javax.swing.ButtonGroup griupJuncaoB;
     private javax.swing.ButtonGroup groupExtracaoRGB;
@@ -1076,10 +1363,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.ButtonGroup groupJuncaoR;
     private javax.swing.ButtonGroup groupLaplaciano;
     private javax.swing.ButtonGroup groupMediaMediana;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1087,7 +1376,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1104,6 +1399,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1130,10 +1429,14 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioTipo2;
     private javax.swing.JRadioButton radioTipo3;
     private javax.swing.JRadioButton radioTipo4;
+    private javax.swing.JSpinner spinnerBinarizacao;
+    private javax.swing.JSpinner spinnerConstante;
     private javax.swing.JSpinner spinnerHighBoostMedia;
     private javax.swing.JSpinner spinnerQuantidadeFiltro;
+    private javax.swing.JSpinner spinnerResolucao;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField textHighBoostConstante;
+    private javax.swing.JTextField textMultiplicacaoQuantidade;
     private javax.swing.JTextField textOperacoes;
     // End of variables declaration//GEN-END:variables
 }
