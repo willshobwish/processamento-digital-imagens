@@ -41,13 +41,12 @@ public class Controlador {
     /**
      * Metodo para abertura de imagens do tipo PGM
      *
-     * @param filepath
+     * @param filepath O caminho do arquivo onde deve ser aberto
      */
     public void abrirImagemPGM(String filepath) {
         pgmimage = new PGMImage(filepath);
         filepathPGM = filepath;
         mainwindow.atualiza(pgmimage.getInformcao());
-
         mainwindow.getTextOperacoes().setText("""
                                               Imagem PGM aberta
                                               """);
@@ -56,7 +55,7 @@ public class Controlador {
     /**
      * Metodo de escrita de imagens do tipo PGM
      *
-     * @param filepath
+     * @param filepath O caminho do arquivo onde deve ser salvo
      */
     public void salvarImagemPGM(String filepath) {
         fileclosefilepath = filepath;
@@ -71,7 +70,7 @@ public class Controlador {
     /**
      * Abertura de imagens PPM
      *
-     * @param filepath
+     * @param filepath O caminho do arquivo onde deve ser aberto
      */
     public void abrirImagemPPM(String filepath) {
         ppmimage = new PPMImage(filepath);
@@ -83,7 +82,7 @@ public class Controlador {
     /**
      * Escrita de imagens PPM
      *
-     * @param filepath
+     * @param filepath O caminho do arquivo onde deve ser salvo
      */
     public void salvarImagemPPM(String filepath) {
         fileclosefilepath = filepath;
@@ -96,8 +95,8 @@ public class Controlador {
     /**
      * Calcula a media de uma imagem PGM
      *
-     * @param quantidade
-     * @return uma string que contem a descricao da operacao realizada
+     * @param quantidade O tamanho do filtro (tamanho do kernel)
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String media(int quantidade) {
         pgmimage = pgmimage.media(quantidade);
@@ -109,8 +108,8 @@ public class Controlador {
     /**
      * Calcula a mediana de uma imagem PGM
      *
-     * @param quantidade
-     * @return
+     * @param quantidade O tamanho do filtro (tamanho do kernel)
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String mediana(int quantidade) {
         pgmimage = pgmimage.mediana(quantidade);
@@ -129,7 +128,7 @@ public class Controlador {
      * @param tipo4 {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}}
      * @param aplicar caso seja verdadeiro, aplica a mascara gerado pelo filtro
      * na imagem, caso contrario retorna a mascara
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String laplaciano(boolean tipo1, boolean tipo2, boolean tipo3, boolean tipo4, boolean aplicar) {
         pgmimage = pgmimage.laplaciano(tipo1, tipo2, tipo3, tipo4, aplicar);
@@ -144,7 +143,7 @@ public class Controlador {
      * @param kernelMedia tamanho do filtro da media (tamanho do kernel da
      * media)
      * @param constante constante que eh multiplicado antes de aplicar a mascara
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String highBoost(int kernelMedia, double constante) {
         pgmimage = pgmimage.nitidez(kernelMedia, constante);
@@ -156,7 +155,7 @@ public class Controlador {
     /**
      * Aplica a equalizacao de histograma global
      *
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String equalizacaoGlobal() {
         pgmimage = pgmimage.equalizacao_histograma();
@@ -195,10 +194,10 @@ public class Controlador {
      * Modificacao de canais de cores de imagens PPM para a entrada que o
      * usuario definir
      *
-     * @param r qual cor que o canal Red do PPM deve assumir
-     * @param g qual cor que o canal Green do PPM deve assumir
-     * @param b qual cor que o canal Blue do PPM deve assumir
-     * @return uma string que contem a descricao da operacao realizada
+     * @param r Define qual a cor que o canal Red do PPM deve assumir
+     * @param g Define qual a qual cor que o canal Green do PPM deve assumir
+     * @param b Define qual a qual cor que o canal Blue do PPM deve assumir
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String juncaoRGB(String r, String g, String b) {
         ppmimage = ppmimage.inverterCanais(r, g, b);
@@ -210,7 +209,7 @@ public class Controlador {
     /**
      * Rotaciona a imagem PGM em 90 graus
      *
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String rotacao90() {
         pgmimage = pgmimage.rotacao90();
@@ -222,7 +221,7 @@ public class Controlador {
     /**
      * Rotaciona a imagem PGM em 180 graus
      *
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String rotacao180() {
         pgmimage = pgmimage.rotacao180();
@@ -234,7 +233,7 @@ public class Controlador {
     /**
      * Rotaciona a imagem em menos 90 graus
      *
-     * @return uma string que contem a descricao da operacao realizada
+     * @return Uma string que contem a descricao da operacao realizada
      */
     public String rotacaoMenos90() {
         pgmimage = pgmimage.rotacaoMenos90();
@@ -243,6 +242,11 @@ public class Controlador {
                """;
     }
 
+    /**
+     * Espelhamento vertical da imagem PGM
+     *
+     * @return Uma string que contem a descricao da operacao realizada
+     */
     public String espelhamentoVertical() {
         pgmimage = pgmimage.espelhamentoVertical();
         return """
@@ -250,14 +254,19 @@ public class Controlador {
                    """;
     }
 
+    /**
+     * Espelhamento horizontal da imagem PGM
+     *
+     * @return Uma string que contem a descricao da operacao realizada
+     */
     public String espelhamentoHorizontal() {
         pgmimage = pgmimage.espelhamentoHorizontal();
         return """
                Espelhamento vertical aplicado na imagem
                """;
     }
-//    Getters e setters
 
+//    Getters e setters
     /**
      *
      * @return
