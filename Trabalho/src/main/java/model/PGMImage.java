@@ -48,13 +48,14 @@ public class PGMImage {
     protected String comentario;
 
     /**
+     * Construtor da classe PGM
      *
-     * @param Matriz
-     * @param altura
-     * @param lagura
-     * @param intensidade
-     * @param cabecalho
-     * @param comentario
+     * @param Matriz Vertor de vetor que armazena os pixels de uma imagem
+     * @param altura Altura da imagem
+     * @param lagura Largura da imagem
+     * @param intensidade Quantidade de bits que representa a imagem
+     * @param cabecalho Cabecalho da imagem
+     * @param comentario Comentarios da imagem
      */
     public PGMImage(Integer[][] Matriz, int altura, int lagura, int intensidade, String cabecalho, String comentario) {
         this.Matriz = Matriz;
