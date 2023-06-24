@@ -158,7 +158,7 @@ public class Controlador {
      * @return Uma string que contem a descricao da operacao realizada
      */
     public String equalizacaoGlobal() {
-        pgmimage = pgmimage.equalizacao_histograma();
+        pgmimage = pgmimage.equalizacaoHistograma();
         return """
                Equalização global do histograma foi aplicado na imagem
                """;

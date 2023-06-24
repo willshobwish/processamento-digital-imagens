@@ -703,19 +703,27 @@ public class PGMImage {
      *
      * @return Um objeto do tipo PGM com o processamento aplicado
      */
-    public PGMImage equalizacao_histograma() {
+    public PGMImage equalizacaoHistograma() {
+//        Pega o histograma da imagem atual
         ArrayList<Integer> histograma = PGMImage.this.histograma(), soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
+//        Instanciacao do vetor de probabilidades
         ArrayList<Double> nk = new ArrayList<>();
+//        Deve-se somar as probabilidades, segundo a formula
         double somaProbabilidade = 0;
+//        Inicializa o vetor de probabilidade, caso contrario sera armazenado null
         for (int i = 0; i < intensidade + 1; i++) {
             nk.add(0.0);
         }
+//        Realiza o calculo de probabilidade de pixels
         for (int i = 0; i < intensidade + 1; i++) {
+//            Pixel atual/Quantidade do pixel atual presente/(altura da imagem * largura da imagem)
             nk.set(i, (double) histograma.get(i) / (altura * largura));
+//            Soma-se a probabilidade anterior com o total
             somaProbabilidade += nk.get(i);
             soma.set(i, (int) Math.floor(intensidade * somaProbabilidade));
-            System.out.println(soma.get(i));
+//            System.out.println(soma.get(i));
         }
+//        Aplica a probabilidade na matriz
         Integer matrizModificada[][] = new Integer[altura][largura];
         for (int linhaMatriz = 0; linhaMatriz < altura; linhaMatriz++) {
             for (int colunaMatriz = 0; colunaMatriz < largura; colunaMatriz++) {
@@ -759,6 +767,7 @@ public class PGMImage {
      * @return Um objeto do tipo PGM com o processamento aplicado
      */
     public PGMImage equalizacaoLocalHistograma(int quantidade) {
+//        Checa se a quantidade eh impar
         if (quantidade % 2 == 0) {
             System.out.println("A quantidade precisa ser impar");
             return null;
@@ -768,23 +777,21 @@ public class PGMImage {
                 for (int indexColuna = 0; indexColuna < largura / quantidade; indexColuna++) {
                     for (int subLinha = 0; subLinha < quantidade; subLinha++) {
                         for (int subColuna = 0; subColuna < quantidade; subColuna++) {
-                            //System.out.print("%d %d|".formatted(indexLinha * quantidade + subLinha, indexColuna * quantidade + subColuna));
                             subMatriz[subLinha][subColuna] = Matriz[indexLinha * quantidade + subLinha][indexColuna * quantidade + subColuna];
                         }
-                        System.out.println("");
-
                     }
-                    System.out.println("");
-
+//                    Inicializa o vetor de histograma com 0
                     ArrayList<Integer> histograma = new ArrayList<>();
                     for (int i = 0; i < intensidade + 1; i++) {
                         histograma.add(0);
                     }
+//                    Define a quantidade de pixels presentes, onde a intensidade eh definido pelo indice e a quantidade eh definido pelo valor que o indice possui
                     for (int linhaMatriz = 0; linhaMatriz < quantidade; linhaMatriz++) {
                         for (int colunaMatriz = 0; colunaMatriz < quantidade; colunaMatriz++) {
                             histograma.set(subMatriz[linhaMatriz][colunaMatriz], histograma.get(subMatriz[linhaMatriz][colunaMatriz]) + 1);
                         }
                     }
+//                    Faz o calculo de probabilidade e adiciona no vetor
                     ArrayList<Integer> soma = new ArrayList<>(Collections.nCopies(intensidade + 1, 0));
                     ArrayList<Double> nk = new ArrayList<>();
                     double somaProbabilidade = 0.0;
@@ -794,7 +801,6 @@ public class PGMImage {
                     for (int i = 0; i < intensidade + 1; i++) {
                         nk.set(i, (double) histograma.get(i) / (quantidade * quantidade));
                         somaProbabilidade += nk.get(i);
-
                         soma.set(i, (int) Math.floor(intensidade * somaProbabilidade));
                     }
                     Integer matrizModificada[][] = new Integer[quantidade][quantidade];
@@ -826,15 +832,20 @@ public class PGMImage {
         if (quantidade % 2 == 0) {
             System.out.println("Quantidade nao pode ser par");
         } else {
+//            Os dois primeiros lacos de repeticao para percorrer toda a imagem
             for (int linhaMatriz = KernelDistance; linhaMatriz < altura - KernelDistance; linhaMatriz++) {
                 for (int colunaMatriz = KernelDistance; colunaMatriz < largura - KernelDistance; colunaMatriz++) {
+//                    Instanciacao nova cada vez que realizar a filtragem em um outro pixel
                     ArrayList<Integer> vetorPixel = new ArrayList<>();
                     for (int sublinha = KernelDistance * -1; sublinha <= KernelDistance; sublinha++) {
                         for (int subcoluna = KernelDistance * -1; subcoluna <= KernelDistance; subcoluna++) {
+//                            Percorre o tamanho do kernel definido pelo usuario e adiciona no vetor
                             vetorPixel.add(Matriz[linhaMatriz + sublinha][colunaMatriz + subcoluna]);
                         }
                     }
+//                    Utiliza o metodo da propria linguagem para ordenar em ordem crescente
                     vetorPixel.sort(Comparator.naturalOrder());
+//                    Pega a mediana do vetor
                     MatrizFinal[linhaMatriz][colunaMatriz] = vetorPixel.get((int) quantidade * quantidade / 2);
                 }
             }
@@ -878,6 +889,7 @@ public class PGMImage {
 //                            Realiza o calculo da localizacao do kernel na imagem
                             int sublinha = linhaMatriz + linhaKernel - 3 / 2;
                             int subcoluna = colunaMatriz + colunaKernel - 3 / 2;
+//                            Aplica a matriz conforme os indices das matrizes do filtro laplaciano sobre a imagem
                             if (sublinha >= 0 && sublinha < altura && subcoluna >= 0 && subcoluna < largura) {
                                 soma += Matriz[sublinha][subcoluna] * matrizConvolucao1[linhaKernel][colunaKernel];
                             }
