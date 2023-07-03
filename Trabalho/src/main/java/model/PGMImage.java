@@ -552,6 +552,7 @@ public class PGMImage {
     }
 
     /**
+     * Transformacao de potencia
      *
      * @param c
      * @param beta

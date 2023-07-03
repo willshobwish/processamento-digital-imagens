@@ -130,6 +130,12 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        panelTransformacaoPotencia = new javax.swing.JPanel();
+        textConstanteTransformacao = new javax.swing.JTextField();
+        textBetaTransformacao = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
         textOperacoes = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -922,10 +928,57 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 225, Short.MAX_VALUE))
+                .addGap(0, 105, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Processamento geral", panelOperacacao);
+
+        textConstanteTransformacao.setText("0");
+
+        textBetaTransformacao.setText("0");
+
+        jLabel22.setText("Constante");
+
+        jLabel23.setText("Beta");
+
+        jButton7.setText("Aplicar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTransformacaoPotenciaLayout = new javax.swing.GroupLayout(panelTransformacaoPotencia);
+        panelTransformacaoPotencia.setLayout(panelTransformacaoPotenciaLayout);
+        panelTransformacaoPotenciaLayout.setHorizontalGroup(
+            panelTransformacaoPotenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransformacaoPotenciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTransformacaoPotenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel22)
+                    .addComponent(textConstanteTransformacao)
+                    .addComponent(jLabel23)
+                    .addComponent(textBetaTransformacao)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                .addContainerGap(572, Short.MAX_VALUE))
+        );
+        panelTransformacaoPotenciaLayout.setVerticalGroup(
+            panelTransformacaoPotenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransformacaoPotenciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textConstanteTransformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textBetaTransformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addContainerGap(309, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Transformação potência", panelTransformacaoPotencia);
 
         textOperacoes.setEditable(false);
 
@@ -1216,6 +1269,17 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        if (Integer.parseInt(textConstanteTransformacao.getText()) < 0) {
+            avisoConstanteNegativa();
+        } else if (Double.parseDouble(textBetaTransformacao.getText()) < 0) {
+            avisoConstanteNegativa();
+        } else {
+            textOperacoes.setText(Controlador.getInstance().transformacaoPotencia(Integer.parseInt(textConstanteTransformacao.getText()), Double.parseDouble(textBetaTransformacao.getText())));
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      *
      * @param informcao
@@ -1369,6 +1433,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1383,6 +1448,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1417,6 +1484,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panelJuncaoExtracao;
     private javax.swing.JPanel panelOperacacao;
     private javax.swing.JPanel panelRotacao;
+    private javax.swing.JPanel panelTransformacaoPotencia;
     private javax.swing.JRadioButton radioExtracaoBlue;
     private javax.swing.JRadioButton radioExtracaoGreen;
     private javax.swing.JRadioButton radioExtracaoRed;
@@ -1435,6 +1503,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerQuantidadeFiltro;
     private javax.swing.JSpinner spinnerResolucao;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTextField textBetaTransformacao;
+    private javax.swing.JTextField textConstanteTransformacao;
     private javax.swing.JTextField textHighBoostConstante;
     private javax.swing.JTextField textMultiplicacaoQuantidade;
     private javax.swing.JTextField textOperacoes;

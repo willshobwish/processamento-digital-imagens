@@ -367,6 +367,20 @@ public class Controlador {
                Redução de resolução aplicado na imagem
                """;
     }
+
+    /**
+     * Transformacao de potencia
+     *
+     * @param constante A constante da equacao
+     * @param beta A quanto que eh elevado
+     * @return Uma string que contem a descricao da operacao realizada
+     */
+    public String transformacaoPotencia(int constante, double beta) {
+        pgmimage = pgmimage.transformacaoPotencia(constante, beta);
+        return """
+              Transformação de potência aplicada
+              """;
+    }
 //    Getters e setters
 
     /**
