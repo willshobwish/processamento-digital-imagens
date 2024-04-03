@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author willm
+ * @author Willian Murayama
  */
 public class PPMImage {
 
@@ -64,6 +64,7 @@ public class PPMImage {
      * @param comentario Comentario da imagem
      */
     public PPMImage(Integer[][] matrizR, Integer[][] matrizG, Integer[][] matrizB, int linha, int coluna, int intensidade, String cabecalho, String comentario) {
+        System.out.println("Autoria do projeto de Willian Murayama");
         this.matrizR = matrizR;
         this.matrizG = matrizG;
         this.matrizB = matrizB;
@@ -80,6 +81,7 @@ public class PPMImage {
      * @param filepath
      */
     public PPMImage(String filepath) {
+        System.out.println("Autoria do projeto de Willian Murayama");
         try {
             System.out.println("Abertura de imagem PPM binario");
             FileInputStream fileInputStream = new FileInputStream(filepath);

@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Willian
+ * @author Willian Murayama
  */
 public class PGMImage {
 
@@ -57,6 +57,7 @@ public class PGMImage {
      * @param comentario
      */
     public PGMImage(Integer[][] Matriz, int altura, int lagura, int intensidade, String cabecalho, String comentario) {
+        System.out.println("Autoria do projeto de Willian Murayama");
         this.Matriz = Matriz;
         this.altura = altura;
         this.largura = lagura;
@@ -66,6 +67,7 @@ public class PGMImage {
     }
 
     public PGMImage(String filepath) {
+        System.out.println("Autoria do projeto de Willian Murayama");
         try {
             System.out.println("Abertura de imagem PGM binario");
             FileInputStream fileInputStream = new FileInputStream(filepath);
